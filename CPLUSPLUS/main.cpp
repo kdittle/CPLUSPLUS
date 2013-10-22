@@ -14,7 +14,9 @@ int main()
 
 	SDL_GLContext mainGLContext = SDL_GL_CreateContext(window);
 
-	float moveSpeed = .03f;
+	Initialize_glDisplay();
+
+	float moveSpeed = .1f;
 	float x = WINDOW_WIDTH / 2, y = WINDOW_HEIGHT / 2;
 
 	bool 
