@@ -1,4 +1,5 @@
 #include "InitGL.h"
+#include "Level.h"
 
 #ifdef main
 # undef main
@@ -17,7 +18,7 @@ int main()
 	Initialize_glDisplay();
 
 	float moveSpeed = .1f;
-	float x = WINDOW_WIDTH / 2, y = WINDOW_HEIGHT / 2;
+	float x = 25, y = WINDOW_HEIGHT - 35;
 
 	bool 
 		left = false,
@@ -102,6 +103,7 @@ int main()
 		}
 
 		Render(x, y);
+		
 
 		//Clamp to X
 		if(x >= 775)
@@ -116,7 +118,7 @@ int main()
 			y = 25;
 
 
-		SDL_GL_SwapWindow(window);	
+		SDL_GL_SwapWindow(window);
 	}
 
 	return 0;
