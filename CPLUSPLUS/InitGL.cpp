@@ -1,5 +1,6 @@
 #include "InitGL.h"
 #include "Level.h"
+#include "Player.h"
 
 void Initialize_glDisplay()
 {
@@ -15,36 +16,17 @@ void Initialize_glDisplay()
 
 }
 
-void Update()
+void Update(float xPos, float yPos)
 {
-	
-}
-
-void Render(float xPos, float yPos)
-{
-	glClear(GL_COLOR_BUFFER_BIT);
-
 	glPushMatrix();
 
-	glLoadIdentity();
-
-	glTranslatef(xPos, yPos, 0.0f);
-
-	glColor3f(1.0f, 1.0f, 1.0f);
-	glBegin(GL_QUADS);
-		glVertex2f(-25.0f, -25.0f);
-		glVertex2f(25.0f, -25.0f);
-		glVertex2f(25.0f, 25.0f);
-		glVertex2f(-25.0f, 25.0f);
-	glEnd();
+	Render_Player(xPos, yPos);
 
 	glPopMatrix();
 
-	//push matrix to draw level
 	glPushMatrix();
 
 	Draw_Level();
 
 	glPopMatrix();
-
 }

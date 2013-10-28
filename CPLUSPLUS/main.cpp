@@ -102,8 +102,8 @@ int main()
 			std::cout << y << std::endl;
 		}
 
-		Render(x, y);
-		
+		//Render(x, y);
+		Update(x, y);
 
 		//Clamp to X
 		if(x >= 775)

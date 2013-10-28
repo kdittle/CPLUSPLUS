@@ -9,7 +9,7 @@ const int SCREEN_FPS = 60;
 
 void Initialize_glDisplay();
 
-void Update();
+void Update(float xPos, float yPos);
 
 void Render(float xPos, float yPos);
 
