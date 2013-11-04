@@ -1,5 +1,6 @@
 #include "InitGL.h"
 #include "Level.h"
+#include "Vector2f.h"
 
 #ifdef main
 # undef main
@@ -17,8 +18,9 @@ int main()
 
 	Initialize_glDisplay();
 
-	float moveSpeed = .1f;
-	float x = 25, y = WINDOW_HEIGHT - 35;
+	Vector2f location = Vector2f(25.0f, (float)(WINDOW_HEIGHT - 35));
+	Vector2f xVelocity = Vector2f(2.0f, 0.0f);
+	Vector2f yVelocity = Vector2f(0.0f, 2.0f);
 
 	bool 
 		left = false,
@@ -83,39 +85,39 @@ int main()
 		//Allows input to move square
 		if(left)
 		{
-			x -= moveSpeed;
-			std::cout << x << std::endl;
+			location.subtract(xVelocity);
+			std::cout << location.x << " " << location.y << std::endl;
 		}
 		if(right)
 		{
-			x += moveSpeed;
-			std::cout << x << std::endl;
+			location.add(xVelocity);
+			std::cout << location.x << " " << location.y << std::endl;
 		}
 		if(up)
 		{
-			y -= moveSpeed;
-			std::cout << y << std::endl;
+			location.subtract(yVelocity);
+			std::cout << location.x << " " << location.y << std::endl;
 		}
 		if(down)
 		{
-			y += moveSpeed;
-			std::cout << y << std::endl;
+			location.add(yVelocity);
+			std::cout << location.x << " " << location.y << std::endl;
 		}
 
-		//Render(x, y);
-		Update(x, y);
+
+		Update(location);
 
 		//Clamp to X
-		if(x >= 775)
-			x = 775;
-		if(x <= 25)
-			x = 25;
+		if(location.x >= 775)
+			location.x = 775;
+		if(location.x <= 25)
+			location.x = 25;
 
 		//Clamp to Y
-		if(y >= 575)
-			y = 575;
-		if(y <= 25)
-			y = 25;
+		if(location.y >= 575)
+			location.y = 575;
+		if(location.y <= 25)
+			location.y = 25;
 
 
 		SDL_GL_SwapWindow(window);

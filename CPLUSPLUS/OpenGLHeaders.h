@@ -5,9 +5,12 @@
 #include <gl/GL.h>
 #include <gl/GLU.h>
 #include <SDL.h>
+#include <SDL_image.h>
 #include <iostream>
 #include <stdio.h>
 #include <cmath>
+#include <string>
+#include "Vector2f.h"
 
 #pragma comment(lib, "SDL2.lib")
 #pragma comment(lib, "OpenGL32.lib")

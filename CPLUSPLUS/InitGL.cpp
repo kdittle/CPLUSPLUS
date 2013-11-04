@@ -1,6 +1,7 @@
 #include "InitGL.h"
 #include "Level.h"
 #include "Player.h"
+#include "Vector2f.h"
 
 void Initialize_glDisplay()
 {
@@ -16,11 +17,11 @@ void Initialize_glDisplay()
 
 }
 
-void Update(float xPos, float yPos)
+void Update(Vector2f position)
 {
 	glPushMatrix();
 
-	Render_Player(xPos, yPos);
+	Render_Player(position);
 
 	glPopMatrix();
 

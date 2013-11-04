@@ -1,12 +1,13 @@
 #include "Player.h"
+#include "Vector2f.h"
 
-void Render_Player(float xPos, float yPos)
+void Render_Player(Vector2f position)
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	glLoadIdentity();
 
-	glTranslatef(xPos, yPos, 0.0f);
+	glTranslatef(position.x, position.y, 0.0f);
 
 	glColor3f(1.0f, 1.0f, 1.0f);
 	glBegin(GL_QUADS);

@@ -3,6 +3,6 @@
 
 #include "OpenGLHeaders.h"
 
-void Render_Player(float xPos, float yPos);
+void Render_Player(Vector2f postion);
 
 #endif
