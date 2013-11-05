@@ -13,12 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Initialize">
+      <UniqueIdentifier>{23c01a6f-b89f-4536-bb8c-9a6acd8aca51}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="InitGL.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Level.cpp">
@@ -33,14 +33,17 @@
     <ClCompile Include="Vector2f.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LTexture.cpp">
+    <ClCompile Include="GameEntity.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="InitGL.cpp">
+      <Filter>Header Files\Initialize</Filter>
+    </ClCompile>
+    <ClCompile Include="SDLInitialize.cpp">
+      <Filter>Header Files\Initialize</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="InitGL.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="OpenGLHeaders.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -56,8 +59,11 @@
     <ClInclude Include="GameEntity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="LTexture.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="InitGL.h">
+      <Filter>Header Files\Initialize</Filter>
+    </ClInclude>
+    <ClInclude Include="SDLInitialize.h">
+      <Filter>Header Files\Initialize</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

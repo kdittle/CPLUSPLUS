@@ -1,4 +1,5 @@
 #include "LTexture.h"
+#include "SDLInitialize.h"
 
 LTexture::LTexture()
 {
@@ -12,7 +13,7 @@ LTexture::~LTexture()
 	free();
 }
 
-bool LoadFromFile(std::string filePath)
+bool LTexture::LoadFromFile(std::string filePath)
 {
 
 	SDL_Texture* newTexture = NULL;

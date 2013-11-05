@@ -1,4 +1,5 @@
 #include "InitGL.h"
+#include "SDLInitialize.h"
 #include "Level.h"
 #include "Vector2f.h"
 
@@ -9,13 +10,7 @@
 int main()
 {
 
-	SDL_Init(SDL_INIT_VIDEO);
-
-	SDL_Window* window = SDL_CreateWindow("CPLUSPLUS", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-		WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_OPENGL);
-
-	SDL_GLContext mainGLContext = SDL_GL_CreateContext(window);
-
+	Initialize_SDL();
 	Initialize_glDisplay();
 
 	Vector2f location = Vector2f(25.0f, (float)(WINDOW_HEIGHT - 35));
@@ -120,7 +115,7 @@ int main()
 			location.y = 25;
 
 
-		SDL_GL_SwapWindow(window);
+		SDL_Update();
 	}
 
 	return 0;

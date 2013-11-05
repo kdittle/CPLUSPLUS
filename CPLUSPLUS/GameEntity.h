@@ -16,9 +16,21 @@ public:
 
 	void Destory();
 	void Update();
+
+	void free();
+	bool LoadFromFile(const std::string filePath);
+	void Render(Vector2f position, SDL_Rect* clip = NULL, float angle = 0.0f, SDL_Point* center = NULL,
+		SDL_RendererFlip = SDL_FLIP_NONE);
 	void Draw(SDL_Window* tragetWindow);
 
-	void LoadImageFromFile(std::string& filePath);
+	int getWidth();
+	int getHeight();
+
+private:
+	SDL_Texture* mTexture;
+
+	int mWidth;
+	int mHeight;
 
 };
 
