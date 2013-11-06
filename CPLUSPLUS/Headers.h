@@ -1,5 +1,5 @@
-#ifndef OPENGLHEADERS_H
-#define OPENGLHEADERS_H
+#ifndef HEADERS_H
+#define HEADERS_H
 
 #include <Windows.h>
 #include <gl/GL.h>

@@ -86,20 +86,16 @@
   <ItemGroup>
     <ClCompile Include="CollisionDetection.cpp" />
     <ClCompile Include="GameEntity.cpp" />
-    <ClCompile Include="InitGL.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="SDLInitialize.cpp" />
     <ClCompile Include="Vector2f.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEntity.h" />
-    <ClInclude Include="InitGL.h" />
     <ClInclude Include="Level.h" />
-    <ClInclude Include="OpenGLHeaders.h" />
+    <ClInclude Include="Headers.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="SDLInitialize.h" />
     <ClInclude Include="Vector2f.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

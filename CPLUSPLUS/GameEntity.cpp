@@ -1,5 +1,4 @@
 #include "GameEntity.h"
-#include "SDLInitialize.h"
 
 GameEntity::GameEntity()
 {
@@ -51,7 +50,7 @@ bool GameEntity::LoadFromFile(const std::string filePath)
 	{
 		SDL_SetColorKey(loadedSurface, SDL_TRUE, SDL_MapRGB(loadedSurface->format, 0xFF, 0xFF, 0xFF));
 
-		newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
+		//newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
 		if(newTexture == NULL)
 		{
 			printf("Unable to create textrue from %s! SDL_Error %s\n", filePath.c_str(), SDL_GetError());
@@ -81,7 +80,7 @@ void GameEntity::Render(Vector2f position, SDL_Rect* clip, float angle, SDL_Poin
 		renderQuad.h = clip->h;
 	}
 
-	SDL_RenderCopyEx(renderer, mTexture, clip, &renderQuad, angle, center, flip);
+	//SDL_RenderCopyEx(renderer, mTexture, clip, &renderQuad, angle, center, flip);
 }
 
 int GameEntity::getHeight()

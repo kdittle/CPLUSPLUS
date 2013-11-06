@@ -1,5 +1,3 @@
-#include "InitGL.h"
-#include "SDLInitialize.h"
 #include "Level.h"
 #include "Vector2f.h"
 
@@ -7,11 +5,12 @@
 # undef main
 #endif
 
+const int WINDOW_WIDTH = 800;
+const int WINDOW_HEIGHT = 600;
+const int SCREEN_FPS = 60;
+
 int main()
 {
-
-	Initialize_SDL();
-	Initialize_glDisplay();
 
 	Vector2f location = Vector2f(25.0f, (float)(WINDOW_HEIGHT - 35));
 	Vector2f xVelocity = Vector2f(2.0f, 0.0f);
@@ -100,7 +99,7 @@ int main()
 		}
 
 
-		Update(location);
+		//Update
 
 		//Clamp to X
 		if(location.x >= 775)
@@ -115,7 +114,7 @@ int main()
 			location.y = 25;
 
 
-		SDL_Update();
+		//SDL Update (Swap Screen)
 	}
 
 	return 0;

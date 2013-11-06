@@ -1,7 +1,7 @@
 #ifndef LEVEL_H
 #define LEVEL_H
 
-#include "OpenGLHeaders.h"
+#include "Headers.h"
 
 void Draw_Level();
 

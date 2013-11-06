@@ -1,4 +1,4 @@
-#include "OpenGLHeaders.h"
+#include "Headers.h"
 
 bool Check_Collision(SDL_Rect a, SDL_Rect b)
 {

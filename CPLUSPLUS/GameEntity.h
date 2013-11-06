@@ -1,7 +1,7 @@
 #ifndef GAMEENTITY_H
 #define GAMEENTITY_H
 
-#include "OpenGLHeaders.h"
+#include "Headers.h"
 #include "Vector2f.h"
 
 class GameEntity
