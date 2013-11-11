@@ -8,7 +8,6 @@
 class KinematicEntity : public GameEntity
 {
 public:
-
 	KinematicEntity();
 
 	Vector2f Velocity;

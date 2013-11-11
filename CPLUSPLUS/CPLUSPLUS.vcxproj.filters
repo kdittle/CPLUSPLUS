@@ -13,9 +13,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Level.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="CollisionDetection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -31,15 +28,9 @@
     <ClCompile Include="Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LTexture.cpp">
-      <Filter>Entities</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Vector2f.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Level.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Headers.h">
@@ -52,9 +43,6 @@
       <Filter>Entities</Filter>
     </ClInclude>
     <ClInclude Include="KinematicEntity.h">
-      <Filter>Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="LTexture.h">
       <Filter>Entities</Filter>
     </ClInclude>
   </ItemGroup>

@@ -2,10 +2,9 @@
 
 GameEntity::GameEntity()
 {
-	mTexture = NULL;'
+	mTexture = NULL;
 	mWidth = 0;
 	mHeight = 0;
-	Location = Vector2f(0.0f, 0.0f);
 }
 
 GameEntity::~GameEntity()
@@ -14,7 +13,6 @@ GameEntity::~GameEntity()
 	SDL_DestroyTexture(mTexture);
 	mWidth = 0;
 	mHeight = 0;
-	Location = Vector2f(0.0f, 0.0f);
 }
 
 void GameEntity::Destory()
@@ -38,8 +36,10 @@ void GameEntity::free()
 	}
 }
 
-bool GameEntity::LoadFromFile(const std::string filePath)
+bool GameEntity::LoadFromFile(const std::string filePath, SDL_Renderer* renderer)
 {
+	free();
+
 	SDL_Texture* newTexture = NULL;
 
 	SDL_Surface* loadedSurface = IMG_Load(filePath.c_str());
@@ -51,7 +51,7 @@ bool GameEntity::LoadFromFile(const std::string filePath)
 	{
 		SDL_SetColorKey(loadedSurface, SDL_TRUE, SDL_MapRGB(loadedSurface->format, 0xFF, 0xFF, 0xFF));
 
-		//newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
+		newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
 		if(newTexture == NULL)
 		{
 			printf("Unable to create textrue from %s! SDL_Error %s\n", filePath.c_str(), SDL_GetError());
@@ -70,7 +70,7 @@ bool GameEntity::LoadFromFile(const std::string filePath)
 	return mTexture != NULL;
 }
 
-void GameEntity::Render(Vector2f position, SDL_Rect* clip, float angle, SDL_Point* center,
+void GameEntity::Render(Vector2f position, SDL_Renderer* renderer, SDL_Rect* clip, float angle, SDL_Point* center,
 						SDL_RendererFlip flip)
 {
 	SDL_Rect renderQuad = {position.x, position.y, mWidth, mHeight};
@@ -81,12 +81,7 @@ void GameEntity::Render(Vector2f position, SDL_Rect* clip, float angle, SDL_Poin
 		renderQuad.h = clip->h;
 	}
 
-	//SDL_RenderCopyEx(renderer, mTexture, clip, &renderQuad, angle, center, flip);
-}
-
-void GameEntity::Draw()
-{
-	
+	SDL_RenderCopyEx(renderer, mTexture, clip, &renderQuad, angle, center, flip);
 }
 
 int GameEntity::getHeight()

@@ -3,9 +3,7 @@
 
 Player::Player()
 {
-	Location = Vector2f (25.0f, 565.0f);
-
-	LoadFromFile("Thing.png");
+	Location = Vector2f (25.0f, 550.0f);
 
 	mMoveSpeed = 5.0f;
 
@@ -30,8 +28,14 @@ void Player::Update(float deltaTime)
 		{
 		case(SDL_KEYDOWN) :
 			{
+				std::cout << "Keydown" << std::endl;
+
 				if(event.key.keysym.sym == SDLK_LEFT)
+				{
 					left = true;
+
+					//Location.x -= mMoveSpeed * deltaTime;
+				}
 				if(event.key.keysym.sym == SDLK_RIGHT)
 					right = true;
 				if(event.key.keysym.sym == SDLK_UP)
@@ -43,8 +47,14 @@ void Player::Update(float deltaTime)
 			}
 		case(SDL_KEYUP) :
 			{
+				std::cout << "Keyup" << std::endl;
+
 				if(event.key.keysym.sym == SDLK_LEFT)
+				{
 					left = false;
+
+					//Location.x += mMoveSpeed * deltaTime;
+				}
 				if(event.key.keysym.sym == SDLK_RIGHT)
 					right = false;
 				if(event.key.keysym.sym == SDLK_UP)
@@ -59,25 +69,25 @@ void Player::Update(float deltaTime)
 
 	if(left)
 	{
-		Location.x -= Velocity.x * deltaTime;
+		Location.x -= mMoveSpeed * deltaTime;
 		std::cout << Location.x << " " << Location.y << std::endl;
 	}
 
 	if(right)
 	{
-		Location.x += Velocity.x * deltaTime;
+		Location.x += mMoveSpeed * deltaTime;
 		std::cout << Location.x << " " << Location.y << std::endl;
 	}
 
 	if(up)
 	{
-		Location.y -= Velocity.y * deltaTime;
+		Location.y -= mMoveSpeed * deltaTime;
 		std::cout << Location.x << " " << Location.y << std::endl;
 	}
 
 	if(down)
 	{
-		Location.y += Velocity.y * deltaTime;
+		Location.y += mMoveSpeed * deltaTime;
 		std::cout << Location.x << " " << Location.y << std::endl;
 	}
 
@@ -91,9 +101,5 @@ void Player::Update(float deltaTime)
 	if(Location.y <= 25)
 		Location.y = 25;
 
-}
-
-void Player::Draw(SDL_Window* targetWindow)
-{
-	Base::Draw(targetWindow);
+	Base::Update(deltaTime);
 }

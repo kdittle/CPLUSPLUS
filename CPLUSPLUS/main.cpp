@@ -1,4 +1,3 @@
-#include "Level.h"
 #include "Vector2f.h"
 #include "Player.h"
 
@@ -19,7 +18,8 @@ int main()
 
 	SDL_Init(SDL_INIT_VIDEO);
 
-	mWindow = SDL_CreateWindow("CPLUSPLUS", 0.0f, 0.0f, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_VIDEO_OPENGL);
+	mWindow = SDL_CreateWindow("CPLUSPLUS", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+		WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_OPENGL);
 
 	mContext = SDL_GL_CreateContext(mWindow);
 
@@ -35,12 +35,8 @@ int main()
 	preTime = time;
 
 	Player player;
-
-	bool 
-		left = false,
-		right = false,
-		up = false,
-		down = false;
+	
+	player.LoadFromFile("Thing.png", mRenderer);
 
 	bool run = true;
 
@@ -60,7 +56,6 @@ int main()
 
 			case(SDL_KEYDOWN) :
 				{
-					std::cout << "Keydown" << std::endl;
 
 					if(event.key.keysym.sym == SDLK_ESCAPE)
 						run = false;
@@ -69,12 +64,16 @@ int main()
 				}
 			}
 
-			player.Draw(mWindow);
-
 			player.Update(deltaTime);
+
+			SDL_SetRenderDrawColor(mRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
+			SDL_RenderClear(mRenderer);
+
+			player.Render(player.Location, mRenderer);
+
+			SDL_RenderPresent(mRenderer);
 		}
 	}
-
 
 
 	return 0;

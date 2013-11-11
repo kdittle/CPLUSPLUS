@@ -87,8 +87,6 @@
     <ClCompile Include="CollisionDetection.cpp" />
     <ClCompile Include="GameEntity.cpp" />
     <ClCompile Include="KinematicEntity.cpp" />
-    <ClCompile Include="Level.cpp" />
-    <ClCompile Include="LTexture.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Vector2f.cpp" />
@@ -96,9 +94,7 @@
   <ItemGroup>
     <ClInclude Include="GameEntity.h" />
     <ClInclude Include="KinematicEntity.h" />
-    <ClInclude Include="Level.h" />
     <ClInclude Include="Headers.h" />
-    <ClInclude Include="LTexture.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Vector2f.h" />
   </ItemGroup>

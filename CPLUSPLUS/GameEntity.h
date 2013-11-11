@@ -3,13 +3,11 @@
 
 #include "Headers.h"
 #include "Vector2f.h"
-#include "LTexture.h"
 
-class GameEntity : public LTexture
+class GameEntity
 {
 public:
 	SDL_Texture* mTexture;
-	LTexture imageTexture;
 	Vector2f Location;
 
 	GameEntity();
@@ -19,10 +17,9 @@ public:
 	void Update(float deltaTime);
 
 	void free();
-	bool LoadFromFile(const std::string filePath);
-	void Render(Vector2f position, SDL_Rect* clip = NULL, float angle = 0.0f, SDL_Point* center = NULL,
+	bool LoadFromFile(const std::string filePath, SDL_Renderer* renderer);
+	void Render(Vector2f position, SDL_Renderer* renderer, SDL_Rect* clip = NULL, float angle = 0.0f, SDL_Point* center = NULL,
 		SDL_RendererFlip = SDL_FLIP_NONE);
-	void Draw();
 
 	int getWidth();
 	int getHeight();

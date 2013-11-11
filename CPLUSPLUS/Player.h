@@ -11,11 +11,9 @@ class Player : public KinematicEntity
 	typedef KinematicEntity Base;
 
 public:
-
 	Player();
 
 	void Update(float deltaTime);
-	void Draw(SDL_Window* targetWindow);
 
 };
 
