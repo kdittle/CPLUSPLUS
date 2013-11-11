@@ -16,7 +16,7 @@ public:
 	void negate_x();
 	void negate_y();
 	void divide(float n);
-	float mag();
+	float magnitutde();
 	void normalize();
 
 };

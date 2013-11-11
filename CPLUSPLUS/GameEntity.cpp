@@ -2,12 +2,10 @@
 
 GameEntity::GameEntity()
 {
-	mTexture = NULL;
+	mTexture = NULL;'
 	mWidth = 0;
 	mHeight = 0;
 	Location = Vector2f(0.0f, 0.0f);
-	X_Velocity = Vector2f(0.0f, 0.0f);
-	Y_Velocity = Vector2f(0.0f, 0.0f);
 }
 
 GameEntity::~GameEntity()
@@ -17,13 +15,16 @@ GameEntity::~GameEntity()
 	mWidth = 0;
 	mHeight = 0;
 	Location = Vector2f(0.0f, 0.0f);
-	X_Velocity = Vector2f(0.0f, 0.0f);
-	Y_Velocity = Vector2f(0.0f, 0.0f);
 }
 
 void GameEntity::Destory()
 {
 	SDL_DestroyTexture(mTexture);
+}
+
+void GameEntity::Update(float deltaTime)
+{
+
 }
 
 void GameEntity::free()
@@ -81,6 +82,11 @@ void GameEntity::Render(Vector2f position, SDL_Rect* clip, float angle, SDL_Poin
 	}
 
 	//SDL_RenderCopyEx(renderer, mTexture, clip, &renderQuad, angle, center, flip);
+}
+
+void GameEntity::Draw()
+{
+	
 }
 
 int GameEntity::getHeight()

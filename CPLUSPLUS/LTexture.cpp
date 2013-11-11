@@ -1,9 +1,8 @@
 #include "LTexture.h"
-#include "SDLInitialize.h"
 
 LTexture::LTexture()
 {
-	mTexture = NULL;
+	lTexture = NULL;
 	mWidth = 0;
 	mHeight = 0;
 }
@@ -27,7 +26,7 @@ bool LTexture::LoadFromFile(std::string filePath)
 	{
 		SDL_SetColorKey(loadedSurface, SDL_TRUE, SDL_MapRGB(loadedSurface->format, 0xFF, 0xFF, 0xFF));
 
-		newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
+		//newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
 		if(newTexture == NULL)
 		{
 			printf("Unable to create texture from %s! SDL_Error %s\n", filePath.c_str(), SDL_GetError());
@@ -41,34 +40,21 @@ bool LTexture::LoadFromFile(std::string filePath)
 		SDL_FreeSurface(loadedSurface);
 	}
 
-	mTexture = newTexture;
+	lTexture = newTexture;
 
-	return mTexture != NULL;
+	return lTexture != NULL;
 
 }
 
 void LTexture::free()
 {
-	if(mTexture != NULL)
+	if(lTexture != NULL)
 	{
-		SDL_DestroyTexture(mTexture);
-		mTexture = NULL;
+		SDL_DestroyTexture(lTexture);
+		lTexture = NULL;
 		mWidth = 0;
 		mHeight = 0;
 	}
-}
-
-void LTexture::Render(Vector2f position, SDL_Rect* clip, float angle, SDL_Point* center, SDL_RendererFlip flip)
-{
-	SDL_Rect renderQuad = {position.x, position.y, mWidth, mHeight};
-
-	if(clip != NULL)
-	{
-		renderQuad.w = clip->w;
-		renderQuad.h = clip->h;
-	}
-
-	SDL_RenderCopyEx(renderer, mTexture, clip, &renderQuad, angle, center, flip);
 }
 
 int LTexture::getWidth()

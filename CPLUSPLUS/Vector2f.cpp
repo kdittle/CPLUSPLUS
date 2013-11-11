@@ -52,14 +52,14 @@ void Vector2f::divide(float n)
 	y = y / n;
 }
 
-float Vector2f::mag()
+float Vector2f::magnitutde()
 {
 	return std::sqrt(x*x + y*y);
 }
 
 void Vector2f::normalize()
 {
-	float m = mag();
+	float m = magnitutde();
 
 	if(m != 0)
 	{
