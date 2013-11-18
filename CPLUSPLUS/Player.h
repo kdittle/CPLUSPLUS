@@ -25,18 +25,17 @@ public:
 	void SetSpriteClips();
 	void Update(float deltaTime);
 	void Draw();
-	void CastSpell(SDL_Renderer* renderer);
+	void CastSpell();
 
 	int frame;
 	bool isPlaying;
-	float preLocX, preLocY;
 
-	bool
-		left = false,
+	bool left, right, up, down, cast;
+	/*	left = false,
 		right = false,
 		up = false,
 		down = false,
-		cast = false;
+		cast = false;*/
 
 };
 

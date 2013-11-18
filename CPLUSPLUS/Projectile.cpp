@@ -2,9 +2,16 @@
 
 Projectile::Projectile()
 {
+	Location = Vector2f(0.0f, 0.0f);
+
 	Speed = 55.0f;
 
 	frame = 0;
+}
+
+void Projectile::SetProjectileRenderer(SDL_Renderer* renderer)
+{
+	projRenderer = renderer;
 }
 
 void Projectile::SetSpriteClips()
@@ -28,19 +35,17 @@ void Projectile::SetSpriteClips()
 void Projectile::Update(float deltaTime)
 {
 	Base::Update(deltaTime);
-
-	
+	Location.x++;
+	Location.y++;
 }
 
-void Projectile::Draw(SDL_Renderer* renderer, float deltaTime)
+void Projectile::Draw(SDL_Renderer* renderer)
 {
-	Render(Location, renderer, &SpriteClips[frame]);
-
-	SDL_Delay(300 * deltaTime);
+  	Render(Location, renderer, &SpriteClips[frame]);
 
 	++frame;
 
-	if (frame / 3 >= FIRE_FRAMES)
+	if (frame >= FIRE_FRAMES)
 	{
 		frame = 0;
 	}

@@ -40,24 +40,25 @@ int main()
 
 	Player player;
 	player.LoadFromFile("WizardSpriteSheet2.png", mRenderer);
-	player.SetSpriteClips();
 	player.SetPlayerRenderer(mRenderer);
+	player.SetSpriteClips();
 
 	Projectile fire;
 	fire.LoadFromFile("FireSpriteSheet.png", mRenderer);
+	fire.SetProjectileRenderer(mRenderer);
 	fire.SetSpriteClips();
 
 	while (player.isPlaying)
 	{
 
 		player.Update(deltaTime);
-		fire.Update(deltaTime);
+		//fire.Update(deltaTime);
 
 		SDL_SetRenderDrawColor(mRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 		SDL_RenderClear(mRenderer);
 
 		player.Draw();
-		//fire.Draw(mRenderer, deltaTime);
+		//fire.Draw();
 
 		SDL_RenderPresent(mRenderer);
 

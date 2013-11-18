@@ -9,6 +9,12 @@ Player::Player()
 	frame = 0;
 
 	isPlaying = true;
+
+	left = false;
+	right = false;
+	up = false;
+	down = false;
+	cast = false;
 }
 
 void Player::SetPlayerRenderer(SDL_Renderer* renderer)
@@ -135,8 +141,8 @@ void Player::Update(float deltaTime)
 	if(Location.y <= 10)
 		Location.y = 10;
 
-	if (cast)
-		CastSpell(playerRenderer);
+	if (!projectileList.empty())
+		CastSpell();
 
 	Base::Update(deltaTime);
 }
@@ -160,11 +166,11 @@ void Player::Draw()
 
 }
 
-void Player::CastSpell(SDL_Renderer* renderer)
+void Player::CastSpell()
 {
 	projectile = projectileList.at(0);
 
-	projectile.Render(Location, renderer, &projectile.SpriteClips[projectile.frame / 3]);
+	projectile.Draw(playerRenderer);
 
 	projectileList.pop_back();
 }

@@ -10,14 +10,16 @@ class Projectile : public GameEntity
 
 public:
 	float Speed;
+	SDL_Renderer* projRenderer;
 	static const int FIRE_FRAMES = 3;
 	SDL_Rect SpriteClips[FIRE_FRAMES];
 
 	Projectile();
 
+	void SetProjectileRenderer(SDL_Renderer* renderer);
 	void SetSpriteClips();
 	void Update(float deltaTime);
-	void Draw(SDL_Renderer* renderer, float deltaTime);
+	void Draw(SDL_Renderer* renderer);
 
 	int frame;
 
