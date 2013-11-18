@@ -7,8 +7,6 @@ KinematicEntity::KinematicEntity()
 	Velocity = Vector2f(0.0f, 0.0f);
 
 	Speed = 0.0f;
-	
-	IsMoving = false;
 }
 
 void KinematicEntity::Update(float deltaTime)
@@ -62,32 +60,6 @@ void KinematicEntity::Update(float deltaTime)
 			{
 				Velocity.y = 0.0f;
 			}
-		}
-	}
-
-	mForces = Vector2f(0.0f, 0.0f);
-
-	if(IsMoving && Speed > 0.0f)
-	{
-		float sSpeed = Velocity.magnitutde();
-
-		if(sSpeed > Speed)
-		{
-			Velocity.normalize();
-			Velocity.x *= Speed;
-			Velocity.y *= Speed;
-		}
-	}
-
-	if(!IsMoving && Speed > 0.0f)
-	{
-		float sSpeed = Velocity.magnitutde();
-
-		if(sSpeed > Speed)
-		{
-			Velocity.normalize();
-			Velocity.x *= Speed;
-			Velocity.y *= Speed;
 		}
 	}
 

@@ -21,6 +21,7 @@ public:
 	void Render(Vector2f position, SDL_Renderer* renderer, SDL_Rect* clip = NULL, float angle = 0.0f, SDL_Point* center = NULL,
 		SDL_RendererFlip = SDL_FLIP_NONE);
 
+
 	int getWidth();
 	int getHeight();
 

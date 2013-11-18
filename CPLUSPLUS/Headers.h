@@ -11,6 +11,7 @@
 #include <cmath>
 #include <string>
 #include "Vector2f.h"
+#include "vector"
 
 #pragma comment(lib, "SDL2.lib")
 #pragma comment(lib, "OpenGL32.lib")

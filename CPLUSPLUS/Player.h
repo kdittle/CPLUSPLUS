@@ -3,6 +3,7 @@
 
 #include "Headers.h"
 #include "KinematicEntity.h"
+#include "Projectile.h"
 
 class Player : public KinematicEntity
 {
@@ -11,9 +12,31 @@ class Player : public KinematicEntity
 	typedef KinematicEntity Base;
 
 public:
-	Player();
+	static const int WALKING_FRAMES = 4;
+	SDL_Rect SpriteClips[WALKING_FRAMES];
+	Projectile projectile;
+	std::vector<Projectile> projectileList;
 
+	SDL_Renderer* playerRenderer;
+
+	Player();
+	
+	void SetPlayerRenderer(SDL_Renderer* renderer);
+	void SetSpriteClips();
 	void Update(float deltaTime);
+	void Draw();
+	void CastSpell(SDL_Renderer* renderer);
+
+	int frame;
+	bool isPlaying;
+	float preLocX, preLocY;
+
+	bool
+		left = false,
+		right = false,
+		up = false,
+		down = false,
+		cast = false;
 
 };
 

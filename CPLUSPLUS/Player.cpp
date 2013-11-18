@@ -1,22 +1,46 @@
 #include "Player.h"
-#include "Vector2f.h"
 
 Player::Player()
 {
-	Location = Vector2f (25.0f, 550.0f);
+	Location = Vector2f (400.0f, 300.0f);
 
-	mMoveSpeed = 5.0f;
+	mMoveSpeed = 45.0f;
 
-	IsMoving = true;
+	frame = 0;
+
+	isPlaying = true;
+}
+
+void Player::SetPlayerRenderer(SDL_Renderer* renderer)
+{
+	playerRenderer = renderer;
+}
+
+void Player::SetSpriteClips()
+{
+	SpriteClips[0].x = 0;
+	SpriteClips[0].y = 0;
+	SpriteClips[0].w = 60;
+	SpriteClips[0].h = 100;
+
+	SpriteClips[1].x = 59;
+	SpriteClips[1].y = 0;
+	SpriteClips[1].w = 60;
+	SpriteClips[1].h = 100;
+
+	SpriteClips[2].x = 119;
+	SpriteClips[2].y = 0;
+	SpriteClips[2].w = 60;
+	SpriteClips[2].h = 100;
+
+	SpriteClips[3].x = 177;
+	SpriteClips[3].y = 0;
+	SpriteClips[3].w = 60;
+	SpriteClips[3].h = 100;
 }
 
 void Player::Update(float deltaTime)
 {
-	bool
-		left = false,
-		right = false,
-		up = false,
-		down = false;
 
 	SDL_Event event;
 
@@ -26,22 +50,44 @@ void Player::Update(float deltaTime)
 	{
 		switch(event.type)
 		{
+		case (SDL_QUIT):
+			{		 
+				isPlaying = false;
+				break;
+			}
+
 		case(SDL_KEYDOWN) :
 			{
 				std::cout << "Keydown" << std::endl;
 
-				if(event.key.keysym.sym == SDLK_LEFT)
-				{
-					left = true;
+				if (event.key.keysym.sym == SDLK_ESCAPE)
+					isPlaying = false;
 
-					//Location.x -= mMoveSpeed * deltaTime;
+				if (event.key.keysym.sym == SDLK_LEFT)
+				{
+					Location.x -= mMoveSpeed * deltaTime;
+					left = true;
 				}
-				if(event.key.keysym.sym == SDLK_RIGHT)
+				if (event.key.keysym.sym == SDLK_RIGHT)
+				{
+					Location.x += mMoveSpeed * deltaTime;
 					right = true;
-				if(event.key.keysym.sym == SDLK_UP)
+				}
+				if (event.key.keysym.sym == SDLK_UP)
+				{
+					Location.y -= mMoveSpeed * deltaTime;
 					up = true;
-				if(event.key.keysym.sym == SDLK_DOWN)
+				}
+				if (event.key.keysym.sym == SDLK_DOWN)
+				{
+					Location.y += mMoveSpeed * deltaTime;
 					down = true;
+				}
+				if (event.key.keysym.sym == SDLK_SPACE)
+				{
+					projectileList.push_back(projectile);
+					cast = true;
+				}
 
 				break;
 			}
@@ -49,57 +95,76 @@ void Player::Update(float deltaTime)
 			{
 				std::cout << "Keyup" << std::endl;
 
-				if(event.key.keysym.sym == SDLK_LEFT)
+				if (event.key.keysym.sym == SDLK_LEFT)
 				{
+					Location.x += mMoveSpeed * deltaTime;
 					left = false;
-
-					//Location.x += mMoveSpeed * deltaTime;
 				}
-				if(event.key.keysym.sym == SDLK_RIGHT)
+				if (event.key.keysym.sym == SDLK_RIGHT)
+				{
+					Location.x -= mMoveSpeed * deltaTime;
 					right = false;
-				if(event.key.keysym.sym == SDLK_UP)
+				}
+				if (event.key.keysym.sym == SDLK_UP)
+				{
+					Location.y += mMoveSpeed * deltaTime;
 					up = false;
-				if(event.key.keysym.sym == SDLK_DOWN)
+				}
+				if (event.key.keysym.sym == SDLK_DOWN)
+				{
+					Location.y -= mMoveSpeed * deltaTime;
 					down = false;
+				}
+				if (event.key.keysym.sym == SDLK_SPACE)
+				{
+					cast = false;
+				}
 
 				break;
 			}
 		}
 	}
 
-	if(left)
-	{
-		Location.x -= mMoveSpeed * deltaTime;
-		std::cout << Location.x << " " << Location.y << std::endl;
-	}
+	if(Location.x >= 755)
+		Location.x = 755;
+	if(Location.x <= 10)
+		Location.x = 10;
 
-	if(right)
-	{
-		Location.x += mMoveSpeed * deltaTime;
-		std::cout << Location.x << " " << Location.y << std::endl;
-	}
+	if(Location.y >= 550)
+		Location.y = 550;
+	if(Location.y <= 10)
+		Location.y = 10;
 
-	if(up)
-	{
-		Location.y -= mMoveSpeed * deltaTime;
-		std::cout << Location.x << " " << Location.y << std::endl;
-	}
-
-	if(down)
-	{
-		Location.y += mMoveSpeed * deltaTime;
-		std::cout << Location.x << " " << Location.y << std::endl;
-	}
-
-	if(Location.x >= 775)
-		Location.x = 775;
-	if(Location.x <= 25)
-		Location.x = 25;
-
-	if(Location.y >= 575)
-		Location.y = 575;
-	if(Location.y <= 25)
-		Location.y = 25;
+	if (cast)
+		CastSpell(playerRenderer);
 
 	Base::Update(deltaTime);
+}
+
+void Player::Draw()
+{
+
+	if (left)
+		frame = 2;
+
+	if (right)
+		frame = 3;
+
+	if (up)
+		frame = 1;
+
+	if (down)
+		frame = 0;
+
+	Render(Location, playerRenderer, &SpriteClips[frame]);
+
+}
+
+void Player::CastSpell(SDL_Renderer* renderer)
+{
+	projectile = projectileList.at(0);
+
+	projectile.Render(Location, renderer, &projectile.SpriteClips[projectile.frame / 3]);
+
+	projectileList.pop_back();
 }

@@ -1,5 +1,6 @@
 #include "Vector2f.h"
 #include "Player.h"
+#include "Projectile.h"
 
 #ifdef main
 # undef main
@@ -18,8 +19,11 @@ int main()
 
 	SDL_Init(SDL_INIT_VIDEO);
 
+	SDL_SetHint(SDL_HINT_RENDER_VSYNC, "1");
+	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
+
 	mWindow = SDL_CreateWindow("CPLUSPLUS", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-		WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_OPENGL);
+		WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
 
 	mContext = SDL_GL_CreateContext(mWindow);
 
@@ -35,44 +39,28 @@ int main()
 	preTime = time;
 
 	Player player;
-	
-	player.LoadFromFile("Thing.png", mRenderer);
+	player.LoadFromFile("WizardSpriteSheet2.png", mRenderer);
+	player.SetSpriteClips();
+	player.SetPlayerRenderer(mRenderer);
 
-	bool run = true;
+	Projectile fire;
+	fire.LoadFromFile("FireSpriteSheet.png", mRenderer);
+	fire.SetSpriteClips();
 
-	while(run)
+	while (player.isPlaying)
 	{
-		SDL_Event event;
 
-		SDL_PumpEvents();
+		player.Update(deltaTime);
+		fire.Update(deltaTime);
 
-		while(SDL_PollEvent(&event))
-		{
-			switch(event.type)
-			{
-			case(SDL_QUIT) :
-				run = false;
-				break;
+		SDL_SetRenderDrawColor(mRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
+		SDL_RenderClear(mRenderer);
 
-			case(SDL_KEYDOWN) :
-				{
+		player.Draw();
+		//fire.Draw(mRenderer, deltaTime);
 
-					if(event.key.keysym.sym == SDLK_ESCAPE)
-						run = false;
+		SDL_RenderPresent(mRenderer);
 
-					break;
-				}
-			}
-
-			player.Update(deltaTime);
-
-			SDL_SetRenderDrawColor(mRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
-			SDL_RenderClear(mRenderer);
-
-			player.Render(player.Location, mRenderer);
-
-			SDL_RenderPresent(mRenderer);
-		}
 	}
 
 

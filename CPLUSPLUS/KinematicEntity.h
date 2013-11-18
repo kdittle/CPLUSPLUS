@@ -16,8 +16,6 @@ public:
 
 	void ApplyForce(const Vector2f& force);
 
-	bool IsMoving;
-
 	float Speed;
 
 

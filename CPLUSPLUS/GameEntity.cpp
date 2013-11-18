@@ -22,7 +22,7 @@ void GameEntity::Destory()
 
 void GameEntity::Update(float deltaTime)
 {
-
+	
 }
 
 void GameEntity::free()
