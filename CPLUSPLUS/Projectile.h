@@ -19,7 +19,7 @@ public:
 	void SetProjectileRenderer(SDL_Renderer* renderer);
 	void SetSpriteClips();
 	void Update(float deltaTime);
-	void Draw(SDL_Renderer* renderer);
+	void Draw();
 
 	int frame;
 

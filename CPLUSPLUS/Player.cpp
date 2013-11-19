@@ -91,7 +91,6 @@ void Player::Update(float deltaTime)
 				}
 				if (event.key.keysym.sym == SDLK_SPACE)
 				{
-					projectileList.push_back(projectile);
 					cast = true;
 				}
 
@@ -103,22 +102,22 @@ void Player::Update(float deltaTime)
 
 				if (event.key.keysym.sym == SDLK_LEFT)
 				{
-					Location.x += mMoveSpeed * deltaTime;
+					Location.x = Location.x;
 					left = false;
 				}
 				if (event.key.keysym.sym == SDLK_RIGHT)
 				{
-					Location.x -= mMoveSpeed * deltaTime;
+					Location.x = Location.x;
 					right = false;
 				}
 				if (event.key.keysym.sym == SDLK_UP)
 				{
-					Location.y += mMoveSpeed * deltaTime;
+					Location.y = Location.y;
 					up = false;
 				}
 				if (event.key.keysym.sym == SDLK_DOWN)
 				{
-					Location.y -= mMoveSpeed * deltaTime;
+					Location.y = Location.y;
 					down = false;
 				}
 				if (event.key.keysym.sym == SDLK_SPACE)
@@ -131,6 +130,7 @@ void Player::Update(float deltaTime)
 		}
 	}
 
+
 	if(Location.x >= 755)
 		Location.x = 755;
 	if(Location.x <= 10)
@@ -140,9 +140,6 @@ void Player::Update(float deltaTime)
 		Location.y = 550;
 	if(Location.y <= 10)
 		Location.y = 10;
-
-	if (!projectileList.empty())
-		CastSpell();
 
 	Base::Update(deltaTime);
 }
@@ -164,13 +161,4 @@ void Player::Draw()
 
 	Render(Location, playerRenderer, &SpriteClips[frame]);
 
-}
-
-void Player::CastSpell()
-{
-	projectile = projectileList.at(0);
-
-	projectile.Draw(playerRenderer);
-
-	projectileList.pop_back();
 }

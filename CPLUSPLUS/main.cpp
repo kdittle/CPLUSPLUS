@@ -52,13 +52,11 @@ int main()
 	{
 
 		player.Update(deltaTime);
-		//fire.Update(deltaTime);
 
 		SDL_SetRenderDrawColor(mRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 		SDL_RenderClear(mRenderer);
 
 		player.Draw();
-		//fire.Draw();
 
 		SDL_RenderPresent(mRenderer);
 

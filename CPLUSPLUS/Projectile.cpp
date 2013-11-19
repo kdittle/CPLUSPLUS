@@ -34,14 +34,14 @@ void Projectile::SetSpriteClips()
 
 void Projectile::Update(float deltaTime)
 {
+	Draw();
+
 	Base::Update(deltaTime);
-	Location.x++;
-	Location.y++;
 }
 
-void Projectile::Draw(SDL_Renderer* renderer)
+void Projectile::Draw()
 {
-  	Render(Location, renderer, &SpriteClips[frame]);
+	Render(Location, projRenderer, &SpriteClips[frame]);
 
 	++frame;
 
