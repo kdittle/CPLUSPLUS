@@ -1,6 +1,5 @@
 #include "Vector2f.h"
 #include "Player.h"
-#include "Projectile.h"
 
 #ifdef main
 # undef main
@@ -42,21 +41,20 @@ int main()
 	player.LoadFromFile("WizardSpriteSheet2.png", mRenderer);
 	player.SetPlayerRenderer(mRenderer);
 	player.SetSpriteClips();
-
-	Projectile fire;
-	fire.LoadFromFile("FireSpriteSheet.png", mRenderer);
-	fire.SetProjectileRenderer(mRenderer);
-	fire.SetSpriteClips();
+	player.LoadSpells();
 
 	while (player.isPlaying)
 	{
-
-		player.Update(deltaTime);
-
+		
 		SDL_SetRenderDrawColor(mRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 		SDL_RenderClear(mRenderer);
 
 		player.Draw();
+
+		player.Update(deltaTime);
+
+		if(player.cast)
+			player.fireShield.Update(deltaTime, player.Location);
 
 		SDL_RenderPresent(mRenderer);
 

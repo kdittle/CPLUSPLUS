@@ -3,7 +3,7 @@
 
 #include "Headers.h"
 #include "KinematicEntity.h"
-#include "Projectile.h"
+#include "Spell.h"
 
 class Player : public KinematicEntity
 {
@@ -14,10 +14,10 @@ class Player : public KinematicEntity
 public:
 	static const int WALKING_FRAMES = 4;
 	SDL_Rect SpriteClips[WALKING_FRAMES];
-	Projectile projectile;
-	std::vector<Projectile> projectileList;
+	Spell fireShield;
+	std::vector<Spell> spellList;
 
-	SDL_Renderer* playerRenderer;
+	SDL_Renderer* pRenderer;
 
 	Player();
 	
@@ -25,6 +25,7 @@ public:
 	void SetSpriteClips();
 	void Update(float deltaTime);
 	void Draw();
+	void LoadSpells();
 
 	int frame;
 	bool isPlaying;

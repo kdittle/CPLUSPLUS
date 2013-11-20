@@ -1,25 +1,25 @@
-#ifndef PROJECTILE_H
-#define PROJECTILE_H
+#ifndef SPELL_H
+#define SPELL_H
 
 #include "Headers.h"
 #include "GameEntity.h"
 
-class Projectile : public GameEntity
+class Spell : public GameEntity
 {
 	typedef GameEntity Base;
 
 public:
 	float Speed;
-	SDL_Renderer* projRenderer;
+	SDL_Renderer* sRenderer;
 	static const int FIRE_FRAMES = 3;
 	SDL_Rect SpriteClips[FIRE_FRAMES];
 
-	Projectile();
+	Spell();
 
-	void SetProjectileRenderer(SDL_Renderer* renderer);
+	void SetSpellRenderer(SDL_Renderer* renderer);
 	void SetSpriteClips();
-	void Update(float deltaTime);
-	void Draw();
+	void Update(float deltaTime, Vector2f position);
+	void Draw(Vector2f position);
 
 	int frame;
 

@@ -1,6 +1,6 @@
-#include "Projectile.h"
+#include "Spell.h"
 
-Projectile::Projectile()
+Spell::Spell()
 {
 	Location = Vector2f(0.0f, 0.0f);
 
@@ -9,12 +9,12 @@ Projectile::Projectile()
 	frame = 0;
 }
 
-void Projectile::SetProjectileRenderer(SDL_Renderer* renderer)
+void Spell::SetSpellRenderer(SDL_Renderer* renderer)
 {
-	projRenderer = renderer;
+	sRenderer = renderer;
 }
 
-void Projectile::SetSpriteClips()
+void Spell::SetSpriteClips()
 {
 	SpriteClips[0].x = 0;
 	SpriteClips[0].y = 0;
@@ -32,16 +32,18 @@ void Projectile::SetSpriteClips()
 	SpriteClips[0].h = 30;
 }
 
-void Projectile::Update(float deltaTime)
+void Spell::Update(float deltaTime, Vector2f position)
 {
-	Draw();
+	Draw(position);
 
 	Base::Update(deltaTime);
 }
 
-void Projectile::Draw()
+void Spell::Draw(Vector2f position)
 {
-	Render(Location, projRenderer, &SpriteClips[frame]);
+	position.x = position.x - 29;
+	position.y = position.y - 15;
+	Render(position, sRenderer);
 
 	++frame;
 

@@ -19,7 +19,7 @@ Player::Player()
 
 void Player::SetPlayerRenderer(SDL_Renderer* renderer)
 {
-	playerRenderer = renderer;
+	pRenderer = renderer;
 }
 
 void Player::SetSpriteClips()
@@ -130,7 +130,6 @@ void Player::Update(float deltaTime)
 		}
 	}
 
-
 	if(Location.x >= 755)
 		Location.x = 755;
 	if(Location.x <= 10)
@@ -159,6 +158,12 @@ void Player::Draw()
 	if (down)
 		frame = 0;
 
-	Render(Location, playerRenderer, &SpriteClips[frame]);
+	Render(Location, pRenderer, &SpriteClips[frame]);
 
+}
+
+void Player::LoadSpells()
+{
+	fireShield.LoadFromFile("RingOfFire.png", pRenderer);
+	fireShield.SetSpellRenderer(pRenderer);
 }
