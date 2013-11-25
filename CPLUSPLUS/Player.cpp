@@ -2,7 +2,9 @@
 
 Player::Player()
 {
-	Location = Vector2f (400.0f, 300.0f);
+	//Renders top left corner at 400, 300.
+	//To render full center must subtract half width and half height
+	Location = Vector2f (400.0f - 30.0f, 300.0f - 50.0f);
 
 	mMoveSpeed = 45.0f;
 
@@ -73,21 +75,25 @@ void Player::Update(float deltaTime)
 				{
 					Location.x -= mMoveSpeed * deltaTime;
 					left = true;
+					std::cout << Location.x << " " << Location.y << std::endl;
 				}
 				if (event.key.keysym.sym == SDLK_RIGHT)
 				{
 					Location.x += mMoveSpeed * deltaTime;
 					right = true;
+					std::cout << Location.x << " " << Location.y << std::endl;
 				}
 				if (event.key.keysym.sym == SDLK_UP)
 				{
 					Location.y -= mMoveSpeed * deltaTime;
 					up = true;
+					std::cout << Location.x << " " << Location.y << std::endl;
 				}
 				if (event.key.keysym.sym == SDLK_DOWN)
 				{
 					Location.y += mMoveSpeed * deltaTime;
 					down = true;
+					std::cout << Location.x << " " << Location.y << std::endl;
 				}
 				if (event.key.keysym.sym == SDLK_SPACE)
 				{
@@ -164,6 +170,8 @@ void Player::Draw()
 
 void Player::LoadSpells()
 {
-	fireShield.LoadFromFile("RingOfFire.png", pRenderer);
+	fireShield.LoadFromFile("RingOfFireSpriteSheet.png", pRenderer);
+	//fireShield.LoadFromFile("RingOfFire.png", pRenderer);
 	fireShield.SetSpellRenderer(pRenderer);
+	fireShield.SetSpriteClips();
 }

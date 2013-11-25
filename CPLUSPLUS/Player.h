@@ -15,7 +15,6 @@ public:
 	static const int WALKING_FRAMES = 4;
 	SDL_Rect SpriteClips[WALKING_FRAMES];
 	Spell fireShield;
-	std::vector<Spell> spellList;
 
 	SDL_Renderer* pRenderer;
 
@@ -31,6 +30,10 @@ public:
 	bool isPlaying;
 
 	bool left, right, up, down, cast;
+
+private:
+	float playWidth;
+	float playHeight;
 
 };
 

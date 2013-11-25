@@ -18,18 +18,13 @@ void Spell::SetSpriteClips()
 {
 	SpriteClips[0].x = 0;
 	SpriteClips[0].y = 0;
-	SpriteClips[0].w = 30;
-	SpriteClips[0].h = 30;
+	SpriteClips[0].w = 120;
+	SpriteClips[0].h = 135;
 
-	SpriteClips[0].x = 28;
-	SpriteClips[0].y = 0;
-	SpriteClips[0].w = 30;
-	SpriteClips[0].h = 30;
-
-	SpriteClips[0].x = 59;
-	SpriteClips[0].y = 0;
-	SpriteClips[0].w = 30;
-	SpriteClips[0].h = 30;
+	SpriteClips[1].x = 121;
+	SpriteClips[1].y = 0;
+	SpriteClips[1].w = 120;
+	SpriteClips[1].h = 135;
 }
 
 void Spell::Update(float deltaTime, Vector2f position)
@@ -43,7 +38,7 @@ void Spell::Draw(Vector2f position)
 {
 	position.x = position.x - 29;
 	position.y = position.y - 15;
-	Render(position, sRenderer);
+	Render(position, sRenderer, &SpriteClips[frame]);
 
 	++frame;
 

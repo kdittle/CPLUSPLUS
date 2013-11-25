@@ -11,10 +11,11 @@ class Enemy : public KinematicEntity
 public:
 	float moveSpeed;
 
-	SDL_Renderer* enemyRenderer;
+	SDL_Renderer* eRenderer;
 
 	Enemy();
 
+	void SetEnemyRenderer(SDL_Renderer* renderer);
 	void Update(float deltaTime);
 	void Draw();
 

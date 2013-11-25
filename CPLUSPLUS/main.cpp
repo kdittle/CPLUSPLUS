@@ -1,5 +1,5 @@
-#include "Vector2f.h"
 #include "Player.h"
+#include "Enemy.h"
 
 #ifdef main
 # undef main
@@ -7,10 +7,8 @@
 
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
-const int SCREEN_FPS = 60;
 
 SDL_Window* mWindow = NULL;
-SDL_GLContext mContext = NULL;
 SDL_Renderer* mRenderer = NULL;
 
 int main()
@@ -23,8 +21,6 @@ int main()
 
 	mWindow = SDL_CreateWindow("CPLUSPLUS", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 		WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
-
-	mContext = SDL_GL_CreateContext(mWindow);
 
 	mRenderer = SDL_CreateRenderer(mWindow, -1, SDL_RENDERER_ACCELERATED);
 
@@ -43,6 +39,10 @@ int main()
 	player.SetSpriteClips();
 	player.LoadSpells();
 
+	Enemy enemy;
+	enemy.LoadFromFile("Wizard.png", mRenderer);
+	enemy.SetEnemyRenderer(mRenderer);
+
 	while (player.isPlaying)
 	{
 		
@@ -52,6 +52,7 @@ int main()
 		player.Draw();
 
 		player.Update(deltaTime);
+		enemy.Update(deltaTime);
 
 		if(player.cast)
 			player.fireShield.Update(deltaTime, player.Location);

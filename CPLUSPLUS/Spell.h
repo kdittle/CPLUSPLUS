@@ -11,7 +11,7 @@ class Spell : public GameEntity
 public:
 	float Speed;
 	SDL_Renderer* sRenderer;
-	static const int FIRE_FRAMES = 3;
+	static const int FIRE_FRAMES = 2;
 	SDL_Rect SpriteClips[FIRE_FRAMES];
 
 	Spell();
