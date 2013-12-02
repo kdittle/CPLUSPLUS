@@ -25,10 +25,16 @@ public:
 	int getWidth();
 	int getHeight();
 
+	SDL_Rect GetBoundingBox();
+
+	void shiftBoundingBox();
+
 private:
 
 	int mWidth;
 	int mHeight;
+
+	SDL_Rect m_BoundingBox;
 
 };
 

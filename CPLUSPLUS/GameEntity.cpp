@@ -5,6 +5,11 @@ GameEntity::GameEntity()
 	mTexture = NULL;
 	mWidth = 0;
 	mHeight = 0;
+
+	m_BoundingBox.w = mWidth / 2;
+	m_BoundingBox.h = mHeight / 2;
+
+	shiftBoundingBox();
 }
 
 GameEntity::~GameEntity()
@@ -92,4 +97,15 @@ int GameEntity::getHeight()
 int GameEntity::getWidth()
 {
 	return mWidth;
+}
+
+void GameEntity::shiftBoundingBox()
+{
+	m_BoundingBox.x = Location.x + m_BoundingBox.w;
+	m_BoundingBox.y = Location.y + m_BoundingBox.h;
+}
+
+SDL_Rect GameEntity::GetBoundingBox()
+{
+	return m_BoundingBox;
 }

@@ -25,6 +25,7 @@ public:
 	void Update(float deltaTime);
 	void Draw();
 	void LoadSpells();
+	Vector2f GetPlayerLocation();
 
 	int frame;
 	bool isPlaying;

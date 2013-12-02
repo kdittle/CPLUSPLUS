@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "Enemy.h"
+#include "CollisionDetection.h"
 
 #ifdef main
 # undef main
@@ -40,12 +41,16 @@ int main()
 	player.LoadSpells();
 
 	Enemy enemy;
-	enemy.LoadFromFile("Wizard.png", mRenderer);
+	enemy.LoadFromFile("EvilWizardSpriteSheet.png", mRenderer);
 	enemy.SetEnemyRenderer(mRenderer);
+	enemy.SetSpriteClips();
+
+	CollisionDetection collisionHandler;
 
 	while (player.isPlaying)
 	{
-		
+		enemy.PlayerReference(player);
+
 		SDL_SetRenderDrawColor(mRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 		SDL_RenderClear(mRenderer);
 
@@ -54,8 +59,15 @@ int main()
 		player.Update(deltaTime);
 		enemy.Update(deltaTime);
 
+		if(collisionHandler.Check_Collision(player.GetBoundingBox(), enemy.GetBoundingBox()))
+			{
+				enemy.Location = Vector2f(0.0f, 0.0f);
+			}
+
 		if(player.cast)
+		{
 			player.fireShield.Update(deltaTime, player.Location);
+		}
 
 		SDL_RenderPresent(mRenderer);
 

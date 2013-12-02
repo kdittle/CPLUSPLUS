@@ -146,6 +146,8 @@ void Player::Update(float deltaTime)
 	if(Location.y <= 10)
 		Location.y = 10;
 
+	shiftBoundingBox();
+
 	Base::Update(deltaTime);
 }
 
@@ -165,13 +167,16 @@ void Player::Draw()
 		frame = 0;
 
 	Render(Location, pRenderer, &SpriteClips[frame]);
-
 }
 
 void Player::LoadSpells()
 {
 	fireShield.LoadFromFile("RingOfFireSpriteSheet.png", pRenderer);
-	//fireShield.LoadFromFile("RingOfFire.png", pRenderer);
 	fireShield.SetSpellRenderer(pRenderer);
 	fireShield.SetSpriteClips();
+}
+
+Vector2f Player::GetPlayerLocation()
+{
+	return Location;
 }

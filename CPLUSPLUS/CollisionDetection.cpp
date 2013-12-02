@@ -1,6 +1,6 @@
-#include "Headers.h"
+#include "CollisionDetection.h"
 
-bool Check_Collision(SDL_Rect a, SDL_Rect b)
+bool CollisionDetection::Check_Collision(SDL_Rect a, SDL_Rect b)
 {
 	int leftA, leftB;
 	int rightA, rightB;
