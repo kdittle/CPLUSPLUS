@@ -27,6 +27,16 @@ void Player::SetPlayerRenderer(SDL_Renderer* renderer)
 	pRenderer = renderer;
 }
 
+void Player::ScreenRef(SDL_Surface* surface)
+{
+	tScreen = surface;
+}
+
+void Player::WindowRef(SDL_Window* window)
+{
+	tWindow = window;
+}
+
 void Player::SetSpriteClips()
 {
 	SpriteClips[0].x = 0;
@@ -173,8 +183,8 @@ void Player::Draw()
 
 	Render(this->Location, pRenderer, &SpriteClips[frame]);
 
-	SDL_SetRenderDrawColor(pRenderer, 0x00, 0x00, 0x00, 0xFF);
-	SDL_RenderDrawRect(pRenderer, &m_BoundingBox);
+	/*SDL_SetRenderDrawColor(pRenderer, 0x00, 0x00, 0x00, 0xFF);
+	SDL_RenderDrawRect(pRenderer, &m_BoundingBox);*/
 
 	SetHealthRec();
 }
@@ -207,6 +217,8 @@ float Player::GetHealth()
 
 void Player::SetHealthRec()
 {
+	SDL_Surface* rectSurface = NULL;
+
 	healthPercent = GetHealthPercent();
 	float visible = healthRec.w * healthPercent;
 
@@ -215,10 +227,12 @@ void Player::SetHealthRec()
 	healthRec.w = 50.0f;
 	healthRec.h = 10.0f;
 
+	rectSurface = SDL_CreateRGBSurface(SDL_SWSURFACE, healthRec.w, healthRec.h, 32, 0, 0, 0, 0);
+
+	SDL_FillRect(tScreen, &healthRec, SDL_MapRGB(rectSurface->format, 0x00, 0x80, 0x00));
+
 	SDL_SetRenderDrawColor(pRenderer, 0x00, 0x00, 0x00, 0xFF);
 	SDL_RenderDrawRect(pRenderer, &healthRec);
-
-	
 }
 
 float Player::GetHealthPercent()

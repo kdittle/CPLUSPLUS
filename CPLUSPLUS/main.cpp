@@ -11,6 +11,7 @@ const int WINDOW_HEIGHT = 600;
 
 SDL_Window* mWindow = NULL;
 SDL_Renderer* mRenderer = NULL;
+SDL_Surface* mScreen = NULL;
 
 int main()
 {
@@ -24,6 +25,8 @@ int main()
 		WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
 
 	mRenderer = SDL_CreateRenderer(mWindow, -1, SDL_RENDERER_ACCELERATED);
+
+	mScreen = SDL_GetWindowSurface(mWindow);
 
 	float time, preTime, deltaTime;
 	time = 0.0f;
@@ -39,6 +42,8 @@ int main()
 	player.SetPlayerRenderer(mRenderer);
 	player.SetSpriteClips();
 	player.SetBoundingBox();
+	player.ScreenRef(mScreen);
+	player.WindowRef(mWindow);
 
 	Enemy enemy;
 	enemy.LoadFromFile("EvilWizardSpriteSheet.png", mRenderer);
@@ -74,7 +79,7 @@ int main()
 		{
 			if (collisionHandler.Check_Box_Collision(player.GetBoundingBox(), enemy.GetBoundingBox()))
 			{
-				player.Location = Vector2f(750.0f, 550.0f);
+				player.Location = Vector2f(725.0f, 480.0f);
 			}
 		}
 

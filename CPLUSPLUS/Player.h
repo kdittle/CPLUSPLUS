@@ -18,6 +18,9 @@ public:
 	SDL_Rect healthRec;
 	float healthPercent;
 
+	SDL_Surface* tScreen;
+	SDL_Window* tWindow;
+
 	SDL_Renderer* pRenderer;
 
 	Player();
@@ -34,6 +37,9 @@ public:
 	void SetHealthRec();
 	void UpdateHealthRec();
 	float GetHealthPercent();
+
+	void ScreenRef(SDL_Surface* surface);
+	void WindowRef(SDL_Window* window);
 
 	int frame;
 	bool isPlaying;

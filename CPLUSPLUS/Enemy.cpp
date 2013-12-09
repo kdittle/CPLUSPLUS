@@ -56,7 +56,7 @@ void Enemy::Update(float deltaTime)
 {
 	Vector2f movementVector = Vector2f(0.0f, 0.0f);
 
-	if(Location.x != playerLocation.x && Location.y != playerLocation.y)
+	if(this->Location.x != playerLocation.x && this->Location.y != playerLocation.y)
 	{
 		chasing = true;
 	}
@@ -64,16 +64,16 @@ void Enemy::Update(float deltaTime)
 	if(chasing)
 	{
 		playerLocation = rPlayer.GetPlayerLocation();
-		movementVector.x = (playerLocation.x - Location.x);
-		movementVector.y = (playerLocation.y - Location.y);
+		movementVector.x = (playerLocation.x - this->Location.x);
+		movementVector.y = (playerLocation.y - this->Location.y);
 
 		movementVector.normalize();
 
-		Location.x += movementVector.x;
-		Location.y += movementVector.y;
+		this->Location.x += movementVector.x;
+		this->Location.y += movementVector.y;
 	}
 
-	if(Location.x == playerLocation.x || Location.y == playerLocation.y)
+	if(this->Location.x == playerLocation.x || this->Location.y == playerLocation.y)
 	{
 		caught = true;
 	}
@@ -83,13 +83,13 @@ void Enemy::Update(float deltaTime)
 		movementVector = Vector2f(0.0f, 0.0f);
 	}
 
-	if(Location.x < rPlayer.Location.x)
+	if(this->Location.x < rPlayer.Location.x)
 	{
 		right = true;
 		left = false;
 	}
 
-	if(Location.x > rPlayer.Location.x)
+	if(this->Location.x > rPlayer.Location.x)
 	{
 		left = true;
 		right = false;
@@ -109,16 +109,16 @@ void Enemy::Draw()
 	if(right)
 		frame = 3;
 
-	Render(Location, eRenderer, &SpriteClips[frame]);
+	Render(this->Location, eRenderer, &SpriteClips[frame]);
 
-	SDL_SetRenderDrawColor(eRenderer, 0x00, 0x00, 0x00, 0xFF);
-	SDL_RenderDrawRect(eRenderer, &m_BoundingBox);
+	/*SDL_SetRenderDrawColor(eRenderer, 0x00, 0x00, 0x00, 0xFF);
+	SDL_RenderDrawRect(eRenderer, &m_BoundingBox);*/
 }
 
 void Enemy::SetBoundingBox()
 {
-	m_BoundingBox.x = Location.x;
-	m_BoundingBox.y = Location.y;
+	m_BoundingBox.x = this->Location.x;
+	m_BoundingBox.y = this->Location.y;
 	m_BoundingBox.w = getWidth() / 4;
 	m_BoundingBox.h = getHeight();
 }

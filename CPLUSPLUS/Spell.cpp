@@ -49,8 +49,8 @@ void Spell::Draw(Vector2f position)
 		frame = 0;
 	}
 
-	SDL_SetRenderDrawColor(sRenderer, 0x00, 0x00, 0x00, 0xFF);
-	SDL_RenderDrawRect(sRenderer, &m_BoundingBox);
+	/*SDL_SetRenderDrawColor(sRenderer, 0x00, 0x00, 0x00, 0xFF);
+	SDL_RenderDrawRect(sRenderer, &m_BoundingBox);*/
 }
 
 void Spell::SetBoundingBox(Vector2f position)
