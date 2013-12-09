@@ -17,6 +17,9 @@ Player::Player()
 	up = false;
 	down = false;
 	cast = false;
+
+	m_health = 20.0f;
+	m_curHealth = 20.0f;
 }
 
 void Player::SetPlayerRenderer(SDL_Renderer* renderer)
@@ -49,6 +52,7 @@ void Player::SetSpriteClips()
 
 void Player::Update(float deltaTime)
 {
+	LoadSpells();
 
 	SDL_Event event;
 
@@ -73,27 +77,27 @@ void Player::Update(float deltaTime)
 
 				if (event.key.keysym.sym == SDLK_LEFT)
 				{
-					Location.x -= mMoveSpeed * deltaTime;
+					this->Location.x -= mMoveSpeed * deltaTime;
 					left = true;
-					std::cout << Location.x << " " << Location.y << std::endl;
+					std::cout << this->Location.x << " " << this->Location.y << std::endl;
 				}
 				if (event.key.keysym.sym == SDLK_RIGHT)
 				{
-					Location.x += mMoveSpeed * deltaTime;
+					this->Location.x += mMoveSpeed * deltaTime;
 					right = true;
-					std::cout << Location.x << " " << Location.y << std::endl;
+					std::cout << this->Location.x << " " << this->Location.y << std::endl;
 				}
 				if (event.key.keysym.sym == SDLK_UP)
 				{
-					Location.y -= mMoveSpeed * deltaTime;
+					this->Location.y -= mMoveSpeed * deltaTime;
 					up = true;
-					std::cout << Location.x << " " << Location.y << std::endl;
+					std::cout << this->Location.x << " " << this->Location.y << std::endl;
 				}
 				if (event.key.keysym.sym == SDLK_DOWN)
 				{
-					Location.y += mMoveSpeed * deltaTime;
+					this->Location.y += mMoveSpeed * deltaTime;
 					down = true;
-					std::cout << Location.x << " " << Location.y << std::endl;
+					std::cout << this->Location.x << " " << this->Location.y << std::endl;
 				}
 				if (event.key.keysym.sym == SDLK_SPACE)
 				{
@@ -108,22 +112,22 @@ void Player::Update(float deltaTime)
 
 				if (event.key.keysym.sym == SDLK_LEFT)
 				{
-					Location.x = Location.x;
+					this->Location.x = this->Location.x;
 					left = false;
 				}
 				if (event.key.keysym.sym == SDLK_RIGHT)
 				{
-					Location.x = Location.x;
+					this->Location.x = this->Location.x;
 					right = false;
 				}
 				if (event.key.keysym.sym == SDLK_UP)
 				{
-					Location.y = Location.y;
+					this->Location.y = this->Location.y;
 					up = false;
 				}
 				if (event.key.keysym.sym == SDLK_DOWN)
 				{
-					Location.y = Location.y;
+					this->Location.y = this->Location.y;
 					down = false;
 				}
 				if (event.key.keysym.sym == SDLK_SPACE)
@@ -136,17 +140,18 @@ void Player::Update(float deltaTime)
 		}
 	}
 
-	if(Location.x >= 755)
-		Location.x = 755;
-	if(Location.x <= 10)
-		Location.x = 10;
+	if(this->Location.x >= 755)
+		this->Location.x = 755;
+	if(this->Location.x <= 10)
+		this->Location.x = 10;
 
-	if(Location.y >= 550)
-		Location.y = 550;
-	if(Location.y <= 10)
-		Location.y = 10;
+	if(this->Location.y >= 550)
+		this->Location.y = 550;
+	if(this->Location.y <= 10)
+		this->Location.y = 10;
 
 	shiftBoundingBox();
+	Draw();
 
 	Base::Update(deltaTime);
 }
@@ -166,7 +171,12 @@ void Player::Draw()
 	if (down)
 		frame = 0;
 
-	Render(Location, pRenderer, &SpriteClips[frame]);
+	Render(this->Location, pRenderer, &SpriteClips[frame]);
+
+	SDL_SetRenderDrawColor(pRenderer, 0x00, 0x00, 0x00, 0xFF);
+	SDL_RenderDrawRect(pRenderer, &m_BoundingBox);
+
+	SetHealthRec();
 }
 
 void Player::LoadSpells()
@@ -174,9 +184,44 @@ void Player::LoadSpells()
 	fireShield.LoadFromFile("RingOfFireSpriteSheet.png", pRenderer);
 	fireShield.SetSpellRenderer(pRenderer);
 	fireShield.SetSpriteClips();
+	fireShield.SetBoundingBox(this->Location);
 }
 
 Vector2f Player::GetPlayerLocation()
 {
-	return Location;
+	return this->Location;
+}
+
+void Player::SetBoundingBox()
+{
+	m_BoundingBox.x = this->Location.x;
+	m_BoundingBox.y = this->Location.y;
+	m_BoundingBox.w = getWidth() / 4;
+	m_BoundingBox.h = getHeight();
+}
+
+float Player::GetHealth()
+{
+	return m_curHealth;
+}
+
+void Player::SetHealthRec()
+{
+	healthPercent = GetHealthPercent();
+	float visible = healthRec.w * healthPercent;
+
+	healthRec.x = this->Location.x + 5;
+	healthRec.y = this->Location.y + getHeight();
+	healthRec.w = 50.0f;
+	healthRec.h = 10.0f;
+
+	SDL_SetRenderDrawColor(pRenderer, 0x00, 0x00, 0x00, 0xFF);
+	SDL_RenderDrawRect(pRenderer, &healthRec);
+
+	
+}
+
+float Player::GetHealthPercent()
+{
+	return (GetHealth() / m_health);
 }

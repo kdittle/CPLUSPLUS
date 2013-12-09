@@ -9,6 +9,9 @@ class GameEntity
 public:
 	SDL_Texture* mTexture;
 	Vector2f Location;
+	SDL_Rect m_BoundingBox;
+	std::vector<SDL_Rect> m_ColliderBoxes;
+
 
 	GameEntity();
 	~GameEntity();
@@ -26,15 +29,15 @@ public:
 	int getHeight();
 
 	SDL_Rect GetBoundingBox();
+	std::vector<SDL_Rect>& GetColliderBoxes();
 
 	void shiftBoundingBox();
+	void shiftColliderBoxes();
 
 private:
 
 	int mWidth;
 	int mHeight;
-
-	SDL_Rect m_BoundingBox;
 
 };
 

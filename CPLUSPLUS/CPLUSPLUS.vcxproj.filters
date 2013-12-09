@@ -57,6 +57,8 @@
     <ClInclude Include="Enemy.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionDetection.h" />
+    <ClInclude Include="CollisionDetection.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

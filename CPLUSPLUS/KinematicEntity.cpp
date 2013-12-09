@@ -63,6 +63,8 @@ void KinematicEntity::Update(float deltaTime)
 		}
 	}
 
+	Base::shiftBoundingBox();
+
 }
 
 void KinematicEntity::ApplyForce(const Vector2f& force)

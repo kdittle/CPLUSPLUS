@@ -2,7 +2,7 @@
 
 Enemy::Enemy()
 {
-	Location = Vector2f(50.0f, 50.0f);
+	Location = Vector2f(200.0f, 200.0f);
 
 	moveSpeed = 50;
 
@@ -15,6 +15,8 @@ Enemy::Enemy()
 	right = false;
 	up = false;
 	down = false;
+
+	m_health = 20.0f;
 }
 
 void Enemy::SetEnemyRenderer(SDL_Renderer* renderer)
@@ -52,8 +54,6 @@ void Enemy::SetSpriteClips()
 
 void Enemy::Update(float deltaTime)
 {
-	Draw();
-
 	Vector2f movementVector = Vector2f(0.0f, 0.0f);
 
 	if(Location.x != playerLocation.x && Location.y != playerLocation.y)
@@ -96,6 +96,7 @@ void Enemy::Update(float deltaTime)
 	}
 
 	shiftBoundingBox();
+	Draw();
 
 	Base::Update(deltaTime);
 }
@@ -109,4 +110,20 @@ void Enemy::Draw()
 		frame = 3;
 
 	Render(Location, eRenderer, &SpriteClips[frame]);
+
+	SDL_SetRenderDrawColor(eRenderer, 0x00, 0x00, 0x00, 0xFF);
+	SDL_RenderDrawRect(eRenderer, &m_BoundingBox);
+}
+
+void Enemy::SetBoundingBox()
+{
+	m_BoundingBox.x = Location.x;
+	m_BoundingBox.y = Location.y;
+	m_BoundingBox.w = getWidth() / 4;
+	m_BoundingBox.h = getHeight();
+}
+
+float Enemy::GetHealth()
+{
+	return m_health;
 }

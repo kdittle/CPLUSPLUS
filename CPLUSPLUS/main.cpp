@@ -38,14 +38,17 @@ int main()
 	player.LoadFromFile("WizardSpriteSheet2.png", mRenderer);
 	player.SetPlayerRenderer(mRenderer);
 	player.SetSpriteClips();
-	player.LoadSpells();
+	player.SetBoundingBox();
 
 	Enemy enemy;
 	enemy.LoadFromFile("EvilWizardSpriteSheet.png", mRenderer);
 	enemy.SetEnemyRenderer(mRenderer);
 	enemy.SetSpriteClips();
+	enemy.SetBoundingBox();
 
 	CollisionDetection collisionHandler;
+
+	SDL_Rect fireShieldBox;
 
 	while (player.isPlaying)
 	{
@@ -54,19 +57,25 @@ int main()
 		SDL_SetRenderDrawColor(mRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 		SDL_RenderClear(mRenderer);
 
-		player.Draw();
-
 		player.Update(deltaTime);
 		enemy.Update(deltaTime);
-
-		if(collisionHandler.Check_Collision(player.GetBoundingBox(), enemy.GetBoundingBox()))
-			{
-				enemy.Location = Vector2f(0.0f, 0.0f);
-			}
 
 		if(player.cast)
 		{
 			player.fireShield.Update(deltaTime, player.Location);
+
+			if (player.fireShield.checkCollision(player.GetBoundingBox(), enemy.GetBoundingBox()))
+			{
+				enemy.Location = Vector2f(0.0f, 0.0f);
+			}
+		}
+
+		if (!player.cast)
+		{
+			if (collisionHandler.Check_Box_Collision(player.GetBoundingBox(), enemy.GetBoundingBox()))
+			{
+				player.Location = Vector2f(750.0f, 550.0f);
+			}
 		}
 
 		SDL_RenderPresent(mRenderer);

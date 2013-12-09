@@ -29,6 +29,11 @@ public:
 	void SetSpriteClips();
 	void Update(float deltaTime);
 	void Draw();
+	void SetBoundingBox();
+	float GetHealth();
+
+private:
+	float m_health;
 
 };
 #endif

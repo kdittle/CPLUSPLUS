@@ -3,6 +3,7 @@
 
 #include "Headers.h"
 #include "GameEntity.h"
+#include "CollisionDetection.h"
 
 class Spell : public GameEntity
 {
@@ -13,6 +14,8 @@ public:
 	SDL_Renderer* sRenderer;
 	static const int FIRE_FRAMES = 2;
 	SDL_Rect SpriteClips[FIRE_FRAMES];
+	CollisionDetection collisionHandler;
+
 
 	Spell();
 
@@ -20,6 +23,8 @@ public:
 	void SetSpriteClips();
 	void Update(float deltaTime, Vector2f position);
 	void Draw(Vector2f position);
+	void SetBoundingBox(Vector2f position);
+	bool checkCollision(SDL_Rect player, SDL_Rect enemy);
 
 	int frame;
 

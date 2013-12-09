@@ -1,6 +1,6 @@
 #include "CollisionDetection.h"
 
-bool CollisionDetection::Check_Collision(SDL_Rect a, SDL_Rect b)
+bool CollisionDetection::Check_Box_Collision(SDL_Rect a, SDL_Rect b)
 {
 	int leftA, leftB;
 	int rightA, rightB;
@@ -22,7 +22,7 @@ bool CollisionDetection::Check_Collision(SDL_Rect a, SDL_Rect b)
 		return false;
 	}
 
-	if(topA >= topB)
+	if(topA >= bottomB)
 	{
 		return false;
 	}
@@ -38,4 +38,38 @@ bool CollisionDetection::Check_Collision(SDL_Rect a, SDL_Rect b)
 	}
 
 	return true;
+}
+
+bool CollisionDetection::Per_Pixel_Collision(std::vector<SDL_Rect>& a, std::vector<SDL_Rect>& b)
+{
+	int leftA, leftB;
+	int rightA, rightB;
+	int topA, topB;
+	int bottomA, bottomB;
+
+	for (int boxA = 0; boxA < a.size(); boxA++)
+	{
+
+		leftA = a[boxA].x;
+		rightA = a[boxA].x + a[boxA].w;
+		topA = a[boxA].y;
+		bottomA = a[boxA].y + a[boxA].h;
+
+
+		for (int boxB = 0; boxB < b.size(); boxB++)
+		{
+			leftB = b[boxB].x;
+			rightB = b[boxB].x + b[boxB].w;
+			topB = b[boxB].y;
+			bottomB = b[boxB].y + b[boxB].h;
+
+
+			if (((bottomA <= topB) || (topA >= bottomB) || (rightA <= leftB) || (leftA >= rightB)) == false)
+			{
+				return true;
+			}
+		}
+	}
+
+	return false;
 }

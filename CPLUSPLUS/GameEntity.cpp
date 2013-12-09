@@ -6,10 +6,10 @@ GameEntity::GameEntity()
 	mWidth = 0;
 	mHeight = 0;
 
-	m_BoundingBox.w = mWidth / 2;
-	m_BoundingBox.h = mHeight / 2;
-
-	shiftBoundingBox();
+	m_BoundingBox.x = Location.x;
+	m_BoundingBox.y = Location.y;
+	m_BoundingBox.w = mWidth;
+	m_BoundingBox.h = mHeight;
 }
 
 GameEntity::~GameEntity()
@@ -101,11 +101,30 @@ int GameEntity::getWidth()
 
 void GameEntity::shiftBoundingBox()
 {
-	m_BoundingBox.x = Location.x + m_BoundingBox.w;
-	m_BoundingBox.y = Location.y + m_BoundingBox.h;
+	m_BoundingBox.x = Location.x;
+	m_BoundingBox.y = Location.y;
 }
 
 SDL_Rect GameEntity::GetBoundingBox()
 {
 	return m_BoundingBox;
+}
+
+void GameEntity::shiftColliderBoxes()
+{
+	int row = 0;
+
+	for (int set = 0; set < m_ColliderBoxes.size(); set++)
+	{
+		m_ColliderBoxes[set].x = Location.x + (mWidth = m_ColliderBoxes[set].w) / 2;
+
+		m_ColliderBoxes[set].y = Location.y + row;
+
+		row += m_ColliderBoxes[set].h;
+	}
+}
+
+std::vector<SDL_Rect>& GameEntity::GetColliderBoxes()
+{
+	return m_ColliderBoxes;
 }

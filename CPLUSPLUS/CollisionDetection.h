@@ -7,7 +7,8 @@ class CollisionDetection
 {
 public:
 
-	bool Check_Collision(SDL_Rect a, SDL_Rect b);
+	bool Check_Box_Collision(SDL_Rect a, SDL_Rect b);
+	bool Per_Pixel_Collision(std::vector<SDL_Rect>& a, std::vector<SDL_Rect>& b);
 
 };
 

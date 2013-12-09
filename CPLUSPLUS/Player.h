@@ -15,6 +15,8 @@ public:
 	static const int WALKING_FRAMES = 4;
 	SDL_Rect SpriteClips[WALKING_FRAMES];
 	Spell fireShield;
+	SDL_Rect healthRec;
+	float healthPercent;
 
 	SDL_Renderer* pRenderer;
 
@@ -26,6 +28,12 @@ public:
 	void Draw();
 	void LoadSpells();
 	Vector2f GetPlayerLocation();
+	void SetBoundingBox();
+	void LoadHealthBar();
+	float GetHealth();
+	void SetHealthRec();
+	void UpdateHealthRec();
+	float GetHealthPercent();
 
 	int frame;
 	bool isPlaying;
@@ -33,6 +41,8 @@ public:
 	bool left, right, up, down, cast;
 
 private:
+	float m_health;
+	float m_curHealth;
 	float playWidth;
 	float playHeight;
 
