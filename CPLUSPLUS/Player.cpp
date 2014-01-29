@@ -229,10 +229,14 @@ void Player::SetHealthRec()
 
 	rectSurface = SDL_CreateRGBSurface(SDL_SWSURFACE, healthRec.w, healthRec.h, 32, 0, 0, 0, 0);
 
-	SDL_FillRect(tScreen, &healthRec, SDL_MapRGB(rectSurface->format, 0x00, 0x80, 0x00));
-
 	SDL_SetRenderDrawColor(pRenderer, 0x00, 0x00, 0x00, 0xFF);
 	SDL_RenderDrawRect(pRenderer, &healthRec);
+
+	SDL_FillRect(tScreen, &healthRec, SDL_MapRGB(rectSurface->format, 0x00, 0x00, 0x00));
+
+	SDL_RenderFillRect(pRenderer, &healthRec);
+
+
 }
 
 float Player::GetHealthPercent()
