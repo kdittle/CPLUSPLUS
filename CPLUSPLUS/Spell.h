@@ -21,9 +21,9 @@ public:
 
 	void SetSpellRenderer(SDL_Renderer* renderer);
 	void SetSpriteClips();
-	void Update(float deltaTime, Vector2f position);
-	void Draw(Vector2f position);
-	void SetBoundingBox(Vector2f position);
+	void Update(float deltaTime, Vector2f<float> position);
+	void Draw(Vector2f<float> position);
+	void SetBoundingBox(Vector2f<float> position);
 	bool checkCollision(SDL_Rect player, SDL_Rect enemy);
 
 	int frame;

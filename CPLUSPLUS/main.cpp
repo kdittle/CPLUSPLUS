@@ -71,7 +71,7 @@ int main()
 
 			if (player.fireShield.checkCollision(player.GetBoundingBox(), enemy.GetBoundingBox()))
 			{
-				enemy.Location = Vector2f(0.0f, 0.0f);
+				enemy.Location = Vector2f<float>(0.0f, 0.0f);
 			}
 		}
 
@@ -79,7 +79,7 @@ int main()
 		{
 			if (collisionHandler.Check_Box_Collision(player.GetBoundingBox(), enemy.GetBoundingBox()))
 			{
-				player.Location = Vector2f(725.0f, 480.0f);
+				player.Location = Vector2f<float>(725.0f, 480.0f);
 			}
 		}
 

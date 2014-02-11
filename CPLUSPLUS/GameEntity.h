@@ -8,7 +8,7 @@ class GameEntity
 {
 public:
 	SDL_Texture* mTexture;
-	Vector2f Location;
+	Vector2f<float> Location;
 	SDL_Rect m_BoundingBox;
 	std::vector<SDL_Rect> m_ColliderBoxes;
 
@@ -21,7 +21,7 @@ public:
 
 	void free();
 	bool LoadFromFile(const std::string filePath, SDL_Renderer* renderer);
-	void Render(Vector2f position, SDL_Renderer* renderer, SDL_Rect* clip = NULL, float angle = 0.0f, SDL_Point* center = NULL,
+	void Render(Vector2f<float> position, SDL_Renderer* renderer, SDL_Rect* clip = NULL, float angle = 0.0f, SDL_Point* center = NULL,
 		SDL_RendererFlip = SDL_FLIP_NONE);
 
 

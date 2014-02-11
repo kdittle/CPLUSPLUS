@@ -6,8 +6,8 @@ GameEntity::GameEntity()
 	mWidth = 0;
 	mHeight = 0;
 
-	m_BoundingBox.x = Location.x;
-	m_BoundingBox.y = Location.y;
+	m_BoundingBox.x = Location._x;
+	m_BoundingBox.y = Location._y;
 	m_BoundingBox.w = mWidth;
 	m_BoundingBox.h = mHeight;
 }
@@ -75,10 +75,10 @@ bool GameEntity::LoadFromFile(const std::string filePath, SDL_Renderer* renderer
 	return mTexture != NULL;
 }
 
-void GameEntity::Render(Vector2f position, SDL_Renderer* renderer, SDL_Rect* clip, float angle, SDL_Point* center,
+void GameEntity::Render(Vector2f<float> position, SDL_Renderer* renderer, SDL_Rect* clip, float angle, SDL_Point* center,
 						SDL_RendererFlip flip)
 {
-	SDL_Rect renderQuad = {position.x, position.y, mWidth, mHeight};
+	SDL_Rect renderQuad = {position._x, position._y, mWidth, mHeight};
 
 	if(clip != NULL)
 	{
@@ -101,8 +101,8 @@ int GameEntity::getWidth()
 
 void GameEntity::shiftBoundingBox()
 {
-	m_BoundingBox.x = Location.x;
-	m_BoundingBox.y = Location.y;
+	m_BoundingBox.x = Location._x;
+	m_BoundingBox.y = Location._y;
 }
 
 SDL_Rect GameEntity::GetBoundingBox()
@@ -116,9 +116,9 @@ void GameEntity::shiftColliderBoxes()
 
 	for (int set = 0; set < m_ColliderBoxes.size(); set++)
 	{
-		m_ColliderBoxes[set].x = Location.x + (mWidth = m_ColliderBoxes[set].w) / 2;
+		m_ColliderBoxes[set].x = Location._x + (mWidth = m_ColliderBoxes[set].w) / 2;
 
-		m_ColliderBoxes[set].y = Location.y + row;
+		m_ColliderBoxes[set].y = Location._y + row;
 
 		row += m_ColliderBoxes[set].h;
 	}

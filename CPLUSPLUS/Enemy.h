@@ -20,7 +20,7 @@ public:
 
 	SDL_Renderer* eRenderer;
 	Player rPlayer;
-	Vector2f playerLocation;
+	Vector2f<float> playerLocation;
 
 	Enemy();
 

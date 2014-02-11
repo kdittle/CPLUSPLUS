@@ -10,11 +10,11 @@ class KinematicEntity : public GameEntity
 public:
 	KinematicEntity();
 
-	Vector2f Velocity;
+	Vector2f<float> Velocity;
 
 	void Update(float deltaTime);
 
-	void ApplyForce(const Vector2f& force);
+	void ApplyForce(const Vector2f<float>& force);
 
 	float Speed;
 
@@ -22,7 +22,7 @@ public:
 private:
 	typedef GameEntity Base;
 
-	Vector2f mForces;
+	Vector2f<float> mForces;
 
 };
 

@@ -2,7 +2,7 @@
 
 Enemy::Enemy()
 {
-	Location = Vector2f(200.0f, 200.0f);
+	Location = Vector2f<float>(200.0f, 200.0f);
 
 	moveSpeed = 50;
 
@@ -54,9 +54,9 @@ void Enemy::SetSpriteClips()
 
 void Enemy::Update(float deltaTime)
 {
-	Vector2f movementVector = Vector2f(0.0f, 0.0f);
+	Vector2f<float> movementVector = Vector2f<float>(0.0f, 0.0f);
 
-	if(this->Location.x != playerLocation.x && this->Location.y != playerLocation.y)
+	if(this->Location._x != playerLocation._x && this->Location._y != playerLocation._y)
 	{
 		chasing = true;
 	}
@@ -64,32 +64,32 @@ void Enemy::Update(float deltaTime)
 	if(chasing)
 	{
 		playerLocation = rPlayer.GetPlayerLocation();
-		movementVector.x = (playerLocation.x - this->Location.x);
-		movementVector.y = (playerLocation.y - this->Location.y);
+		movementVector._x = (playerLocation._x - this->Location._x);
+		movementVector._y = (playerLocation._y - this->Location._y);
 
-		movementVector.normalize();
+		movementVector.normalize(movementVector);
 
-		this->Location.x += movementVector.x;
-		this->Location.y += movementVector.y;
+		this->Location._x += movementVector._x;
+		this->Location._y += movementVector._y;
 	}
 
-	if(this->Location.x == playerLocation.x || this->Location.y == playerLocation.y)
+	if(this->Location._x == playerLocation._x || this->Location._y == playerLocation._y)
 	{
 		caught = true;
 	}
 
 	if(caught)
 	{
-		movementVector = Vector2f(0.0f, 0.0f);
+		movementVector = Vector2f<float>(0.0f, 0.0f);
 	}
 
-	if(this->Location.x < rPlayer.Location.x)
+	if(this->Location._x < rPlayer.Location._x)
 	{
 		right = true;
 		left = false;
 	}
 
-	if(this->Location.x > rPlayer.Location.x)
+	if(this->Location._x > rPlayer.Location._x)
 	{
 		left = true;
 		right = false;
@@ -117,8 +117,8 @@ void Enemy::Draw()
 
 void Enemy::SetBoundingBox()
 {
-	m_BoundingBox.x = this->Location.x;
-	m_BoundingBox.y = this->Location.y;
+	m_BoundingBox.x = this->Location._x;
+	m_BoundingBox.y = this->Location._y;
 	m_BoundingBox.w = getWidth() / 4;
 	m_BoundingBox.h = getHeight();
 }

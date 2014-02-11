@@ -1,68 +1,76 @@
 #include "Vector2f.h"
 #include <cmath>
 
-Vector2f::Vector2f()
+template <class TYPE>
+Vector2f<TYPE>::Vector2f()
 {
-	x = 0;
-	y = 0;
+	_x = 0;
+	_y = 0;
 }
 
-Vector2f::~Vector2f()
+template <class TYPE>
+Vector2f<TYPE>::~Vector2f()
 {
 
 }
 
-Vector2f::Vector2f(float x_, float y_)
+template <class TYPE>
+Vector2f<TYPE>::Vector2f(TYPE x, TYPE y)
 {
-	x = x_;
-	y = y_;
+	_x = x;
+	_y = y;
 }
 
-void Vector2f::add(Vector2f v)
+template <class TYPE>
+Vector2f<TYPE> operator+(const Vector2f<TYPE>& v1, const Vector2f<TYPE>& v2)
 {
-	x = x + v.x;
-	y = y + v.y;
+	return Vector2f(v1._x + v2._x, v1._y + v2._y);
 }
 
-void Vector2f::subtract(Vector2f v)
+template <class TYPE>
+Vector2f<TYPE> operator-(const Vector2f<TYPE>& v1, const Vector2f<TYPE>& v2)
 {
-	x = x - v.x;
-	y = y - v.y;
+	return Vector2f(v1._x - v2._x, v1._y - v2._y);
 }
 
-void Vector2f::negate()
+template <class TYPE>
+Vector2f<TYPE> operator/(const Vector2f<TYPE>& v1, TYPE& num)
 {
-	x = x * -1;
-	y = y * -1;
+	return Vector2f(v1._x / num, v1._y / num);
 }
 
-void Vector2f::negate_x()
+template <class TYPE>
+void Vector2f<TYPE>::negate()
 {
-	x = x * -1;
+	_x = _x * -1;
+	_y = _y * -1;
 }
 
-void Vector2f::negate_y()
+template <class TYPE>
+void Vector2f<TYPE>::negate_x()
 {
-	y = y * -1;
+	_x = _x * -1;
 }
 
-void Vector2f::divide(float n)
+template <class TYPE>
+void Vector2f<TYPE>::negate_y()
 {
-	x = x / n;
-	y = y / n;
+	_y = _y * -1;
 }
 
-float Vector2f::magnitutde()
+template <class TYPE>
+float Vector2f<TYPE>::magnitutde()
 {
-	return std::sqrt(x*x + y*y);
+	return std::sqrt(_x*_x + _y*_y);
 }
 
-void Vector2f::normalize()
+template <class TYPE>
+void Vector2f<TYPE>::normalize(Vector2f& v)
 {
 	float m = magnitutde();
 
 	if(m != 0)
 	{
-		divide(m);
+		v = v / m;
 	}
 }

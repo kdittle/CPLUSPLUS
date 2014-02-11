@@ -2,7 +2,7 @@
 
 Spell::Spell()
 {
-	Location = Vector2f(0.0f, 0.0f);
+	Location = Vector2f<float>(0.0f, 0.0f);
 
 	Speed = 55.0f;
 
@@ -27,7 +27,7 @@ void Spell::SetSpriteClips()
 	SpriteClips[1].h = 135;
 }
 
-void Spell::Update(float deltaTime, Vector2f position)
+void Spell::Update(float deltaTime, Vector2f<float> position)
 {
 	Draw(position);
 
@@ -36,10 +36,10 @@ void Spell::Update(float deltaTime, Vector2f position)
 	Base::Update(deltaTime);
 }
 
-void Spell::Draw(Vector2f position)
+void Spell::Draw(Vector2f<float> position)
 {
-	position.x = position.x - 20;
-	position.y = position.y - 15;
+	position._x = position._x - 20;
+	position._y = position._y - 15;
 	Render(position, sRenderer, &SpriteClips[frame]);
 
 	++frame;
@@ -53,11 +53,11 @@ void Spell::Draw(Vector2f position)
 	SDL_RenderDrawRect(sRenderer, &m_BoundingBox);*/
 }
 
-void Spell::SetBoundingBox(Vector2f position)
+void Spell::SetBoundingBox(Vector2f<float> position)
 {
-	m_BoundingBox.x = position.x - 22;
-	m_BoundingBox.y = position.y - 15;
-	m_BoundingBox.w = getWidth() / 2;
+	m_BoundingBox.x = position._x - 22.0f;
+	m_BoundingBox.y = position._y - 15.0f;
+	m_BoundingBox.w = getWidth() / 2.0f;
 	m_BoundingBox.h = getHeight();
 }
 

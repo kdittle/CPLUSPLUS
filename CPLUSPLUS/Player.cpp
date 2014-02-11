@@ -4,7 +4,7 @@ Player::Player()
 {
 	//Renders top left corner at 400, 300.
 	//To render full center must subtract half width and half height
-	Location = Vector2f (400.0f - 30.0f, 300.0f - 50.0f);
+	Location = Vector2f<float>(400.0f - 30.0f, 300.0f - 50.0f);
 
 	mMoveSpeed = 45.0f;
 
@@ -87,27 +87,27 @@ void Player::Update(float deltaTime)
 
 				if (event.key.keysym.sym == SDLK_LEFT)
 				{
-					this->Location.x -= mMoveSpeed * deltaTime;
+					this->Location._x -= mMoveSpeed * deltaTime;
 					left = true;
-					std::cout << this->Location.x << " " << this->Location.y << std::endl;
+					std::cout << this->Location._x << " " << this->Location._y << std::endl;
 				}
 				if (event.key.keysym.sym == SDLK_RIGHT)
 				{
-					this->Location.x += mMoveSpeed * deltaTime;
+					this->Location._x += mMoveSpeed * deltaTime;
 					right = true;
-					std::cout << this->Location.x << " " << this->Location.y << std::endl;
+					std::cout << this->Location._x << " " << this->Location._y << std::endl;
 				}
 				if (event.key.keysym.sym == SDLK_UP)
 				{
-					this->Location.y -= mMoveSpeed * deltaTime;
+					this->Location._y -= mMoveSpeed * deltaTime;
 					up = true;
-					std::cout << this->Location.x << " " << this->Location.y << std::endl;
+					std::cout << this->Location._x << " " << this->Location._y << std::endl;
 				}
 				if (event.key.keysym.sym == SDLK_DOWN)
 				{
-					this->Location.y += mMoveSpeed * deltaTime;
+					this->Location._y += mMoveSpeed * deltaTime;
 					down = true;
-					std::cout << this->Location.x << " " << this->Location.y << std::endl;
+					std::cout << this->Location._x << " " << this->Location._y << std::endl;
 				}
 				if (event.key.keysym.sym == SDLK_SPACE)
 				{
@@ -122,22 +122,22 @@ void Player::Update(float deltaTime)
 
 				if (event.key.keysym.sym == SDLK_LEFT)
 				{
-					this->Location.x = this->Location.x;
+					this->Location._x = this->Location._x;
 					left = false;
 				}
 				if (event.key.keysym.sym == SDLK_RIGHT)
 				{
-					this->Location.x = this->Location.x;
+					this->Location._x = this->Location._x;
 					right = false;
 				}
 				if (event.key.keysym.sym == SDLK_UP)
 				{
-					this->Location.y = this->Location.y;
+					this->Location._y = this->Location._y;
 					up = false;
 				}
 				if (event.key.keysym.sym == SDLK_DOWN)
 				{
-					this->Location.y = this->Location.y;
+					this->Location._y = this->Location._y;
 					down = false;
 				}
 				if (event.key.keysym.sym == SDLK_SPACE)
@@ -150,15 +150,15 @@ void Player::Update(float deltaTime)
 		}
 	}
 
-	if(this->Location.x >= 755)
-		this->Location.x = 755;
-	if(this->Location.x <= 10)
-		this->Location.x = 10;
+	if(this->Location._x >= 755)
+		this->Location._x = 755;
+	if(this->Location._x <= 10)
+		this->Location._x = 10;
 
-	if(this->Location.y >= 550)
-		this->Location.y = 550;
-	if(this->Location.y <= 10)
-		this->Location.y = 10;
+	if(this->Location._y >= 550)
+		this->Location._y = 550;
+	if(this->Location._y <= 10)
+		this->Location._y = 10;
 
 	shiftBoundingBox();
 	Draw();
@@ -197,15 +197,15 @@ void Player::LoadSpells()
 	fireShield.SetBoundingBox(this->Location);
 }
 
-Vector2f Player::GetPlayerLocation()
+Vector2f<float> Player::GetPlayerLocation()
 {
 	return this->Location;
 }
 
 void Player::SetBoundingBox()
 {
-	m_BoundingBox.x = this->Location.x;
-	m_BoundingBox.y = this->Location.y;
+	m_BoundingBox.x = this->Location._x;
+	m_BoundingBox.y = this->Location._y;
 	m_BoundingBox.w = getWidth() / 4;
 	m_BoundingBox.h = getHeight();
 }
@@ -222,17 +222,17 @@ void Player::SetHealthRec()
 	healthPercent = GetHealthPercent();
 	float visible = healthRec.w * healthPercent;
 
-	healthRec.x = this->Location.x + 5;
-	healthRec.y = this->Location.y + getHeight();
+	healthRec.x = this->Location._x + 5;
+	healthRec.y = this->Location._y + getHeight();
 	healthRec.w = 50.0f;
 	healthRec.h = 10.0f;
 
-	rectSurface = SDL_CreateRGBSurface(SDL_SWSURFACE, healthRec.w, healthRec.h, 32, 0, 0, 0, 0);
-
-	SDL_FillRect(tScreen, &healthRec, SDL_MapRGB(rectSurface->format, 0x00, 0x80, 0x00));
+	rectSurface = SDL_CreateRGBSurface(SDL_SWSURFACE, healthRec.w, healthRec.h, 32, 0, 0x80, 0, 0);
 
 	SDL_SetRenderDrawColor(pRenderer, 0x00, 0x00, 0x00, 0xFF);
 	SDL_RenderDrawRect(pRenderer, &healthRec);
+
+	SDL_FillRect(tScreen, &healthRec, SDL_MapRGB(rectSurface->format, 0x00, 0x80, 0x00));
 }
 
 float Player::GetHealthPercent()

@@ -8,6 +8,9 @@
     <Filter Include="Entities">
       <UniqueIdentifier>{f9ea6b73-3ee9-46ff-ae8f-eebd4368f7b7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headers">
+      <UniqueIdentifier>{3fd12234-8e54-4234-9142-fcb3e41b69d4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -34,31 +37,37 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="HealthBar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Vector2f.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="GameEntity.h">
       <Filter>Entities</Filter>
     </ClInclude>
     <ClInclude Include="KinematicEntity.h">
       <Filter>Entities</Filter>
     </ClInclude>
-    <ClInclude Include="Spell.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="CollisionDetection.h">
+      <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
-      <Filter>Source Files</Filter>
+      <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionDetection.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="Headers.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Spell.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2f.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthBar.h">
+      <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
