@@ -67,7 +67,7 @@ void Enemy::Update(float deltaTime)
 		movementVector._x = (playerLocation._x - this->Location._x);
 		movementVector._y = (playerLocation._y - this->Location._y);
 
-		movementVector.normalize(movementVector);
+		movementVector.normalize();
 
 		this->Location._x += movementVector._x;
 		this->Location._y += movementVector._y;
