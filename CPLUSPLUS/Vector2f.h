@@ -12,9 +12,21 @@ public:
 	Vector2f<TYPE>(TYPE x, TYPE y);
 	~Vector2f<TYPE>();
 
-	friend Vector2f<TYPE> operator+(const Vector2f<TYPE>& v1, const Vector2f<TYPE>& v2);
-	friend Vector2f<TYPE> operator-(const Vector2f<TYPE>& v1, const Vector2f<TYPE>& v2);
-	friend Vector2f<TYPE> operator/(const Vector2f<TYPE>& v1, TYPE& num);
+	friend Vector2f<TYPE> operator+(const Vector2f<TYPE>& v1, const Vector2f<TYPE>& v2)
+	{
+		return Vector2f(v1._x + v2._x, v1._y + v2._y);
+	}
+
+	friend Vector2f<TYPE> operator-(const Vector2f<TYPE>& v1, const Vector2f<TYPE>& v2)
+	{
+		return Vector2f(v1._x - v2._x, v1._y - v2._y);
+	}
+
+	friend Vector2f<TYPE> operator/(const Vector2f<TYPE>& v1, TYPE& num)
+	{
+		return Vector2f(v1._x / num, v1._y / num);
+	}
+
 	void negate();
 	void negate_x();
 	void negate_y();
@@ -43,23 +55,23 @@ Vector2f<TYPE>::Vector2f(TYPE x, TYPE y)
 	_y = y;
 }
 
-template <class TYPE>
-Vector2f<TYPE> operator+(const Vector2f<TYPE>& v1, const Vector2f<TYPE>& v2)
-{
-	return Vector2f(v1._x + v2._x, v1._y + v2._y);
-}
+//template <class TYPE>
+//Vector2f<TYPE> operator+(const Vector2f<TYPE>& v1, const Vector2f<TYPE>& v2)
+//{
+//	return Vector2f(v1._x + v2._x, v1._y + v2._y);
+//}
 
-template <class TYPE>
-Vector2f<TYPE> operator-(const Vector2f<TYPE>& v1, const Vector2f<TYPE>& v2)
-{
-	return Vector2f(v1._x - v2._x, v1._y - v2._y);
-}
-
-template <class TYPE>
-Vector2f<TYPE> operator/(const Vector2f<TYPE>& v1, TYPE& num)
-{
-	return Vector2f(v1._x / num, v1._y / num);
-}
+//template <class TYPE>
+//Vector2f<TYPE> operator-(const Vector2f<TYPE>& v1, const Vector2f<TYPE>& v2)
+//{
+//	return Vector2f(v1._x - v2._x, v1._y - v2._y);
+//}
+//
+//template <class TYPE>
+//Vector2f<TYPE> operator/(const Vector2f<TYPE>& v1, TYPE& num)
+//{
+//	return Vector2f(v1._x / num, v1._y / num);
+//}
 
 template <class TYPE>
 void Vector2f<TYPE>::negate()
