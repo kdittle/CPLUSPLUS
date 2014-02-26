@@ -16,18 +16,8 @@ Enemy::Enemy()
 	up = false;
 	down = false;
 
-	m_health = 20.0f;
+	m_health = 20.0f;;
 }
-
-//void Enemy::SetEnemyRenderer(SDL_Renderer* renderer)
-//{
-//	eRenderer = renderer;
-//}
-//
-//void Enemy::PlayerReference(Player& player)
-//{
-//	rPlayer = player;
-//}
 
 void Enemy::SetSpriteClips()
 {

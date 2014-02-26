@@ -19,15 +19,11 @@ int main()
 
 	Player player;
 	player.LoadFromFile("WizardSpriteSheet2.png");
-	//player.SetPlayerRenderer(mRenderer);
 	player.SetSpriteClips();
 	player.SetBoundingBox();
-	//player.ScreenRef(mScreen);
-	//player.WindowRef(mWindow);
 
 	Enemy enemy;
 	enemy.LoadFromFile("EvilWizardSpriteSheet.png");
-	//enemy.SetEnemyRenderer(mRenderer);
 	enemy.SetSpriteClips();
 	enemy.SetBoundingBox();
 
@@ -36,10 +32,8 @@ int main()
 	while (player.isPlaying)
 	{
 		time = SDL_GetTicks();
-		deltaTime = (time - preTime) / 1000;
+		deltaTime = (time - preTime) / 100;
 		preTime = time;
-
-		/*enemy.PlayerReference(player);*/
 
 		SDL_SetRenderDrawColor(SDLEntity.GetRenderer(), 0xFF, 0xFF, 0xFF, 0xFF);
 		SDL_RenderClear(SDLEntity.GetRenderer());
@@ -49,12 +43,12 @@ int main()
 
 		if (player.cast)
 		{
-			/*player.fireShield.Update(deltaTime, player.Location);
+			player.fireShield.Update(deltaTime, player.Location);
 
 			if (player.fireShield.checkCollision(player.GetBoundingBox(), enemy.GetBoundingBox()))
 			{
-			enemy.Location = Vector2f<float>(0.0f, 0.0f);
-			}*/
+				enemy.Location = Vector2f<float>(0.0f, 0.0f);
+			}
 		}
 
 		if (!player.cast)

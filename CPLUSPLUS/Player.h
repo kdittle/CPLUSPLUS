@@ -18,14 +18,8 @@ public:
 	SDL_Rect healthRec;
 	float healthPercent;
 
-	SDL_Surface* tScreen;
-	SDL_Window* tWindow;
-
-	SDL_Renderer* pRenderer;
-
 	Player();
-	
-	void SetPlayerRenderer(SDL_Renderer* renderer);
+
 	void SetSpriteClips();
 	void Update(float deltaTime);
 	void Draw();

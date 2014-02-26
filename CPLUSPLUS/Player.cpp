@@ -22,21 +22,6 @@ Player::Player()
 	m_curHealth = 20.0f;
 }
 
-//void Player::SetPlayerRenderer(SDL_Renderer* renderer)
-//{
-//	pRenderer = renderer;
-//}
-//
-//void Player::ScreenRef(SDL_Surface* surface)
-//{
-//	tScreen = surface;
-//}
-//
-//void Player::WindowRef(SDL_Window* window)
-//{
-//	tWindow = window;
-//}
-
 void Player::SetSpriteClips()
 {
 	SpriteClips[0].x = 0;
@@ -62,7 +47,7 @@ void Player::SetSpriteClips()
 
 void Player::Update(float deltaTime)
 {
-	//LoadSpells();
+	LoadSpells();
 
 	SDL_Event event;
 
@@ -189,13 +174,12 @@ void Player::Draw()
 	SetHealthRec();
 }
 
-//void Player::LoadSpells()
-//{
-//	fireShield.LoadFromFile("RingOfFireSpriteSheet.png", mRenderer /*pRenderer*/);
-//	fireShield.SetSpellRenderer(mRenderer /*pRenderer*/);
-//	fireShield.SetSpriteClips();
-//	fireShield.SetBoundingBox(this->Location);
-//}
+void Player::LoadSpells()
+{
+	fireShield.LoadFromFile("RingOfFireSpriteSheet.png");
+	fireShield.SetSpriteClips();
+	fireShield.SetBoundingBox(this->Location);
+}
 
 Vector2f<float> Player::GetPlayerLocation()
 {

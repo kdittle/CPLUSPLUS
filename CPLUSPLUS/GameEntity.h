@@ -4,6 +4,10 @@
 #include "Headers.h"
 #include "Vector2f.h"
 
+static SDL_Window* mWindow;
+static SDL_Renderer* mRenderer;
+static SDL_Surface* mScreen;
+
 class GameEntity
 {
 public:
@@ -11,10 +15,6 @@ public:
 	Vector2f<float> Location;
 	SDL_Rect m_BoundingBox;
 	std::vector<SDL_Rect> m_ColliderBoxes;
-
-	static SDL_Window* mWindow;
-	static SDL_Renderer* mRenderer;
-	static SDL_Surface* mScreen;
 
 	GameEntity();
 	~GameEntity();
@@ -46,6 +46,7 @@ private:
 protected:
 	const int WINDOW_WIDTH = 720;
 	const int WINDOW_HEIGHT = 680;
+
 };
 
 #endif

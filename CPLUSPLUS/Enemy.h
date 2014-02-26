@@ -18,14 +18,11 @@ public:
 	static const int WALKING_FRAMES = 4;
 	SDL_Rect SpriteClips[WALKING_FRAMES];
 
-	SDL_Renderer* eRenderer;
 	Player rPlayer;
 	Vector2f<float> playerLocation;
 
 	Enemy();
 
-	void SetEnemyRenderer(SDL_Renderer* renderer);
-	void PlayerReference(Player& player);
 	void SetSpriteClips();
 	void Update(float deltaTime);
 	void Draw();
