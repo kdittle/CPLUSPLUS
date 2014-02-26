@@ -16,11 +16,14 @@ public:
 	GameEntity();
 	~GameEntity();
 
+	void InitializeSDL();
+	SDL_Renderer* GetRenderer();
+
 	void Destory();
 	void Update(float deltaTime);
 
 	void free();
-	bool LoadFromFile(const std::string filePath, SDL_Renderer* renderer);
+	bool LoadFromFile(const std::string filePath);
 	void Render(Vector2f<float> position, SDL_Renderer* renderer, SDL_Rect* clip = NULL, float angle = 0.0f, SDL_Point* center = NULL,
 		SDL_RendererFlip = SDL_FLIP_NONE);
 
@@ -38,6 +41,14 @@ private:
 
 	int mWidth;
 	int mHeight;
+
+protected:
+	const int WINDOW_WIDTH = 800;
+	const int WINDOW_HEIGHT = 600;
+
+	SDL_Window *mWindow;
+	SDL_Renderer *mRenderer;
+	SDL_Surface *mScreen;
 
 };
 

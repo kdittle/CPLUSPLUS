@@ -6,27 +6,30 @@
 # undef main
 #endif
 
-const int WINDOW_WIDTH = 800;
-const int WINDOW_HEIGHT = 600;
-
-SDL_Window* mWindow = NULL;
-SDL_Renderer* mRenderer = NULL;
-SDL_Surface* mScreen = NULL;
+//const int WINDOW_WIDTH = 800;
+//const int WINDOW_HEIGHT = 600;
+//
+//SDL_Window* mWindow = NULL;
+//SDL_Renderer* mRenderer = NULL;
+//SDL_Surface* mScreen = NULL;
 
 int main()
 {
+	GameEntity SDLEntity;
 
-	SDL_Init(SDL_INIT_VIDEO);
+	SDLEntity.InitializeSDL();
 
-	SDL_SetHint(SDL_HINT_RENDER_VSYNC, "1");
-	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
+	//SDL_Init(SDL_INIT_VIDEO);
 
-	mWindow = SDL_CreateWindow("CPLUSPLUS", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-		WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
+	//SDL_SetHint(SDL_HINT_RENDER_VSYNC, "1");
+	//SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
 
-	mRenderer = SDL_CreateRenderer(mWindow, -1, SDL_RENDERER_ACCELERATED);
+	//mWindow = SDL_CreateWindow("CPLUSPLUS", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+	//	WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
 
-	mScreen = SDL_GetWindowSurface(mWindow);
+	//mRenderer = SDL_CreateRenderer(mWindow, -1, SDL_RENDERER_ACCELERATED);
+
+	//mScreen = SDL_GetWindowSurface(mWindow);
 
 	float time, preTime, deltaTime;
 	time = 0.0f;
@@ -38,41 +41,39 @@ int main()
 	preTime = time;
 
 	Player player;
-	player.LoadFromFile("WizardSpriteSheet2.png", mRenderer);
-	player.SetPlayerRenderer(mRenderer);
+	player.LoadFromFile("WizardSpriteSheet2.png");
+	//player.SetPlayerRenderer(mRenderer);
 	player.SetSpriteClips();
 	player.SetBoundingBox();
-	player.ScreenRef(mScreen);
-	player.WindowRef(mWindow);
+	//player.ScreenRef(mScreen);
+	//player.WindowRef(mWindow);
 
 	Enemy enemy;
-	enemy.LoadFromFile("EvilWizardSpriteSheet.png", mRenderer);
-	enemy.SetEnemyRenderer(mRenderer);
+	enemy.LoadFromFile("EvilWizardSpriteSheet.png");
+	//enemy.SetEnemyRenderer(mRenderer);
 	enemy.SetSpriteClips();
 	enemy.SetBoundingBox();
 
 	CollisionDetection collisionHandler;
 
-	SDL_Rect fireShieldBox;
-
 	while (player.isPlaying)
 	{
-		enemy.PlayerReference(player);
+		/*enemy.PlayerReference(player);*/
 
-		SDL_SetRenderDrawColor(mRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
-		SDL_RenderClear(mRenderer);
+		SDL_SetRenderDrawColor(SDLEntity.GetRenderer(), 0xFF, 0xFF, 0xFF, 0xFF);
+		SDL_RenderClear(SDLEntity.GetRenderer());
 
 		player.Update(deltaTime);
 		enemy.Update(deltaTime);
 
-		if(player.cast)
+		if (player.cast)
 		{
-			player.fireShield.Update(deltaTime, player.Location);
+			/*player.fireShield.Update(deltaTime, player.Location);
 
 			if (player.fireShield.checkCollision(player.GetBoundingBox(), enemy.GetBoundingBox()))
 			{
-				enemy.Location = Vector2f<float>(0.0f, 0.0f);
-			}
+			enemy.Location = Vector2f<float>(0.0f, 0.0f);
+			}*/
 		}
 
 		if (!player.cast)
@@ -83,7 +84,7 @@ int main()
 			}
 		}
 
-		SDL_RenderPresent(mRenderer);
+		SDL_RenderPresent(SDLEntity.GetRenderer());
 
 	}
 

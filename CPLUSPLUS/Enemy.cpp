@@ -19,15 +19,15 @@ Enemy::Enemy()
 	m_health = 20.0f;
 }
 
-void Enemy::SetEnemyRenderer(SDL_Renderer* renderer)
-{
-	eRenderer = renderer;
-}
-
-void Enemy::PlayerReference(Player& player)
-{
-	rPlayer = player;
-}
+//void Enemy::SetEnemyRenderer(SDL_Renderer* renderer)
+//{
+//	eRenderer = renderer;
+//}
+//
+//void Enemy::PlayerReference(Player& player)
+//{
+//	rPlayer = player;
+//}
 
 void Enemy::SetSpriteClips()
 {
@@ -109,7 +109,7 @@ void Enemy::Draw()
 	if(right)
 		frame = 3;
 
-	Render(this->Location, eRenderer, &SpriteClips[frame]);
+	Render(this->Location, mRenderer/*eRenderer*/, &SpriteClips[frame]);
 
 	/*SDL_SetRenderDrawColor(eRenderer, 0x00, 0x00, 0x00, 0xFF);
 	SDL_RenderDrawRect(eRenderer, &m_BoundingBox);*/

@@ -2,6 +2,10 @@
 
 GameEntity::GameEntity()
 {
+	mWindow = NULL;
+	mRenderer = NULL;
+	mScreen = NULL;
+
 	mTexture = NULL;
 	mWidth = 0;
 	mHeight = 0;
@@ -18,6 +22,44 @@ GameEntity::~GameEntity()
 	SDL_DestroyTexture(mTexture);
 	mWidth = 0;
 	mHeight = 0;
+}
+
+void GameEntity::InitializeSDL()
+{
+	SDL_Init(SDL_INIT_VIDEO);
+
+	SDL_SetHint(SDL_HINT_RENDER_VSYNC, "1");
+	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
+
+	mWindow = SDL_CreateWindow("CPLUSPLUS", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+		WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
+
+	if (mWindow == NULL)
+	{
+		printf("Unable to create window %s! SDL_Window Error: %s\n", SDL_GetError());
+
+	}
+
+	mRenderer = SDL_CreateRenderer(mWindow, -1, SDL_RENDERER_ACCELERATED);
+
+	if (mRenderer == NULL)
+	{
+		printf("Unable to create renderer %s! SDL_Renderer Error: %s\n", SDL_GetError());
+
+	}
+
+	mScreen = SDL_GetWindowSurface(mWindow);
+
+	if (mScreen == NULL)
+	{
+		printf("Unable to create screen %s! SDL_Surface Error: %s\n", SDL_GetError());
+
+	}
+}
+
+SDL_Renderer* GameEntity::GetRenderer()
+{
+	return mRenderer;
 }
 
 void GameEntity::Destory()
@@ -41,7 +83,7 @@ void GameEntity::free()
 	}
 }
 
-bool GameEntity::LoadFromFile(const std::string filePath, SDL_Renderer* renderer)
+bool GameEntity::LoadFromFile(const std::string filePath)
 {
 	free();
 
@@ -56,7 +98,7 @@ bool GameEntity::LoadFromFile(const std::string filePath, SDL_Renderer* renderer
 	{
 		SDL_SetColorKey(loadedSurface, SDL_TRUE, SDL_MapRGB(loadedSurface->format, 0xFF, 0xFF, 0xFF));
 
-		newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
+		newTexture = SDL_CreateTextureFromSurface(mRenderer, loadedSurface);
 		if(newTexture == NULL)
 		{
 			printf("Unable to create textrue from %s! SDL_Error %s\n", filePath.c_str(), SDL_GetError());
