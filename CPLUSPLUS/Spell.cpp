@@ -40,7 +40,7 @@ void Spell::Draw(Vector2f<float> position)
 {
 	position._x = position._x - 20;
 	position._y = position._y - 15;
-	Render(position, sRenderer, &SpriteClips[frame]);
+	Render(position, &SpriteClips[frame]);
 
 	++frame;
 

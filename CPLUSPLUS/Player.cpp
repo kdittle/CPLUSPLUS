@@ -181,7 +181,7 @@ void Player::Draw()
 	if (down)
 		frame = 0;
 
-	Render(this->Location, mRenderer/*pRenderer*/, &SpriteClips[frame]);
+	Render(this->Location, &SpriteClips[frame]);
 
 	/*SDL_SetRenderDrawColor(pRenderer, 0x00, 0x00, 0x00, 0xFF);
 	SDL_RenderDrawRect(pRenderer, &m_BoundingBox);*/

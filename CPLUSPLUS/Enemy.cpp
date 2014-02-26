@@ -109,7 +109,7 @@ void Enemy::Draw()
 	if(right)
 		frame = 3;
 
-	Render(this->Location, mRenderer/*eRenderer*/, &SpriteClips[frame]);
+	Render(this->Location, &SpriteClips[frame]);
 
 	/*SDL_SetRenderDrawColor(eRenderer, 0x00, 0x00, 0x00, 0xFF);
 	SDL_RenderDrawRect(eRenderer, &m_BoundingBox);*/

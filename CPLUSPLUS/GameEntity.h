@@ -12,6 +12,9 @@ public:
 	SDL_Rect m_BoundingBox;
 	std::vector<SDL_Rect> m_ColliderBoxes;
 
+	static SDL_Window* mWindow;
+	static SDL_Renderer* mRenderer;
+	static SDL_Surface* mScreen;
 
 	GameEntity();
 	~GameEntity();
@@ -24,9 +27,8 @@ public:
 
 	void free();
 	bool LoadFromFile(const std::string filePath);
-	void Render(Vector2f<float> position, SDL_Renderer* renderer, SDL_Rect* clip = NULL, float angle = 0.0f, SDL_Point* center = NULL,
+	void Render(Vector2f<float> position, SDL_Rect* clip = NULL, float angle = 0.0f, SDL_Point* center = NULL,
 		SDL_RendererFlip = SDL_FLIP_NONE);
-
 
 	int getWidth();
 	int getHeight();
@@ -38,18 +40,12 @@ public:
 	void shiftColliderBoxes();
 
 private:
-
 	int mWidth;
 	int mHeight;
 
 protected:
-	const int WINDOW_WIDTH = 800;
-	const int WINDOW_HEIGHT = 600;
-
-	SDL_Window *mWindow;
-	SDL_Renderer *mRenderer;
-	SDL_Surface *mScreen;
-
+	const int WINDOW_WIDTH = 720;
+	const int WINDOW_HEIGHT = 680;
 };
 
 #endif

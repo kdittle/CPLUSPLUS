@@ -6,39 +6,16 @@
 # undef main
 #endif
 
-//const int WINDOW_WIDTH = 800;
-//const int WINDOW_HEIGHT = 600;
-//
-//SDL_Window* mWindow = NULL;
-//SDL_Renderer* mRenderer = NULL;
-//SDL_Surface* mScreen = NULL;
-
 int main()
 {
 	GameEntity SDLEntity;
 
 	SDLEntity.InitializeSDL();
 
-	//SDL_Init(SDL_INIT_VIDEO);
-
-	//SDL_SetHint(SDL_HINT_RENDER_VSYNC, "1");
-	//SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
-
-	//mWindow = SDL_CreateWindow("CPLUSPLUS", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-	//	WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
-
-	//mRenderer = SDL_CreateRenderer(mWindow, -1, SDL_RENDERER_ACCELERATED);
-
-	//mScreen = SDL_GetWindowSurface(mWindow);
-
 	float time, preTime, deltaTime;
 	time = 0.0f;
 	preTime = 0.0f;
 	deltaTime = 0.0f;
-
-	time = SDL_GetTicks();
-	deltaTime = (time - preTime) / 1000;
-	preTime = time;
 
 	Player player;
 	player.LoadFromFile("WizardSpriteSheet2.png");
@@ -58,6 +35,10 @@ int main()
 
 	while (player.isPlaying)
 	{
+		time = SDL_GetTicks();
+		deltaTime = (time - preTime) / 1000;
+		preTime = time;
+
 		/*enemy.PlayerReference(player);*/
 
 		SDL_SetRenderDrawColor(SDLEntity.GetRenderer(), 0xFF, 0xFF, 0xFF, 0xFF);

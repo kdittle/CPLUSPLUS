@@ -2,10 +2,6 @@
 
 GameEntity::GameEntity()
 {
-	mWindow = NULL;
-	mRenderer = NULL;
-	mScreen = NULL;
-
 	mTexture = NULL;
 	mWidth = 0;
 	mHeight = 0;
@@ -32,12 +28,11 @@ void GameEntity::InitializeSDL()
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
 
 	mWindow = SDL_CreateWindow("CPLUSPLUS", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-		WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
+		WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
 
 	if (mWindow == NULL)
 	{
 		printf("Unable to create window %s! SDL_Window Error: %s\n", SDL_GetError());
-
 	}
 
 	mRenderer = SDL_CreateRenderer(mWindow, -1, SDL_RENDERER_ACCELERATED);
@@ -45,7 +40,6 @@ void GameEntity::InitializeSDL()
 	if (mRenderer == NULL)
 	{
 		printf("Unable to create renderer %s! SDL_Renderer Error: %s\n", SDL_GetError());
-
 	}
 
 	mScreen = SDL_GetWindowSurface(mWindow);
@@ -53,7 +47,6 @@ void GameEntity::InitializeSDL()
 	if (mScreen == NULL)
 	{
 		printf("Unable to create screen %s! SDL_Surface Error: %s\n", SDL_GetError());
-
 	}
 }
 
@@ -117,7 +110,7 @@ bool GameEntity::LoadFromFile(const std::string filePath)
 	return mTexture != NULL;
 }
 
-void GameEntity::Render(Vector2f<float> position, SDL_Renderer* renderer, SDL_Rect* clip, float angle, SDL_Point* center,
+void GameEntity::Render(Vector2f<float> position, SDL_Rect* clip, float angle, SDL_Point* center,
 						SDL_RendererFlip flip)
 {
 	SDL_Rect renderQuad = {position._x, position._y, mWidth, mHeight};
@@ -128,7 +121,7 @@ void GameEntity::Render(Vector2f<float> position, SDL_Renderer* renderer, SDL_Re
 		renderQuad.h = clip->h;
 	}
 
-	SDL_RenderCopyEx(renderer, mTexture, clip, &renderQuad, angle, center, flip);
+	SDL_RenderCopyEx(mRenderer, mTexture, clip, &renderQuad, angle, center, flip);
 }
 
 int GameEntity::getHeight()
