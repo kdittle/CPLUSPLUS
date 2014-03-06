@@ -2,16 +2,19 @@
 
 bool CollisionDetection::Check_Box_Collision(SDL_Rect a, SDL_Rect b)
 {
+	//Attributes for the bounding boxes
 	int leftA, leftB;
 	int rightA, rightB;
 	int topA, topB;
 	int bottomA, bottomB;
 
+	//Box A
 	leftA = a.x;
 	rightA = a.x + a.w;
 	topA = a.y;
 	bottomA = a.y + a.h;
 
+	//Box b
 	leftB = b.x;
 	rightB = b.x + b.w;
 	topB = b.y;

@@ -1,5 +1,7 @@
 #include "KinematicEntity.h"
 
+//Constructor
+//Set all the defaults
 KinematicEntity::KinematicEntity()
 {
 	mForces = Vector2f<float>(0.0f, 0.0f);
@@ -9,10 +11,13 @@ KinematicEntity::KinematicEntity()
 	Speed = 0.0f;
 }
 
+//Update
 void KinematicEntity::Update(float deltaTime)
 {
+	//Update the base class (GameEntity)
 	Base::Update(deltaTime);
 
+	//check mForces for x
 	if(mForces._x == 0.0f)
 	{
 		float preVelocity = Velocity._x;
@@ -38,6 +43,7 @@ void KinematicEntity::Update(float deltaTime)
 		}
 	}
 
+	//check mForces for y
 	if (mForces._y == 0.0f)
 	{
 		float preVelocity = Velocity._y;
@@ -63,6 +69,7 @@ void KinematicEntity::Update(float deltaTime)
 		}
 	}
 
+	//Lasty shift bounding boxes
 	Base::shiftBoundingBox();
 
 }

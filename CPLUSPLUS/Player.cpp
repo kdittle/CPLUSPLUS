@@ -1,5 +1,17 @@
 #include "Player.h"
 
+//Set up and instance of the player
+Player* Player::Instance()
+{
+	static Player* instance = nullptr;
+
+	if (instance == nullptr)
+		instance = new Player();
+
+	return instance;
+}
+
+//Set player defaults
 Player::Player()
 {
 	//Renders top left corner at 400, 300.
@@ -18,10 +30,13 @@ Player::Player()
 	down = false;
 	cast = false;
 
+	LoadSpells();
+
 	m_health = 20.0f;
 	m_curHealth = 20.0f;
 }
 
+//Set sprite clips for animation
 void Player::SetSpriteClips()
 {
 	SpriteClips[0].x = 0;
@@ -45,10 +60,10 @@ void Player::SetSpriteClips()
 	SpriteClips[3].h = 100;
 }
 
+//Update
 void Player::Update(float deltaTime)
 {
-	LoadSpells();
-
+	//The following code is all input code
 	SDL_Event event;
 
 	SDL_PumpEvents();
@@ -135,6 +150,8 @@ void Player::Update(float deltaTime)
 		}
 	}
 
+	//Clamp to window code 
+	//Needs to be modified some
 	if(this->Location._x >= 755)
 		this->Location._x = 755;
 	if(this->Location._x <= 10)
@@ -145,14 +162,16 @@ void Player::Update(float deltaTime)
 	if(this->Location._y <= 10)
 		this->Location._y = 10;
 
+	//Shift the bounding box for collision and render
 	shiftBoundingBox();
 	Draw();
 
-	Base::Update(deltaTime);
+	Base::Update(deltaTime); //Update the base
 }
 
 void Player::Draw()
 {
+	//Determine what way the player is moving, set that as the frame, then render
 
 	if (left)
 		frame = 2;
@@ -176,6 +195,8 @@ void Player::Draw()
 
 void Player::LoadSpells()
 {
+	//Load the spells and set their clips and bounding boxes
+	//Right now there is only one spell
 	fireShield.LoadFromFile("RingOfFireSpriteSheet.png");
 	fireShield.SetSpriteClips();
 	fireShield.SetBoundingBox(this->Location);

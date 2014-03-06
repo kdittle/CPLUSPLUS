@@ -1,5 +1,6 @@
 #include "Enemy.h"
 
+//Enemy defaults
 Enemy::Enemy()
 {
 	Location = Vector2f<float>(200.0f, 200.0f);
@@ -19,6 +20,7 @@ Enemy::Enemy()
 	m_health = 20.0f;;
 }
 
+//Sprite clips for animation
 void Enemy::SetSpriteClips()
 {
 	SpriteClips[0].x = 0;
@@ -44,18 +46,21 @@ void Enemy::SetSpriteClips()
 
 void Enemy::Update(float deltaTime)
 {
+	//Create a movement vector
 	Vector2f<float> movementVector = Vector2f<float>(0.0f, 0.0f);
 
-	if(this->Location._x != playerLocation._x && this->Location._y != playerLocation._y)
+	//Check to see if the enemy location is equal to the player location.
+	//If it isn't then it is chasing the enemy
+	if (this->Location._x != Player::Instance()->GetPlayerLocation()._x && this->Location._y != Player::Instance()->GetPlayerLocation()._y)
 	{
 		chasing = true;
 	}
 
+	//If enemy is chasting, move it towards the player
 	if(chasing)
 	{
-		playerLocation = rPlayer.GetPlayerLocation();
-		movementVector._x = (playerLocation._x - this->Location._x);
-		movementVector._y = (playerLocation._y - this->Location._y);
+		movementVector._x = (Player::Instance()->GetPlayerLocation()._x - this->Location._x);
+		movementVector._y = (Player::Instance()->GetPlayerLocation()._y - this->Location._y);
 
 		movementVector.normalize();
 
@@ -63,28 +68,32 @@ void Enemy::Update(float deltaTime)
 		this->Location._y += movementVector._y;
 	}
 
-	if(this->Location._x == playerLocation._x || this->Location._y == playerLocation._y)
+	//If enemy and player locations are equal, plays is caught, stop chasing.
+	if (this->Location._x == Player::Instance()->GetPlayerLocation()._x || this->Location._y == Player::Instance()->GetPlayerLocation()._y)
 	{
 		caught = true;
 	}
 
+	//Stop the movement is player is caught
 	if(caught)
 	{
 		movementVector = Vector2f<float>(0.0f, 0.0f);
 	}
 
-	if(this->Location._x < rPlayer.Location._x)
+	//Determine if the player is moving left or right
+	if (this->Location._x < Player::Instance()->GetPlayerLocation()._x)
 	{
 		right = true;
 		left = false;
 	}
 
-	if(this->Location._x > rPlayer.Location._x)
+	if (this->Location._x > Player::Instance()->GetPlayerLocation()._x)
 	{
 		left = true;
 		right = false;
 	}
 
+	//Shift boxes for collision and render
 	shiftBoundingBox();
 	Draw();
 
@@ -93,6 +102,8 @@ void Enemy::Update(float deltaTime)
 
 void Enemy::Draw()
 {
+	//Determine if the enemy is moving left or right and render
+
 	if(left)
 		frame = 2;
 

@@ -1,5 +1,13 @@
 #include "Spell.h"
 
+/*
+
+This spell class is set up for the fire shield spell
+It will have to be modified to be used for projectiles
+
+*/
+
+//Set defaults for the spells
 Spell::Spell()
 {
 	Location = Vector2f<float>(0.0f, 0.0f);
@@ -9,11 +17,7 @@ Spell::Spell()
 	frame = 0;
 }
 
-void Spell::SetSpellRenderer(SDL_Renderer* renderer)
-{
-	sRenderer = renderer;
-}
-
+//Set the spriteclips for spells
 void Spell::SetSpriteClips()
 {
 	SpriteClips[0].x = 0;
@@ -27,6 +31,7 @@ void Spell::SetSpriteClips()
 	SpriteClips[1].h = 135;
 }
 
+//Update the spell
 void Spell::Update(float deltaTime, Vector2f<float> position)
 {
 	Draw(position);
@@ -36,6 +41,7 @@ void Spell::Update(float deltaTime, Vector2f<float> position)
 	Base::Update(deltaTime);
 }
 
+//Render spell
 void Spell::Draw(Vector2f<float> position)
 {
 	position._x = position._x - 20;
@@ -53,6 +59,7 @@ void Spell::Draw(Vector2f<float> position)
 	SDL_RenderDrawRect(sRenderer, &m_BoundingBox);*/
 }
 
+//Set up the bounding box for the spell
 void Spell::SetBoundingBox(Vector2f<float> position)
 {
 	m_BoundingBox.x = position._x - 22.0f;
@@ -61,6 +68,7 @@ void Spell::SetBoundingBox(Vector2f<float> position)
 	m_BoundingBox.h = getHeight();
 }
 
+//Check collision for the spell.
 bool Spell::checkCollision(SDL_Rect player, SDL_Rect enemy)
 {
 	if (collisionHandler.Check_Box_Collision(player, enemy))

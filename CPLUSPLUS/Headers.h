@@ -1,3 +1,9 @@
+/*
+
+Headers includes all hte common headers that all classes will have to use
+
+*/
+
 #ifndef HEADERS_H
 #define HEADERS_H
 

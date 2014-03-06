@@ -12,33 +12,32 @@ class Player : public KinematicEntity
 	typedef KinematicEntity Base;
 
 public:
-	static const int WALKING_FRAMES = 4;
-	SDL_Rect SpriteClips[WALKING_FRAMES];
-	Spell fireShield;
-	SDL_Rect healthRec;
-	float healthPercent;
+	static const int WALKING_FRAMES = 4;	//Frames for sprite clips
+	SDL_Rect SpriteClips[WALKING_FRAMES];	//Sprite clips for animation
+	Spell fireShield;						//Spell. Plan to add more. Maybe store in a data structure
+	SDL_Rect healthRec;						//Health rectangle for health bar (not used yet)
+	float healthPercent;					//Percent of health left
 
-	Player();
+	static Player* Instance();				//Player instance
 
-	void SetSpriteClips();
-	void Update(float deltaTime);
-	void Draw();
-	void LoadSpells();
-	Vector2f<float> GetPlayerLocation();
-	void SetBoundingBox();
-	void LoadHealthBar();
-	float GetHealth();
-	void SetHealthRec();
-	void UpdateHealthRec();
-	float GetHealthPercent();
+	Player();								//Constructor
 
-	void ScreenRef(SDL_Surface* surface);
-	void WindowRef(SDL_Window* window);
+	void SetSpriteClips();					//Set sprite clips for animation
+	void Update(float deltaTime);			//Update Player
+	void Draw();							//Render Player
+	void LoadSpells();						//Load spells and sprites
+	Vector2f<float> GetPlayerLocation();	//Return player Location
+	void SetBoundingBox();					//Shift bounding box for collision
+	void LoadHealthBar();					//Load the health bar (as a sprite)
+	float GetHealth();						//Return health left
+	void SetHealthRec();					//Sets up the health rectangle
+	void UpdateHealthRec();					//Update the health bar
+	float GetHealthPercent();				//Returns health percent for use in health rectangle
 
-	int frame;
-	bool isPlaying;
+	int frame;								//Frame for animation
+	bool isPlaying;							//Determine if the player is playing
 
-	bool left, right, up, down, cast;
+	bool left, right, up, down, cast;		//Determine movement and casting
 
 private:
 	float m_health;

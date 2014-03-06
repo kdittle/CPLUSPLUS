@@ -1,5 +1,6 @@
 #include "GameEntity.h"
 
+//Constructor for GameEntities
 GameEntity::GameEntity()
 {
 	mTexture = NULL;
@@ -12,6 +13,7 @@ GameEntity::GameEntity()
 	m_BoundingBox.h = mHeight;
 }
 
+//Destory the entity
 GameEntity::~GameEntity()
 {
 	free();
@@ -20,6 +22,7 @@ GameEntity::~GameEntity()
 	mHeight = 0;
 }
 
+//Initialize SDL
 void GameEntity::InitializeSDL()
 {
 	SDL_Init(SDL_INIT_VIDEO);
@@ -27,6 +30,7 @@ void GameEntity::InitializeSDL()
 	SDL_SetHint(SDL_HINT_RENDER_VSYNC, "1");
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
 
+	//Create Window
 	mWindow = SDL_CreateWindow("CPLUSPLUS", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 		WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
 
@@ -35,6 +39,7 @@ void GameEntity::InitializeSDL()
 		printf("Unable to create window %s! SDL_Window Error: %s\n", SDL_GetError());
 	}
 
+	//Create renderer
 	mRenderer = SDL_CreateRenderer(mWindow, -1, SDL_RENDERER_ACCELERATED);
 
 	if (mRenderer == NULL)
@@ -42,6 +47,7 @@ void GameEntity::InitializeSDL()
 		printf("Unable to create renderer %s! SDL_Renderer Error: %s\n", SDL_GetError());
 	}
 
+	//Create screen
 	mScreen = SDL_GetWindowSurface(mWindow);
 
 	if (mScreen == NULL)
@@ -55,6 +61,7 @@ SDL_Renderer* GameEntity::GetRenderer()
 	return mRenderer;
 }
 
+//Free texture
 void GameEntity::Destory()
 {
 	SDL_DestroyTexture(mTexture);
@@ -65,6 +72,7 @@ void GameEntity::Update(float deltaTime)
 	
 }
 
+//Free texture and reset it all to defaults
 void GameEntity::free()
 {
 	if(mTexture != NULL)
@@ -76,12 +84,16 @@ void GameEntity::free()
 	}
 }
 
+//Load
 bool GameEntity::LoadFromFile(const std::string filePath)
 {
+	//Free mTexture to be reused
 	free();
 
+	//Temporary texture
 	SDL_Texture* newTexture = NULL;
 
+	//Load image to surface
 	SDL_Surface* loadedSurface = IMG_Load(filePath.c_str());
 	if(loadedSurface == NULL)
 	{
@@ -89,8 +101,10 @@ bool GameEntity::LoadFromFile(const std::string filePath)
 	}
 	else
 	{
+		//Set the color key for the loaded surface and format
 		SDL_SetColorKey(loadedSurface, SDL_TRUE, SDL_MapRGB(loadedSurface->format, 0xFF, 0xFF, 0xFF));
 
+		//Create texture from the loaded surface
 		newTexture = SDL_CreateTextureFromSurface(mRenderer, loadedSurface);
 		if(newTexture == NULL)
 		{
@@ -102,14 +116,17 @@ bool GameEntity::LoadFromFile(const std::string filePath)
 			mHeight = loadedSurface->h;
 		}
 
+		//Free the surface as it is no longer needed
 		SDL_FreeSurface(loadedSurface);
 	}
 
+	//mTexutre becomes the loaded texture
 	mTexture = newTexture;
 
 	return mTexture != NULL;
 }
 
+//Render the textures
 void GameEntity::Render(Vector2f<float> position, SDL_Rect* clip, float angle, SDL_Point* center,
 						SDL_RendererFlip flip)
 {
@@ -134,6 +151,7 @@ int GameEntity::getWidth()
 	return mWidth;
 }
 
+//Shift boxes for collision
 void GameEntity::shiftBoundingBox()
 {
 	m_BoundingBox.x = Location._x;
@@ -145,6 +163,7 @@ SDL_Rect GameEntity::GetBoundingBox()
 	return m_BoundingBox;
 }
 
+//Shift boxes for collision
 void GameEntity::shiftColliderBoxes()
 {
 	int row = 0;
