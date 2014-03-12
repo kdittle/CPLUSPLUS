@@ -18,6 +18,10 @@ Player::Player()
 	//To render full center must subtract half width and half height
 	Location = Vector2f<float>(400.0f - 30.0f, 300.0f - 50.0f);
 
+	LoadFromFile("WizardSpriteSheet2.png");
+	SetSpriteClips();
+	SetBoundingBox();
+
 	mMoveSpeed = 45.0f;
 
 	frame = 0;
@@ -63,92 +67,105 @@ void Player::SetSpriteClips()
 //Update
 void Player::Update(float deltaTime)
 {
-	//The following code is all input code
-	SDL_Event event;
 
-	SDL_PumpEvents();
+	if (input.KeyboardInput() == 2)
+		up = true;
+	if (input.KeyboardInput() == 3)
+		down = true;
+	if (input.KeyboardInput() == 4)
+		left = true;
+	if (input.KeyboardInput() == 5)
+		right = true;
 
-	while(SDL_PollEvent(&event))
-	{
-		switch(event.type)
-		{
-		case (SDL_QUIT):
-			{		 
-				isPlaying = false;
-				break;
-			}
 
-		case(SDL_KEYDOWN) :
-			{
-				std::cout << "Keydown" << std::endl;
 
-				if (event.key.keysym.sym == SDLK_ESCAPE)
-					isPlaying = false;
+	////The following code is all input code
+	//SDL_Event event;
 
-				if (event.key.keysym.sym == SDLK_LEFT)
-				{
-					this->Location._x -= mMoveSpeed * deltaTime;
-					left = true;
-					std::cout << this->Location._x << " " << this->Location._y << std::endl;
-				}
-				if (event.key.keysym.sym == SDLK_RIGHT)
-				{
-					this->Location._x += mMoveSpeed * deltaTime;
-					right = true;
-					std::cout << this->Location._x << " " << this->Location._y << std::endl;
-				}
-				if (event.key.keysym.sym == SDLK_UP)
-				{
-					this->Location._y -= mMoveSpeed * deltaTime;
-					up = true;
-					std::cout << this->Location._x << " " << this->Location._y << std::endl;
-				}
-				if (event.key.keysym.sym == SDLK_DOWN)
-				{
-					this->Location._y += mMoveSpeed * deltaTime;
-					down = true;
-					std::cout << this->Location._x << " " << this->Location._y << std::endl;
-				}
-				if (event.key.keysym.sym == SDLK_SPACE)
-				{
-					cast = true;
-				}
+	//SDL_PumpEvents();
 
-				break;
-			}
-		case(SDL_KEYUP) :
-			{
-				std::cout << "Keyup" << std::endl;
+	//while(SDL_PollEvent(&event))
+	//{
+	//	switch(event.type)
+	//	{
+	//	case (SDL_QUIT):
+	//		{		 
+	//			isPlaying = false;
+	//			break;
+	//		}
 
-				if (event.key.keysym.sym == SDLK_LEFT)
-				{
-					this->Location._x = this->Location._x;
-					left = false;
-				}
-				if (event.key.keysym.sym == SDLK_RIGHT)
-				{
-					this->Location._x = this->Location._x;
-					right = false;
-				}
-				if (event.key.keysym.sym == SDLK_UP)
-				{
-					this->Location._y = this->Location._y;
-					up = false;
-				}
-				if (event.key.keysym.sym == SDLK_DOWN)
-				{
-					this->Location._y = this->Location._y;
-					down = false;
-				}
-				if (event.key.keysym.sym == SDLK_SPACE)
-				{
-					cast = false;
-				}
+	//	case(SDL_KEYDOWN) :
+	//		{
+	//			std::cout << "Keydown" << std::endl;
 
-				break;
-			}
-		}
-	}
+	//			if (event.key.keysym.sym == SDLK_ESCAPE)
+	//				isPlaying = false;
+
+	//			if (event.key.keysym.sym == SDLK_LEFT)
+	//			{
+	//				this->Location._x -= mMoveSpeed * deltaTime;
+	//				left = true;
+	//				std::cout << this->Location._x << " " << this->Location._y << std::endl;
+	//			}
+	//			if (event.key.keysym.sym == SDLK_RIGHT)
+	//			{
+	//				this->Location._x += mMoveSpeed * deltaTime;
+	//				right = true;
+	//				std::cout << this->Location._x << " " << this->Location._y << std::endl;
+	//			}
+	//			if (event.key.keysym.sym == SDLK_UP)
+	//			{
+	//				this->Location._y -= mMoveSpeed * deltaTime;
+	//				up = true;
+	//				std::cout << this->Location._x << " " << this->Location._y << std::endl;
+	//			}
+	//			if (event.key.keysym.sym == SDLK_DOWN)
+	//			{
+	//				this->Location._y += mMoveSpeed * deltaTime;
+	//				down = true;
+	//				std::cout << this->Location._x << " " << this->Location._y << std::endl;
+	//			}
+
+	//			if (event.key.keysym.sym == SDLK_SPACE)
+	//			{
+	//				cast = true;
+	//			}
+
+	//			break;
+	//		}
+	//	case(SDL_KEYUP) :
+	//		{
+	//			std::cout << "Keyup" << std::endl;
+
+	//			if (event.key.keysym.sym == SDLK_LEFT)
+	//			{
+	//				this->Location._x = this->Location._x;
+	//				left = false;
+	//			}
+	//			if (event.key.keysym.sym == SDLK_RIGHT)
+	//			{
+	//				this->Location._x = this->Location._x;
+	//				right = false;
+	//			}
+	//			if (event.key.keysym.sym == SDLK_UP)
+	//			{
+	//				this->Location._y = this->Location._y;
+	//				up = false;
+	//			}
+	//			if (event.key.keysym.sym == SDLK_DOWN)
+	//			{
+	//				this->Location._y = this->Location._y;
+	//				down = false;
+	//			}
+	//			if (event.key.keysym.sym == SDLK_SPACE)
+	//			{
+	//				cast = false;
+	//			}
+
+	//			break;
+	//		}
+	//	}
+	//}
 
 	//Clamp to window code 
 	//Needs to be modified some
@@ -196,10 +213,16 @@ void Player::Draw()
 void Player::LoadSpells()
 {
 	//Load the spells and set their clips and bounding boxes
-	//Right now there is only one spell
-	fireShield.LoadFromFile("RingOfFireSpriteSheet.png");
-	fireShield.SetSpriteClips();
-	fireShield.SetBoundingBox(this->Location);
+	spell.LoadFromFile("RingOfFireSpriteSheet.png");
+	spell.SetSpriteClips();
+	spell.SetBoundingBox(this->Location);
+	spells.push_back(spell);
+
+
+	spell.LoadFromFile("Fireball.png");
+	spell.SetBoundingBox(this->Location);
+	spells.push_back(spell);
+
 }
 
 Vector2f<float> Player::GetPlayerLocation()

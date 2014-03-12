@@ -5,6 +5,10 @@ Enemy::Enemy()
 {
 	Location = Vector2f<float>(200.0f, 200.0f);
 
+	LoadFromFile("EvilWizardSpriteSheet.png");
+	SetSpriteClips();
+	SetBoundingBox();
+
 	moveSpeed = 50;
 
 	frame = 0;
@@ -53,7 +57,7 @@ void Enemy::Update(float deltaTime)
 	//If it isn't then it is chasing the enemy
 	if (this->Location._x != Player::Instance()->GetPlayerLocation()._x && this->Location._y != Player::Instance()->GetPlayerLocation()._y)
 	{
-		chasing = true;
+		//chasing = true;
 	}
 
 	//If enemy is chasting, move it towards the player

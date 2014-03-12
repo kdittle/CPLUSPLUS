@@ -4,6 +4,8 @@
 #include "Headers.h"
 #include "KinematicEntity.h"
 #include "Spell.h"
+#include "InputHandler.h"
+#include <list>
 
 class Player : public KinematicEntity
 {
@@ -14,9 +16,12 @@ class Player : public KinematicEntity
 public:
 	static const int WALKING_FRAMES = 4;	//Frames for sprite clips
 	SDL_Rect SpriteClips[WALKING_FRAMES];	//Sprite clips for animation
-	Spell fireShield;						//Spell. Plan to add more. Maybe store in a data structure
+	Spell spell;							//Spell. Plan to add more. Maybe store in a data structure
 	SDL_Rect healthRec;						//Health rectangle for health bar (not used yet)
 	float healthPercent;					//Percent of health left
+	std::list<Spell> spells;
+
+	InputHandler input;						//Inputhandler
 
 	static Player* Instance();				//Player instance
 
@@ -25,7 +30,7 @@ public:
 	void SetSpriteClips();					//Set sprite clips for animation
 	void Update(float deltaTime);			//Update Player
 	void Draw();							//Render Player
-	void LoadSpells();						//Load spells and sprites
+	void LoadSpells();						//Load spells and sprites and maps them to a key
 	Vector2f<float> GetPlayerLocation();	//Return player Location
 	void SetBoundingBox();					//Shift bounding box for collision
 	void LoadHealthBar();					//Load the health bar (as a sprite)

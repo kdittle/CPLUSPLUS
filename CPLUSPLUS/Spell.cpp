@@ -10,8 +10,6 @@ It will have to be modified to be used for projectiles
 //Set defaults for the spells
 Spell::Spell()
 {
-	Location = Vector2f<float>(0.0f, 0.0f);
-
 	Speed = 55.0f;
 
 	frame = 0;

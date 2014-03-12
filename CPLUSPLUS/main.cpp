@@ -24,15 +24,9 @@ int main()
 	//Get the player instance and load its spirte
 	//Then set clips from spritesheet and set boxes for collision
 	Player* player = Player::Instance();
-	player->LoadFromFile("WizardSpriteSheet2.png");
-	player->SetSpriteClips();
-	player->SetBoundingBox();
 
 	//Set up enemy, load sprite sheet, set clips, and set boxes
 	Enemy enemy;
-	enemy.LoadFromFile("EvilWizardSpriteSheet.png");
-	enemy.SetSpriteClips();
-	enemy.SetBoundingBox();
 
 	//Create collision handler
 	CollisionDetection collisionHandler;
@@ -59,10 +53,11 @@ int main()
 		if (player->cast)
 		{
 			//if player is casting, draw the shield at the player's location
-			player->fireShield.Update(deltaTime, player->Location);
+			//player->spell.Update(deltaTime, player->Location);
+			player->spell.Update(deltaTime, player->Location);
 
 			//Check for collision between enemy and player while player is casting
-			if (player->fireShield.checkCollision(player->GetBoundingBox(), enemy.GetBoundingBox()))
+			if (player->spell.checkCollision(player->GetBoundingBox(), enemy.GetBoundingBox()))
 			{
 				//If player is casting and there is a collision, move enemy to upper left corner
 				enemy.Location = Vector2f<float>(0.0f, 0.0f);
