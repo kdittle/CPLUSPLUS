@@ -1,6 +1,6 @@
 #include "Player.h"
 
-//Set up and instance of the player
+//Set up an instance of the player
 Player* Player::Instance()
 {
 	static Player* instance = nullptr;
@@ -38,6 +38,9 @@ Player::Player()
 
 	m_health = 20.0f;
 	m_curHealth = 20.0f;
+
+	m_mana = 10.0f;
+	m_curMana = 10.0f;
 }
 
 //Set sprite clips for animation
@@ -68,109 +71,100 @@ void Player::SetSpriteClips()
 void Player::Update(float deltaTime)
 {
 
-	if (input.KeyboardInput() == 2)
-		up = true;
-	if (input.KeyboardInput() == 3)
-		down = true;
-	if (input.KeyboardInput() == 4)
-		left = true;
-	if (input.KeyboardInput() == 5)
-		right = true;
 
 
+	//The following code is all input code
+	SDL_Event event;
 
-	////The following code is all input code
-	//SDL_Event event;
+	SDL_PumpEvents();
 
-	//SDL_PumpEvents();
+	while(SDL_PollEvent(&event))
+	{
+		switch(event.type)
+		{
+		case (SDL_QUIT):
+			{		 
+				isPlaying = false;
+				break;
+			}
 
-	//while(SDL_PollEvent(&event))
-	//{
-	//	switch(event.type)
-	//	{
-	//	case (SDL_QUIT):
-	//		{		 
-	//			isPlaying = false;
-	//			break;
-	//		}
+		case(SDL_KEYDOWN) :
+			{
+				std::cout << "Keydown" << std::endl;
 
-	//	case(SDL_KEYDOWN) :
-	//		{
-	//			std::cout << "Keydown" << std::endl;
+				if (event.key.keysym.sym == SDLK_ESCAPE)
+					isPlaying = false;
 
-	//			if (event.key.keysym.sym == SDLK_ESCAPE)
-	//				isPlaying = false;
+				if (event.key.keysym.sym == SDLK_LEFT)
+				{
+					this->Location._x -= mMoveSpeed * deltaTime;
+					left = true;
+					std::cout << this->Location._x << " " << this->Location._y << std::endl;
+				}
+				if (event.key.keysym.sym == SDLK_RIGHT)
+				{
+					this->Location._x += mMoveSpeed * deltaTime;
+					right = true;
+					std::cout << this->Location._x << " " << this->Location._y << std::endl;
+				}
+				if (event.key.keysym.sym == SDLK_UP)
+				{
+					this->Location._y -= mMoveSpeed * deltaTime;
+					up = true;
+					std::cout << this->Location._x << " " << this->Location._y << std::endl;
+				}
+				if (event.key.keysym.sym == SDLK_DOWN)
+				{
+					this->Location._y += mMoveSpeed * deltaTime;
+					down = true;
+					std::cout << this->Location._x << " " << this->Location._y << std::endl;
+				}
 
-	//			if (event.key.keysym.sym == SDLK_LEFT)
-	//			{
-	//				this->Location._x -= mMoveSpeed * deltaTime;
-	//				left = true;
-	//				std::cout << this->Location._x << " " << this->Location._y << std::endl;
-	//			}
-	//			if (event.key.keysym.sym == SDLK_RIGHT)
-	//			{
-	//				this->Location._x += mMoveSpeed * deltaTime;
-	//				right = true;
-	//				std::cout << this->Location._x << " " << this->Location._y << std::endl;
-	//			}
-	//			if (event.key.keysym.sym == SDLK_UP)
-	//			{
-	//				this->Location._y -= mMoveSpeed * deltaTime;
-	//				up = true;
-	//				std::cout << this->Location._x << " " << this->Location._y << std::endl;
-	//			}
-	//			if (event.key.keysym.sym == SDLK_DOWN)
-	//			{
-	//				this->Location._y += mMoveSpeed * deltaTime;
-	//				down = true;
-	//				std::cout << this->Location._x << " " << this->Location._y << std::endl;
-	//			}
+				if (event.key.keysym.sym == SDLK_SPACE)
+				{
+					cast = true;
+				}
 
-	//			if (event.key.keysym.sym == SDLK_SPACE)
-	//			{
-	//				cast = true;
-	//			}
+				break;
+			}
+		case(SDL_KEYUP) :
+			{
+				std::cout << "Keyup" << std::endl;
 
-	//			break;
-	//		}
-	//	case(SDL_KEYUP) :
-	//		{
-	//			std::cout << "Keyup" << std::endl;
+				if (event.key.keysym.sym == SDLK_LEFT)
+				{
+					this->Location._x = this->Location._x;
+					left = false;
+				}
+				if (event.key.keysym.sym == SDLK_RIGHT)
+				{
+					this->Location._x = this->Location._x;
+					right = false;
+				}
+				if (event.key.keysym.sym == SDLK_UP)
+				{
+					this->Location._y = this->Location._y;
+					up = false;
+				}
+				if (event.key.keysym.sym == SDLK_DOWN)
+				{
+					this->Location._y = this->Location._y;
+					down = false;
+				}
+				if (event.key.keysym.sym == SDLK_SPACE)
+				{
+					cast = false;
+				}
 
-	//			if (event.key.keysym.sym == SDLK_LEFT)
-	//			{
-	//				this->Location._x = this->Location._x;
-	//				left = false;
-	//			}
-	//			if (event.key.keysym.sym == SDLK_RIGHT)
-	//			{
-	//				this->Location._x = this->Location._x;
-	//				right = false;
-	//			}
-	//			if (event.key.keysym.sym == SDLK_UP)
-	//			{
-	//				this->Location._y = this->Location._y;
-	//				up = false;
-	//			}
-	//			if (event.key.keysym.sym == SDLK_DOWN)
-	//			{
-	//				this->Location._y = this->Location._y;
-	//				down = false;
-	//			}
-	//			if (event.key.keysym.sym == SDLK_SPACE)
-	//			{
-	//				cast = false;
-	//			}
-
-	//			break;
-	//		}
-	//	}
-	//}
+				break;
+			}
+		}
+	}
 
 	//Clamp to window code 
 	//Needs to be modified some
-	if(this->Location._x >= 755)
-		this->Location._x = 755;
+	if (this->Location._x >= (GameEntity::WINDOW_WIDTH - this->getWidth() / 2))
+		this->Location._x = (GameEntity::WINDOW_WIDTH - this->getWidth () / 2);
 	if(this->Location._x <= 10)
 		this->Location._x = 10;
 
@@ -208,6 +202,7 @@ void Player::Draw()
 	SDL_RenderDrawRect(pRenderer, &m_BoundingBox);*/
 
 	SetHealthRec();
+	SetManaRec();
 }
 
 void Player::LoadSpells()
@@ -216,12 +211,6 @@ void Player::LoadSpells()
 	spell.LoadFromFile("RingOfFireSpriteSheet.png");
 	spell.SetSpriteClips();
 	spell.SetBoundingBox(this->Location);
-	spells.push_back(spell);
-
-
-	spell.LoadFromFile("Fireball.png");
-	spell.SetBoundingBox(this->Location);
-	spells.push_back(spell);
 
 }
 
@@ -245,7 +234,6 @@ float Player::GetHealth()
 
 void Player::SetHealthRec()
 {
-	SDL_Surface* rectSurface = NULL;
 
 	healthPercent = GetHealthPercent();
 	float visible = healthRec.w * healthPercent;
@@ -255,23 +243,67 @@ void Player::SetHealthRec()
 	healthRec.w = 50.0f;
 	healthRec.h = 10.0f;
 
-	//rectSurface = SDL_CreateRGBSurface(SDL_SWSURFACE, healthRec.w, healthRec.h, 32, 0, 0x80, 0, 0);
+	SDL_Rect curHealthRec;
+	curHealthRec.x = this->Location._x + 5;
+	curHealthRec.y = this->Location._y + getHeight();
+	curHealthRec.w = visible;
+	curHealthRec.h = 10.0f;
 
-	//rectSurface = SDL_CreateRGBSurface(SDL_SWSURFACE, healthRec.w, healthRec.h, 32, 0, 0, 0, 0);
+	SDL_SetRenderDrawColor(GameEntity::GetRenderer(), 0x00, 0x80, 0x00, 0xFF);
+	SDL_RenderDrawRect(GameEntity::GetRenderer(), &healthRec);
 
-	//SDL_SetRenderDrawColor(pRenderer, 0x00, 0x00, 0x00, 0xFF);
-	//SDL_RenderDrawRect(pRenderer, &healthRec);
-
-	//SDL_FillRect(tScreen, &healthRec, SDL_MapRGB(rectSurface->format, 0x00, 0x80, 0x00));
-
-	//SDL_FillRect(tScreen, &healthRec, SDL_MapRGB(rectSurface->format, 0x00, 0x00, 0x00));
-
-	//SDL_RenderFillRect(pRenderer, &healthRec);
-
+	SDL_RenderFillRect(GameEntity::GetRenderer(), &curHealthRec);
 
 }
 
 float Player::GetHealthPercent()
 {
 	return (GetHealth() / m_health);
+}
+
+void Player::UpdateHealthRec(float dmg)
+{
+	m_curHealth = this->GetHealth() - dmg;
+}
+
+float Player::GetMana()
+{
+	return m_curMana;
+}
+
+float Player::GetMaxMana()
+{
+	return m_mana;
+}
+
+void Player::SetManaRec()
+{
+	manaPercent = GetManaPercent();
+	float visible = manaRec.w * manaPercent;
+
+	manaRec.x = this->Location._x + 5;
+	manaRec.y = this->Location._y + getHeight() + 10;
+	manaRec.w = 50.0f;
+	manaRec.h = 10.0f;
+
+	SDL_Rect curManaRec;
+	curManaRec.x = this->Location._x + 5;
+	curManaRec.y = this->Location._y + getHeight() + 10;
+	curManaRec.w = visible;
+	curManaRec.h = 10.0f;
+
+	SDL_SetRenderDrawColor(GameEntity::GetRenderer(), 0x00, 0x00, 0x80, 0xFF);
+	SDL_RenderDrawRect(GameEntity::GetRenderer(), &manaRec);
+
+	SDL_RenderFillRect(GameEntity::GetRenderer(), &curManaRec);
+}
+
+void Player::UpdateManaRec(float manaUsed)
+{
+	m_curMana = this->GetMana() - manaUsed;
+}
+
+float Player::GetManaPercent()
+{
+	return (GetMana() / m_mana);
 }

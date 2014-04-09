@@ -1,5 +1,16 @@
 #include "Enemy.h"
 
+//Set up an instance of the Enemy
+Enemy* Enemy::Instance()
+{
+	static Enemy* instance = nullptr;
+
+	if (instance == nullptr)
+		instance = new Enemy();
+
+	return instance;
+}
+
 //Enemy defaults
 Enemy::Enemy()
 {
@@ -21,7 +32,8 @@ Enemy::Enemy()
 	up = false;
 	down = false;
 
-	m_health = 20.0f;;
+	m_health = 20.0f;
+	m_curHealth = 20.0f;
 }
 
 //Sprite clips for animation
@@ -57,7 +69,7 @@ void Enemy::Update(float deltaTime)
 	//If it isn't then it is chasing the enemy
 	if (this->Location._x != Player::Instance()->GetPlayerLocation()._x && this->Location._y != Player::Instance()->GetPlayerLocation()._y)
 	{
-		//chasing = true;
+		chasing = true;
 	}
 
 	//If enemy is chasting, move it towards the player
@@ -118,6 +130,8 @@ void Enemy::Draw()
 
 	/*SDL_SetRenderDrawColor(eRenderer, 0x00, 0x00, 0x00, 0xFF);
 	SDL_RenderDrawRect(eRenderer, &m_BoundingBox);*/
+
+	SetHealthRec();
 }
 
 void Enemy::SetBoundingBox()
@@ -130,5 +144,38 @@ void Enemy::SetBoundingBox()
 
 float Enemy::GetHealth()
 {
-	return m_health;
+	return m_curHealth;
+}
+
+void Enemy::SetHealthRec()
+{
+	healthPercent = GetHealthPercent();
+	float visible = healthRec.w * healthPercent;
+
+	healthRec.x = this->Location._x + 5;
+	healthRec.y = this->Location._y + getHeight();
+	healthRec.w = 50.0f;
+	healthRec.h = 10.0f;
+
+	SDL_Rect curHealthRec;
+	curHealthRec.x = this->Location._x + 5;
+	curHealthRec.y = this->Location._y + getHeight();
+	curHealthRec.w = visible;
+	curHealthRec.h = 10.0f;
+
+	SDL_SetRenderDrawColor(GameEntity::GetRenderer(), 0x00, 0x80, 0x00, 0xFF);
+	SDL_RenderDrawRect(GameEntity::GetRenderer(), &healthRec);
+
+	SDL_RenderFillRect(GameEntity::GetRenderer(), &curHealthRec);
+
+}
+
+float Enemy::GetHealthPercent()
+{
+	return (GetHealth() / m_health);
+}
+
+void Enemy::UpdateHealthRec(float dmg)
+{
+	m_curHealth = this->GetHealth() - dmg;
 }

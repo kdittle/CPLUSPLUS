@@ -17,18 +17,26 @@ public:
 	bool left, right, up, down;				//determines what direction the enemy is going
 	static const int WALKING_FRAMES = 4;	//Number of frames on the sprite sheet
 	SDL_Rect SpriteClips[WALKING_FRAMES];	//Clips
+	SDL_Rect healthRec;						//Health rectangle for health bar (not used yet)
+	float healthPercent;					//Percent of health left
+
+	static Enemy* Instance();
 
 	//Constructor
 	Enemy();
 
-	void SetSpriteClips();			//Set up sprite clips for animation
-	void Update(float deltaTime);	//Update Enemy
-	void Draw();					//Render
-	void SetBoundingBox();			//Set the bounding boxes for collision
-	float GetHealth();				//Health isn't used yet, eventually though.
+	void SetSpriteClips();					//Set up sprite clips for animation
+	void Update(float deltaTime);			//Update Enemy
+	void Draw();							//Render
+	void SetBoundingBox();					//Set the bounding boxes for collision
+	float GetHealth();						//Return health left
+	void SetHealthRec();					//Sets up the health rectangle
+	void UpdateHealthRec(float dmg);		//Update the health bar
+	float GetHealthPercent();				//Get percent of health for rectangle.
 
 private:
 	float m_health;
+	float m_curHealth;
 
 };
 #endif
