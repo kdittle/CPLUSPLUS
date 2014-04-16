@@ -57,7 +57,7 @@ int main()
 		{
 			//if player is casting, draw the shield at the player's location
 			player->spell.Update(deltaTime, player->Location);
-			player->UpdateManaRec(0.1f);
+			player->UpdateManaRec(0.08f);
 
 			//Check for collision between enemy and player while player is casting
 			if (player->spell.checkCollision(player->GetBoundingBox(), enemy->GetBoundingBox()))

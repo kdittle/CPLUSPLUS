@@ -11,6 +11,9 @@
     <Filter Include="Headers">
       <UniqueIdentifier>{3fd12234-8e54-4234-9142-fcb3e41b69d4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Spells">
+      <UniqueIdentifier>{808bdda8-3294-4121-b010-9d70e90c10e0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -28,11 +31,14 @@
     <ClCompile Include="Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Spell.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Spell.cpp">
+      <Filter>Spells</Filter>
+    </ClCompile>
+    <ClCompile Include="FireShield.cpp">
+      <Filter>Spells</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -54,11 +60,14 @@
     <ClInclude Include="Player.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Spell.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
     <ClInclude Include="Vector2f.h">
       <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="FireShield.h">
+      <Filter>Spells</Filter>
+    </ClInclude>
+    <ClInclude Include="Spell.h">
+      <Filter>Spells</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -86,6 +86,7 @@
   <ItemGroup>
     <ClCompile Include="CollisionDetection.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="FireShield.cpp" />
     <ClCompile Include="GameEntity.cpp" />
     <ClCompile Include="KinematicEntity.cpp" />
     <ClCompile Include="main.cpp" />
@@ -95,6 +96,7 @@
   <ItemGroup>
     <ClInclude Include="CollisionDetection.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="FireShield.h" />
     <ClInclude Include="GameEntity.h" />
     <ClInclude Include="KinematicEntity.h" />
     <ClInclude Include="Headers.h" />

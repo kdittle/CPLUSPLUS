@@ -3,8 +3,8 @@
 
 #include "Headers.h"
 #include "KinematicEntity.h"
-#include "Spell.h"
-#include <list>
+#include "FireShield.h"
+#include <map>
 
 class Player : public KinematicEntity
 {
@@ -28,7 +28,7 @@ public:
 	void SetSpriteClips();					//Set sprite clips for animation
 	void Update(float deltaTime);			//Update Player
 	void Draw();							//Render Player
-	void LoadSpells();						//Load spells and sprites and maps them to a key
+	void LoadSpells();						//Load spell(s)  and sprites
 	Vector2f<float> GetPlayerLocation();	//Return player Location
 	void SetBoundingBox();					//Shift bounding box for collision
 

@@ -72,7 +72,6 @@ void Player::Update(float deltaTime)
 {
 
 
-
 	//The following code is all input code
 	SDL_Event event;
 
@@ -161,6 +160,9 @@ void Player::Update(float deltaTime)
 		}
 	}
 
+	if (m_curMana < 0)
+		cast = false;
+
 	//Clamp to window code 
 	//Needs to be modified some
 	if (this->Location._x >= (GameEntity::WINDOW_WIDTH - this->getWidth() / 2))
@@ -207,11 +209,7 @@ void Player::Draw()
 
 void Player::LoadSpells()
 {
-	//Load the spells and set their clips and bounding boxes
-	spell.LoadFromFile("RingOfFireSpriteSheet.png");
-	spell.SetSpriteClips();
-	spell.SetBoundingBox(this->Location);
-
+	FireShield fireshield;
 }
 
 Vector2f<float> Player::GetPlayerLocation()
@@ -237,6 +235,9 @@ void Player::SetHealthRec()
 
 	healthPercent = GetHealthPercent();
 	float visible = healthRec.w * healthPercent;
+
+	if (healthPercent < 0)
+		visible = 0;
 
 	healthRec.x = this->Location._x + 5;
 	healthRec.y = this->Location._y + getHeight();
