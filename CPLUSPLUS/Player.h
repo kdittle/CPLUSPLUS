@@ -15,7 +15,8 @@ class Player : public KinematicEntity
 public:
 	static const int WALKING_FRAMES = 4;	//Frames for sprite clips
 	SDL_Rect SpriteClips[WALKING_FRAMES];	//Sprite clips for animation
-	Spell spell;							//Spell. Plan to add more. Maybe store in a data structure
+	//Spell spell;							//Spell. Plan to add more. Maybe store in a data structure
+	FireShield fireshield;
 	SDL_Rect healthRec;						//Health rectangle for health bar
 	float healthPercent;					//Percent of health left
 	SDL_Rect manaRec;						//Mana rectangle for mana bar
@@ -49,6 +50,7 @@ public:
 	bool left, right, up, down, cast;		//Determine movement and casting
 
 private:
+
 	float m_health;
 	float m_curHealth;
 	float m_mana;

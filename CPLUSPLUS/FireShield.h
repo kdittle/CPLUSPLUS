@@ -20,8 +20,8 @@ public:
 
 	void SetSpriteClips();
 	void SetBoundingBox();
-	void Update(float deltaTime);
-	void Draw();
+	void Update(float deltaTime, Vector2f<float> position);
+	void Draw(Vector2f<float> position);
 
 private:
 

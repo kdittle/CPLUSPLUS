@@ -14,9 +14,8 @@ Player* Player::Instance()
 //Set player defaults
 Player::Player()
 {
-	//Renders top left corner at 400, 300.
-	//To render full center must subtract half width and half height
-	Location = Vector2f<float>(400.0f - 30.0f, 300.0f - 50.0f);
+	//Render at middle bottom of the screen
+	Location = Vector2f<float>(GameEntity::WINDOW_WIDTH / 2 - this->getWidth(), GameEntity::WINDOW_HEIGHT - 100);
 
 	LoadFromFile("WizardSpriteSheet2.png");
 	SetSpriteClips();
@@ -106,18 +105,18 @@ void Player::Update(float deltaTime)
 					right = true;
 					std::cout << this->Location._x << " " << this->Location._y << std::endl;
 				}
-				if (event.key.keysym.sym == SDLK_UP)
-				{
-					this->Location._y -= mMoveSpeed * deltaTime;
-					up = true;
-					std::cout << this->Location._x << " " << this->Location._y << std::endl;
-				}
-				if (event.key.keysym.sym == SDLK_DOWN)
-				{
-					this->Location._y += mMoveSpeed * deltaTime;
-					down = true;
-					std::cout << this->Location._x << " " << this->Location._y << std::endl;
-				}
+				//if (event.key.keysym.sym == SDLK_UP)
+				//{
+				//	this->Location._y -= mMoveSpeed * deltaTime;
+				//	up = true;
+				//	std::cout << this->Location._x << " " << this->Location._y << std::endl;
+				//}
+				//if (event.key.keysym.sym == SDLK_DOWN)
+				//{
+				//	this->Location._y += mMoveSpeed * deltaTime;
+				//	down = true;
+				//	std::cout << this->Location._x << " " << this->Location._y << std::endl;
+				//}
 
 				if (event.key.keysym.sym == SDLK_SPACE)
 				{
@@ -140,16 +139,16 @@ void Player::Update(float deltaTime)
 					this->Location._x = this->Location._x;
 					right = false;
 				}
-				if (event.key.keysym.sym == SDLK_UP)
-				{
-					this->Location._y = this->Location._y;
-					up = false;
-				}
-				if (event.key.keysym.sym == SDLK_DOWN)
-				{
-					this->Location._y = this->Location._y;
-					down = false;
-				}
+				//if (event.key.keysym.sym == SDLK_UP)
+				//{
+				//	this->Location._y = this->Location._y;
+				//	up = false;
+				//}
+				//if (event.key.keysym.sym == SDLK_DOWN)
+				//{
+				//	this->Location._y = this->Location._y;
+				//	down = false;
+				//}
 				if (event.key.keysym.sym == SDLK_SPACE)
 				{
 					cast = false;
@@ -163,17 +162,20 @@ void Player::Update(float deltaTime)
 	if (m_curMana < 0)
 		cast = false;
 
+	if (cast)
+		fireshield.Update(deltaTime, this->Location);
+
 	//Clamp to window code 
 	//Needs to be modified some
-	if (this->Location._x >= (GameEntity::WINDOW_WIDTH - this->getWidth() / 2))
-		this->Location._x = (GameEntity::WINDOW_WIDTH - this->getWidth () / 2);
-	if(this->Location._x <= 10)
-		this->Location._x = 10;
+	if (this->Location._x >= (GameEntity::WINDOW_WIDTH - this->getWidth() / 4))
+		this->Location._x = (GameEntity::WINDOW_WIDTH - this->getWidth () / 4);
+	if(this->Location._x <= 0)
+		this->Location._x = 0;
 
-	if(this->Location._y >= 550)
-		this->Location._y = 550;
-	if(this->Location._y <= 10)
-		this->Location._y = 10;
+	//if(this->Location._y >= 550)
+	//	this->Location._y = 550;
+	//if(this->Location._y <= 10)
+	//	this->Location._y = 10;
 
 	//Shift the bounding box for collision and render
 	shiftBoundingBox();
@@ -189,14 +191,16 @@ void Player::Draw()
 	if (left)
 		frame = 2;
 
-	if (right)
+	else if (right)
 		frame = 3;
+	else
+		frame = 1;
 
-	if (up)
+	/*if (up)
 		frame = 1;
 
 	if (down)
-		frame = 0;
+		frame = 0;*/
 
 	Render(this->Location, &SpriteClips[frame]);
 
@@ -209,7 +213,8 @@ void Player::Draw()
 
 void Player::LoadSpells()
 {
-	FireShield fireshield;
+	fireshield.LoadFromFile("RingOfFireSpriteSheet.png");
+	fireshield.SetSpriteClips();
 }
 
 Vector2f<float> Player::GetPlayerLocation()
@@ -239,14 +244,14 @@ void Player::SetHealthRec()
 	if (healthPercent < 0)
 		visible = 0;
 
-	healthRec.x = this->Location._x + 5;
-	healthRec.y = this->Location._y + getHeight();
-	healthRec.w = 50.0f;
+	healthRec.x = 5.0f;
+	healthRec.y = 5.0f;
+	healthRec.w = 100.0f;
 	healthRec.h = 10.0f;
 
 	SDL_Rect curHealthRec;
-	curHealthRec.x = this->Location._x + 5;
-	curHealthRec.y = this->Location._y + getHeight();
+	curHealthRec.x = 5.0f;
+	curHealthRec.y = 5.0f;
 	curHealthRec.w = visible;
 	curHealthRec.h = 10.0f;
 
@@ -282,14 +287,14 @@ void Player::SetManaRec()
 	manaPercent = GetManaPercent();
 	float visible = manaRec.w * manaPercent;
 
-	manaRec.x = this->Location._x + 5;
-	manaRec.y = this->Location._y + getHeight() + 10;
-	manaRec.w = 50.0f;
+	manaRec.x = 5.0f;
+	manaRec.y = 15.0f;
+	manaRec.w = 100.0f;
 	manaRec.h = 10.0f;
 
 	SDL_Rect curManaRec;
-	curManaRec.x = this->Location._x + 5;
-	curManaRec.y = this->Location._y + getHeight() + 10;
+	curManaRec.x = 5.0f;
+	curManaRec.y = 15.0f;
 	curManaRec.w = visible;
 	curManaRec.h = 10.0f;
 

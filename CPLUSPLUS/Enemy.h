@@ -20,8 +20,6 @@ public:
 	SDL_Rect healthRec;						//Health rectangle for health bar (not used yet)
 	float healthPercent;					//Percent of health left
 
-	static Enemy* Instance();
-
 	//Constructor
 	Enemy();
 

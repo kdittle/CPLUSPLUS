@@ -1,5 +1,5 @@
 #include "Player.h"
-#include "Enemy.h"
+#include "WaveManager.h"
 #include "CollisionDetection.h"
 
 #ifdef main
@@ -25,11 +25,9 @@ int main()
 	//Then set clips from spritesheet and set boxes for collision
 	Player* player = Player::Instance();
 
-	Enemy* enemy = Enemy::Instance();
-
-	//Set up enemy, load sprite sheet, set clips, and set boxes
-	
-	//Enemy enemy;
+	//WaveManager, handles creating waves of enemies
+	WaveManager* waveManager = WaveManager::Instance();
+	waveManager->InitializeWave();
 
 	//Create collision handler
 	CollisionDetection collisionHandler;
@@ -50,22 +48,19 @@ int main()
 
 		//Update player and enemy
 		player->Update(deltaTime);
-		enemy->Update(deltaTime);
+		waveManager->Update(deltaTime);
 
 		//Determine if player is casting
 		if (player->cast)
 		{
-			//if player is casting, draw the shield at the player's location
-			player->spell.Update(deltaTime, player->Location);
+			//if player is casting, update the mana bar
 			player->UpdateManaRec(0.08f);
 
-			//Check for collision between enemy and player while player is casting
-			if (player->spell.checkCollision(player->GetBoundingBox(), enemy->GetBoundingBox()))
-			{
-				//If player is casting and there is a collision, move enemy to upper left corner
-				enemy->Location = Vector2f<float>(0.0f, 0.0f);
-				enemy->UpdateHealthRec(2.0f);
-			}
+			////Check for collision between enemy and player while player is casting
+			//if (player->fireshield.checkCollision(player->GetBoundingBox(), )
+			//{
+
+			//}
 		}
 
 		//Check if player isn't casting.
@@ -74,24 +69,12 @@ int main()
 			if (player->GetMana() != player->GetMaxMana() && player->GetMana() <= player->GetMaxMana())
 				player->UpdateManaRec(-.03f);
 
-			//If player isn't casting and  there is a collision, move player to lower right corner
-			if (collisionHandler.Check_Box_Collision(player->GetBoundingBox(), enemy->GetBoundingBox()))
-			{
-				player->Location = Vector2f<float>(725.0f, 480.0f);
-				player->UpdateHealthRec(2.0f);
-			}
-		}
-
-		if (player->GetHealth() <= 0)
-		{
-			player->Location = Vector2f<float>(400.0f, 400.0f);
-			enemy->Location = Vector2f<float>(200.0f, 200.0f);
-		}
-
-		if (enemy->GetHealth() <= 0)
-		{
-			player->Location = Vector2f<float>(200.0f, 200.0f);
-			enemy->Location = Vector2f<float>(400.0f, 400.0f);
+			////If player isn't casting and  there is a collision, move player to lower right corner
+			//if (collisionHandler.Check_Box_Collision(player->GetBoundingBox(),))
+			//{
+			//	player->Location = Vector2f<float>(725.0f, 480.0f);
+			//	player->UpdateHealthRec(2.0f);
+			//}
 		}
 		
 

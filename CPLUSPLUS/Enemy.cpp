@@ -1,21 +1,8 @@
 #include "Enemy.h"
 
-//Set up an instance of the Enemy
-Enemy* Enemy::Instance()
-{
-	static Enemy* instance = nullptr;
-
-	if (instance == nullptr)
-		instance = new Enemy();
-
-	return instance;
-}
-
 //Enemy defaults
 Enemy::Enemy()
 {
-	Location = Vector2f<float>(200.0f, 200.0f);
-
 	LoadFromFile("EvilWizardSpriteSheet.png");
 	SetSpriteClips();
 	SetBoundingBox();
@@ -62,6 +49,8 @@ void Enemy::SetSpriteClips()
 
 void Enemy::Update(float deltaTime)
 {
+
+
 	//Create a movement vector
 	Vector2f<float> movementVector = Vector2f<float>(0.0f, 0.0f);
 
@@ -69,7 +58,7 @@ void Enemy::Update(float deltaTime)
 	//If it isn't then it is chasing the enemy
 	if (this->Location._x != Player::Instance()->GetPlayerLocation()._x && this->Location._y != Player::Instance()->GetPlayerLocation()._y)
 	{
-		//chasing = true;
+		chasing = true;
 	}
 
 	//If enemy is chasting, move it towards the player
@@ -120,11 +109,7 @@ void Enemy::Draw()
 {
 	//Determine if the enemy is moving left or right and render
 
-	if(left)
-		frame = 2;
-
-	if(right)
-		frame = 3;
+	frame = 0;
 
 	Render(this->Location, &SpriteClips[frame]);
 
@@ -149,7 +134,7 @@ float Enemy::GetHealth()
 
 void Enemy::SetHealthRec()
 {
-	healthPercent = GetHealthPercent();
+	/*healthPercent = GetHealthPercent();
 	float visible = healthRec.w * healthPercent;
 
 	healthRec.x = this->Location._x + 5;
@@ -166,7 +151,7 @@ void Enemy::SetHealthRec()
 	SDL_SetRenderDrawColor(GameEntity::GetRenderer(), 0x00, 0x80, 0x00, 0xFF);
 	SDL_RenderDrawRect(GameEntity::GetRenderer(), &healthRec);
 
-	SDL_RenderFillRect(GameEntity::GetRenderer(), &curHealthRec);
+	SDL_RenderFillRect(GameEntity::GetRenderer(), &curHealthRec);*/
 
 }
 

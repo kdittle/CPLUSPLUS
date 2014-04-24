@@ -14,12 +14,8 @@ Spell::Spell()
 }
 
 //Update the spell
-void Spell::Update(float deltaTime, Vector2f<float> position)
+void Spell::Update(float deltaTime)
 {
-	Draw(position);
-
-	shiftBoundingBox();
-
 	Base::Update(deltaTime);
 }
 

@@ -22,7 +22,7 @@ public:
 
 	Spell();
 
-	void Update(float deltaTime, Vector2f<float> position);		//Update
+	void Update(float deltaTime);								//Update
 	void SetBoundingBox(Vector2f<float> position);				//Set boxes for collision
 	bool checkCollision(SDL_Rect player, SDL_Rect enemy);		//Check collision
 
