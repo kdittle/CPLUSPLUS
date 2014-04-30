@@ -3,15 +3,14 @@
 
 #include "Headers.h"
 #include "Enemy.h"
-#include <vector>
+#include <list>
 
-class WaveManager : public Enemy
+class WaveManager
 {
-	typedef Enemy Base;
 
 public:
-	//Enemy enemy;
-	std::vector<Enemy> Wave;
+	std::list<Enemy> Wave;
+	std::list<Enemy>::const_iterator list_it;
 
 	static WaveManager* Instance();
 

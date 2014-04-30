@@ -25,11 +25,11 @@ void WaveManager::InitializeWave()
 	int xPos;
 	srand(time(NULL));
 
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < 50; i++)
 	{
 		Enemy enemy;
 
-		for (int y = 0; y < 100; y++)
+		for (int y = 0; y < 50; y++)
 			xPos = (float)(rand() % 501);
 
 		enemy.Location = Vector2f<float>(xPos, 0.0f);
@@ -41,23 +41,17 @@ void WaveManager::InitializeWave()
 
 void WaveManager::Update(float deltaTime)
 {
-	std::vector<Enemy*>::iterator vec_it;
-
-	for (auto& vec_it : Wave)
-	{
-		vec_it.Draw();
-	}
-
-	//Base::Update(deltaTime);
+	Draw(deltaTime);
 }
 
 void WaveManager::Draw(float deltaTime)
 {
-
-	std::vector<Enemy*>::iterator vec_it;
-
-	for (auto& vec_it : Wave)
+	if (!Wave.empty)
 	{
-		vec_it.Update(deltaTime);
+		for (list_it = Wave.begin(); list_it != Wave.end(); list_it++)
+		{
+			Wave.back().Update(deltaTime);
+			Wave.pop_back();
+		}
 	}
 }

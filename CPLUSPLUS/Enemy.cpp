@@ -71,6 +71,8 @@ void Enemy::Update(float deltaTime)
 
 		this->Location._x += movementVector._x;
 		this->Location._y += movementVector._y;
+
+		std::cout << "Enemy: " << Location._x << "," << Location._y << std::endl;
 	}
 
 	//If enemy and player locations are equal, plays is caught, stop chasing.
