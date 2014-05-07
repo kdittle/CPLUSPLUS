@@ -20,38 +20,67 @@ WaveManager::~WaveManager()
 
 }
 
-void WaveManager::InitializeWave()
+//void WaveManager::InitializeWave()
+//{
+//	int xPos;
+//	srand(time(NULL));
+//
+//	for (int i = 0; i < 50; i++)
+//	{
+//		Enemy enemy;
+//
+//		for (int y = 0; y < 50; y++)
+//			xPos = (float)(rand() % 501);
+//
+//		enemy.Location = Vector2f<float>(xPos, 0.0f);
+//
+//		Wave.push_back(enemy);
+//
+//	}
+//}
+
+void WaveManager::AddEnemy()
 {
-	int xPos;
+	int xPos, randThing;
 	srand(time(NULL));
 
-	for (int i = 0; i < 50; i++)
-	{
-		Enemy enemy;
+	randThing = rand() % 50;
 
-		for (int y = 0; y < 50; y++)
-			xPos = (float)(rand() % 501);
+	Enemy enemy;
 
-		enemy.Location = Vector2f<float>(xPos, 0.0f);
+	for (int y = 0; y < randThing; y++)
+		xPos = (float)(rand() % 501);
 
-		Wave.push_back(enemy);
+	enemy.Location = Vector2f<float>(xPos, 0.0f);
 
-	}
+	Wave.push_back(enemy);
+
 }
 
 void WaveManager::Update(float deltaTime)
 {
+	AddEnemy();
+
+	if (!Wave.empty())
+	{
+
+		for (list_it = Wave.begin(); list_it != Wave.end(); list_it++)
+		{
+			list_it->Update(deltaTime);
+		}
+	}
+
 	Draw(deltaTime);
 }
 
 void WaveManager::Draw(float deltaTime)
 {
-	if (!Wave.empty)
+	if (!Wave.empty())
 	{
+
 		for (list_it = Wave.begin(); list_it != Wave.end(); list_it++)
 		{
-			Wave.back().Update(deltaTime);
-			Wave.pop_back();
+			Base::Render(list_it->Location, &list_it->SpriteClips[0]);
 		}
 	}
 }

@@ -5,12 +5,13 @@
 #include "Enemy.h"
 #include <list>
 
-class WaveManager
+class WaveManager : public Enemy
 {
+	typedef Enemy Base;
 
 public:
 	std::list<Enemy> Wave;
-	std::list<Enemy>::const_iterator list_it;
+	std::list<Enemy>::iterator list_it;
 
 	static WaveManager* Instance();
 
@@ -18,6 +19,7 @@ public:
 	~WaveManager();
 
 	void InitializeWave();
+	void AddEnemy();
 	void Update(float deltaTime);
 	void Draw(float deltaTime);
 
@@ -29,7 +31,5 @@ protected:
 
 
 };
-
-
 
 #endif

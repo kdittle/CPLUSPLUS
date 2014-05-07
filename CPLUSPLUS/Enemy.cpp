@@ -49,62 +49,64 @@ void Enemy::SetSpriteClips()
 
 void Enemy::Update(float deltaTime)
 {
-
-
 	//Create a movement vector
-	Vector2f<float> movementVector = Vector2f<float>(0.0f, 0.0f);
+	Vector2f<float> movementVector = Vector2f<float>(0.0f, 1.0f * moveSpeed);
+
+	movementVector.normalize();
+
+	this->Location = this->Location + movementVector;
 
 	//Check to see if the enemy location is equal to the player location.
 	//If it isn't then it is chasing the enemy
-	if (this->Location._x != Player::Instance()->GetPlayerLocation()._x && this->Location._y != Player::Instance()->GetPlayerLocation()._y)
-	{
-		chasing = true;
-	}
+	//if (this->Location._x != Player::Instance()->GetPlayerLocation()._x && this->Location._y != Player::Instance()->GetPlayerLocation()._y)
+	//{
+	//	chasing = true;
+	//}
 
-	//If enemy is chasting, move it towards the player
-	if(chasing)
-	{
-		movementVector._x = (Player::Instance()->GetPlayerLocation()._x - this->Location._x);
-		movementVector._y = (Player::Instance()->GetPlayerLocation()._y - this->Location._y);
+	////If enemy is chasting, move it towards the player
+	//if(chasing)
+	//{
+	//	movementVector._x = (Player::Instance()->GetPlayerLocation()._x - this->Location._x);
+	//	movementVector._y = (Player::Instance()->GetPlayerLocation()._y - this->Location._y);
 
-		movementVector.normalize();
+	//	movementVector.normalize();
 
-		this->Location._x += movementVector._x;
-		this->Location._y += movementVector._y;
+	//	this->Location._x += movementVector._x;
+	//	this->Location._y += movementVector._y;
 
-		std::cout << "Enemy: " << Location._x << "," << Location._y << std::endl;
-	}
+	//	std::cout << "Enemy: " << Location._x << "," << Location._y << std::endl;
+	//}
 
-	//If enemy and player locations are equal, plays is caught, stop chasing.
-	if (this->Location._x == Player::Instance()->GetPlayerLocation()._x || this->Location._y == Player::Instance()->GetPlayerLocation()._y)
-	{
-		caught = true;
-	}
+	////If enemy and player locations are equal, plays is caught, stop chasing.
+	//if (this->Location._x == Player::Instance()->GetPlayerLocation()._x || this->Location._y == Player::Instance()->GetPlayerLocation()._y)
+	//{
+	//	caught = true;
+	//}
 
-	//Stop the movement is player is caught
-	if(caught)
-	{
-		movementVector = Vector2f<float>(0.0f, 0.0f);
-	}
+	////Stop the movement is player is caught
+	//if(caught)
+	//{
+	//	movementVector = Vector2f<float>(0.0f, 0.0f);
+	//}
 
-	//Determine if the player is moving left or right
-	if (this->Location._x < Player::Instance()->GetPlayerLocation()._x)
-	{
-		right = true;
-		left = false;
-	}
+	////Determine if the player is moving left or right
+	//if (this->Location._x < Player::Instance()->GetPlayerLocation()._x)
+	//{
+	//	right = true;
+	//	left = false;
+	//}
 
-	if (this->Location._x > Player::Instance()->GetPlayerLocation()._x)
-	{
-		left = true;
-		right = false;
-	}
+	//if (this->Location._x > Player::Instance()->GetPlayerLocation()._x)
+	//{
+	//	left = true;
+	//	right = false;
+	//}
 
 	//Shift boxes for collision and render
 	shiftBoundingBox();
 	Draw();
 
-	Base::Update(deltaTime);
+	//Base::Update(deltaTime);
 }
 
 void Enemy::Draw()

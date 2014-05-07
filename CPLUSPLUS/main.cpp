@@ -27,7 +27,7 @@ int main()
 
 	//WaveManager, handles creating waves of enemies
 	WaveManager* waveManager = WaveManager::Instance();
-	waveManager->InitializeWave();
+	//waveManager->InitializeWave();
 
 	//Create collision handler
 	CollisionDetection collisionHandler;
@@ -37,6 +37,7 @@ int main()
 	//I should make an input handler
 	while (player->isPlaying)
 	{
+
 		//Timer
 		time = SDL_GetTicks();
 		deltaTime = (time - preTime) / 100;
@@ -46,7 +47,7 @@ int main()
 		SDL_SetRenderDrawColor(SDLEntity.GetRenderer(), 0xFF, 0xFF, 0xFF, 0xFF);
 		SDL_RenderClear(SDLEntity.GetRenderer());
 
-		//Update player and enemy
+		//Update player
 		player->Update(deltaTime);
 		waveManager->Update(deltaTime);
 
@@ -56,11 +57,17 @@ int main()
 			//if player is casting, update the mana bar
 			player->UpdateManaRec(0.08f);
 
-			////Check for collision between enemy and player while player is casting
-			//if (player->fireshield.checkCollision(player->GetBoundingBox(), )
-			//{
+			for (waveManager->list_it = waveManager->Wave.begin(); waveManager->list_it != waveManager->Wave.end(); waveManager->list_it++)
+			{
+				//Check for collision between enemy and player while player is casting
+				if (player->fireshield.checkCollision(player->GetBoundingBox(), waveManager->list_it->GetBoundingBox()))
+				{
+					//waveManager->list_it->Location = Vector2f<float>(100.0f, 100.0f);
 
-			//}
+					
+				}
+			}
+			
 		}
 
 		//Check if player isn't casting.
@@ -76,7 +83,6 @@ int main()
 			//	player->UpdateHealthRec(2.0f);
 			//}
 		}
-		
 
 		//Present renderer to show sprites
 		SDL_RenderPresent(SDLEntity.GetRenderer());
