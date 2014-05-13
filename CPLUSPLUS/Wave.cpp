@@ -2,6 +2,7 @@
 
 Wave::Wave()
 {
+	//Set enemy count and enemies per wave
 	enemiesPerWave = 100;
 	enemyCount = 0;
 }
@@ -12,76 +13,86 @@ Wave::~Wave()
 	enemyCount = 0;
 }
 
+//Creates the wave of enemies
 void Wave::CreateWave()
 {
+	//If the wave list isn't full, add enemies
 	if (enemyCount < enemiesPerWave)
 		AddEnemy();
 
+	//If there are enough enemies, the wave is ready
 	if (enemyCount >= enemiesPerWave)
 		waveReady = true;
 }
 
 void Wave::AddEnemy()
 {
-
-	for (enemyCount = 0; enemyCount < enemiesPerWave; enemyCount++)
+	//Loop to add enemies to the wave
+	for (enemyCount; enemyCount < enemiesPerWave; enemyCount++)
 	{
 		int xPos = 0, yPos = 0, randThing;
 		srand(time(NULL));
 
 		randThing = rand() % 50;
 
+		//loop ensures better random position
+		//for starting x location of enemy
 		for (int y = 0; y < randThing; y++)
 		{
 			xPos = (float)(rand() % 501);
+			yPos = (float)(rand() % 51);
 		}
 
-		Enemy* enemy = new Enemy;
+		yPos *= -1;
 
-		enemy->Location = Vector2f <float>(xPos, 0.0f);
+		//Create new enemy for the list
+		Enemy* enemy = new Enemy();
 
+		//Edit the enemy location
+		enemy->Location = Vector2f <float>(xPos, yPos);
+
+		//Add the enemy to the list
 		Enemies.push_back(*enemy);
 	}
 }
 
+//Update Wave
 void Wave::Update(float deltaTime)
 {
+	//Checks if the wave is ready
+	//If it isn't, create the wave
 	if (!waveReady)
 		CreateWave();
 
+	//If the wave is ready, spawn enemies
 	if (waveReady)
 	{
+		//Check to make sure the wave isn't empty
 		if (!Enemies.empty())
 		{
+			//Iterate through the list of enemies and update them
 			for (list_it = Enemies.begin(); list_it != Enemies.end(); list_it++)
 			{
-				this->list_it->Update(deltaTime);
+				list_it->Update(deltaTime);
 			}
-			Draw();
+			//Call Draw
+			//This isn't really necessary, but it doesn't hurt anything either
+			//Draw();
 		}
 	}
-
-	//if (!Enemies.empty())
-	//{
-
-	//	for (list_it = Enemies.begin(); list_it != Enemies.end(); list_it++)
-	//	{
-	//		if (list_it->Location._y > WINDOW_HEIGHT)
-	//		{
-	//			list_it++;
-	//			Enemies.erase(list_it--);
-	//		}
-	//	}
-	//}
 }
 
+//Draw Wave
+//Draw doesn't seem to be necessary.
 void Wave::Draw()
 {
+	//Check if the wave is empty
 	if (!Enemies.empty())
 	{
+		//Ierate through the list and draw the enemies
 		for (list_it = Enemies.begin(); list_it != Enemies.end(); list_it++)
 		{
-			this->list_it->Draw();
+			list_it->Draw();
 		}
 	}
 }

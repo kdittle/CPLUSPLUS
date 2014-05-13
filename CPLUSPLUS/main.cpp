@@ -1,6 +1,20 @@
 #include "Player.h"
 #include "WaveManager.h"
 #include "CollisionDetection.h"
+/*
+
+THINGS TO FIX:
+
+Drawing of enemies: 
+	Need to make all the enemies render, not stack ontop of eachother.
+	Need to stagger enemies so they don't form a wall
+
+GameState
+	Should add a game state for start, win/lose
+
+
+*/
+
 
 #ifdef main
 # undef main
@@ -46,7 +60,7 @@ int main()
 		SDL_SetRenderDrawColor(SDLEntity.GetRenderer(), 0xFF, 0xFF, 0xFF, 0xFF);
 		SDL_RenderClear(SDLEntity.GetRenderer());
 
-		//Update player
+		//Update player and waveManager
 		player->Update(deltaTime);
 		waveManager->Update(deltaTime);
 
@@ -56,12 +70,16 @@ int main()
 			//if player is casting, update the mana bar
 			player->UpdateManaRec(0.02f);
 
-			for (waveManager->list_it = waveManager->Enemies.begin(); waveManager->list_it != waveManager->Enemies.end(); waveManager->list_it++)
+			//This epic loop, in all it's glory, checks for collision by iterating though the wave
+			for (waveManager->GetWave()->list_it = waveManager->GetWave()->Enemies.begin(); waveManager->GetWave()->list_it != waveManager->GetWave()->Enemies.end(); waveManager->GetWave()->list_it++)
 			{
+
 				//Check for collision between enemy and player while player is casting
-				if (player->fireshield.checkCollision(player->GetBoundingBox(), waveManager->list_it->GetBoundingBox()))
+				if (player->fireshield.checkCollision(player->GetBoundingBox(), waveManager->GetWave()->list_it->GetBoundingBox()))
 				{
-					waveManager->list_it->Location = Vector2f<float>(100.0f, 100.0f);
+					//This needs to be changed to remove the enemy collided with
+					//Currently a place holder to visually show collision is working
+					waveManager->GetWave()->list_it->Location = Vector2f<float>(100.0f, 100.0f);
 				}
 			}
 			
@@ -74,18 +92,21 @@ int main()
 				player->UpdateManaRec(-.03f);
 
 			//If player isn't casting and  there is a collision
-			for (waveManager->list_it = waveManager->Enemies.begin(); waveManager->list_it != waveManager->Enemies.end(); waveManager->list_it++)
+			//Here is that epic loop again.
+			for (waveManager->GetWave()->list_it = waveManager->GetWave()->Enemies.begin(); waveManager->GetWave()->list_it != waveManager->GetWave()->Enemies.end(); waveManager->GetWave()->list_it++)
 			{
 				//Check for collision between enemy and player while player is casting
-				if (player->fireshield.checkCollision(player->GetBoundingBox(), waveManager->list_it->GetBoundingBox()))
+				if (player->fireshield.checkCollision(player->GetBoundingBox(), waveManager->GetWave()->list_it->GetBoundingBox()))
 				{
-					player->Location = Vector2f<float>(SDLEntity.GetWindowWidth() / 2, SDLEntity.GetWindowHeight() / 2);
+					//Again, place holder to visually show collision is working
+					//This should be changed to initiate a game over screen
+					player->Location = Vector2f<float>(SDLEntity.GetWindowWidth() / 2, SDLEntity.GetWindowHeight() - 100);
 				}
 				
 			}
 		}
 
-		//std::cout << waveManager->Wave.size() << std::endl;
+		//std::cout << waveManager->GetWave()->Enemies.size() << std::endl;
 
 		//Present renderer to show sprites
 		SDL_RenderPresent(SDLEntity.GetRenderer());
