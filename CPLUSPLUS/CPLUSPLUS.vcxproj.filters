@@ -43,6 +43,9 @@
     <ClCompile Include="WaveManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Wave.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEntity.h">
@@ -73,6 +76,9 @@
       <Filter>Spells</Filter>
     </ClInclude>
     <ClInclude Include="WaveManager.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Wave.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>

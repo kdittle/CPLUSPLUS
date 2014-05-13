@@ -151,6 +151,18 @@ int GameEntity::getWidth()
 	return mWidth;
 }
 
+//Get window Height
+int GameEntity::GetWindowHeight()
+{
+	return WINDOW_HEIGHT;
+}
+
+//get Window Width
+int GameEntity::GetWindowWidth()
+{
+	return WINDOW_WIDTH;
+}
+
 //Shift boxes for collision
 void GameEntity::shiftBoundingBox()
 {

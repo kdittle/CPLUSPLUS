@@ -27,7 +27,6 @@ int main()
 
 	//WaveManager, handles creating waves of enemies
 	WaveManager* waveManager = WaveManager::Instance();
-	//waveManager->InitializeWave();
 
 	//Create collision handler
 	CollisionDetection collisionHandler;
@@ -53,18 +52,16 @@ int main()
 
 		//Determine if player is casting
 		if (player->cast)
-		{
+	 	 {
 			//if player is casting, update the mana bar
-			player->UpdateManaRec(0.08f);
+			player->UpdateManaRec(0.02f);
 
-			for (waveManager->list_it = waveManager->Wave.begin(); waveManager->list_it != waveManager->Wave.end(); waveManager->list_it++)
+			for (waveManager->list_it = waveManager->Enemies.begin(); waveManager->list_it != waveManager->Enemies.end(); waveManager->list_it++)
 			{
 				//Check for collision between enemy and player while player is casting
 				if (player->fireshield.checkCollision(player->GetBoundingBox(), waveManager->list_it->GetBoundingBox()))
 				{
-					//waveManager->list_it->Location = Vector2f<float>(100.0f, 100.0f);
-
-					
+					waveManager->list_it->Location = Vector2f<float>(100.0f, 100.0f);
 				}
 			}
 			
@@ -76,13 +73,19 @@ int main()
 			if (player->GetMana() != player->GetMaxMana() && player->GetMana() <= player->GetMaxMana())
 				player->UpdateManaRec(-.03f);
 
-			////If player isn't casting and  there is a collision, move player to lower right corner
-			//if (collisionHandler.Check_Box_Collision(player->GetBoundingBox(),))
-			//{
-			//	player->Location = Vector2f<float>(725.0f, 480.0f);
-			//	player->UpdateHealthRec(2.0f);
-			//}
+			//If player isn't casting and  there is a collision
+			for (waveManager->list_it = waveManager->Enemies.begin(); waveManager->list_it != waveManager->Enemies.end(); waveManager->list_it++)
+			{
+				//Check for collision between enemy and player while player is casting
+				if (player->fireshield.checkCollision(player->GetBoundingBox(), waveManager->list_it->GetBoundingBox()))
+				{
+					player->Location = Vector2f<float>(SDLEntity.GetWindowWidth() / 2, SDLEntity.GetWindowHeight() / 2);
+				}
+				
+			}
 		}
+
+		//std::cout << waveManager->Wave.size() << std::endl;
 
 		//Present renderer to show sprites
 		SDL_RenderPresent(SDLEntity.GetRenderer());

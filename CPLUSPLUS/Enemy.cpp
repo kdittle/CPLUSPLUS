@@ -56,6 +56,8 @@ void Enemy::Update(float deltaTime)
 
 	this->Location = this->Location + movementVector;
 
+	std::cout << this->Location._x << "," << this->Location._y << std::endl;
+
 	//Check to see if the enemy location is equal to the player location.
 	//If it isn't then it is chasing the enemy
 	//if (this->Location._x != Player::Instance()->GetPlayerLocation()._x && this->Location._y != Player::Instance()->GetPlayerLocation()._y)
@@ -104,7 +106,7 @@ void Enemy::Update(float deltaTime)
 
 	//Shift boxes for collision and render
 	shiftBoundingBox();
-	Draw();
+	//Draw();
 
 	//Base::Update(deltaTime);
 }

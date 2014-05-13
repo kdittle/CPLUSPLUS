@@ -19,6 +19,7 @@ Headers includes all hte common headers that all classes will have to use
 #include "Vector2f.h"
 #include <vector>
 #include <time.h>
+#include <list>
 
 #pragma comment(lib, "SDL2.lib")
 #pragma comment(lib, "OpenGL32.lib")

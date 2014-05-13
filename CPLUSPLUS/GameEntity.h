@@ -53,6 +53,9 @@ public:
 	void shiftBoundingBox();
 	void shiftColliderBoxes();
 
+	int GetWindowHeight();
+	int GetWindowWidth();
+
 private:
 	//Texture width and height
 	int mWidth;

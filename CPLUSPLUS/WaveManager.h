@@ -2,26 +2,24 @@
 #define WAVEMANAGER_H
 
 #include "Headers.h"
-#include "Enemy.h"
-#include <list>
+#include "Wave.h"
 
-class WaveManager : public Enemy
+class WaveManager : public Wave
 {
-	typedef Enemy Base;
 
 public:
-	std::list<Enemy> Wave;
-	std::list<Enemy>::iterator list_it;
 
 	static WaveManager* Instance();
+
+	bool waveStarting, waveRunning;
+	Wave wave;
 
 	WaveManager();
 	~WaveManager();
 
 	void InitializeWave();
-	void AddEnemy();
 	void Update(float deltaTime);
-	void Draw(float deltaTime);
+	Wave* GetWave();
 
 
 private:
