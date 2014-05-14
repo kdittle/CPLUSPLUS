@@ -3,7 +3,7 @@
 Wave::Wave()
 {
 	//Set enemy count and enemies per wave
-	enemiesPerWave = 100;
+	enemiesPerWave = 10000;
 	enemyCount = 0;
 }
 
@@ -27,11 +27,12 @@ void Wave::CreateWave()
 
 void Wave::AddEnemy()
 {
+	srand(time(NULL));
+
 	//Loop to add enemies to the wave
 	for (enemyCount; enemyCount < enemiesPerWave; enemyCount++)
 	{
 		int xPos = 0, yPos = 0, randThing;
-		srand(time(NULL));
 
 		randThing = rand() % 50;
 
@@ -39,8 +40,8 @@ void Wave::AddEnemy()
 		//for starting x location of enemy
 		for (int y = 0; y < randThing; y++)
 		{
-			xPos = (float)(rand() % 501);
-			yPos = (float)(rand() % 51);
+			xPos = (float)(rand() % 601);
+			yPos = (float)(rand() % 10001);
 		}
 
 		yPos *= -1;

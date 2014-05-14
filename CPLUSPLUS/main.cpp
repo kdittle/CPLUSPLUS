@@ -68,7 +68,7 @@ int main()
 		if (player->cast)
 	 	 {
 			//if player is casting, update the mana bar
-			player->UpdateManaRec(0.02f);
+			player->UpdateManaRec(0.000001f);
 
 			//This epic loop, in all it's glory, checks for collision by iterating though the wave
 			for (waveManager->GetWave()->list_it = waveManager->GetWave()->Enemies.begin(); waveManager->GetWave()->list_it != waveManager->GetWave()->Enemies.end(); waveManager->GetWave()->list_it++)
