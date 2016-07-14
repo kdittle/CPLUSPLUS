@@ -13,9 +13,9 @@ Headers includes all hte common headers that all classes will have to use
 #include <SDL.h>
 #include <SDL_image.h>
 #include <iostream>
-#include <stdio.h>
-#include <cmath>
+//#include <cmath>
 #include <string>
+#include <stdio.h>
 #include "Vector2f.h"
 #include <vector>
 #include <time.h>

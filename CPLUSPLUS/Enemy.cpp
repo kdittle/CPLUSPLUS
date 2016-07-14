@@ -23,6 +23,11 @@ Enemy::Enemy()
 	m_curHealth = 20.0f;
 }
 
+Enemy::~Enemy()
+{
+	Destory();
+}
+
 //Sprite clips for animation
 void Enemy::SetSpriteClips()
 {

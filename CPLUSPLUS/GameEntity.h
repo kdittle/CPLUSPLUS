@@ -62,8 +62,8 @@ private:
 	int mHeight;
 
 protected:
-	const int WINDOW_WIDTH = 720;
-	const int WINDOW_HEIGHT = 680;
+	static const int WINDOW_WIDTH = 720;
+	static const int WINDOW_HEIGHT = 680;
 
 };
 

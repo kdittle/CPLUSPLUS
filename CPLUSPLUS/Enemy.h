@@ -23,6 +23,9 @@ public:
 	//Constructor
 	Enemy();
 
+	//Deconstructor
+	~Enemy();
+
 	void SetSpriteClips();					//Set up sprite clips for animation
 	void Update(float deltaTime);			//Update Enemy
 	void Draw();							//Render

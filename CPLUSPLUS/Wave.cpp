@@ -3,8 +3,9 @@
 Wave::Wave()
 {
 	//Set enemy count and enemies per wave
-	enemiesPerWave = 10000;
+	enemiesPerWave = 1000;
 	enemyCount = 0;
+	waveReady = false;
 }
 
 Wave::~Wave()
@@ -56,6 +57,14 @@ void Wave::AddEnemy()
 		Enemies.push_back(*enemy);
 	}
 }
+
+//Enemy* Wave::GetEnemy(int index)
+//{
+//	for (int i = 0; i < Enemies.size; i++)
+//	{
+//		return &Enemies.at(index);
+//	}
+//}
 
 //Update Wave
 void Wave::Update(float deltaTime)

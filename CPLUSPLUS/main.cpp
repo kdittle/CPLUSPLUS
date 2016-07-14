@@ -71,15 +71,14 @@ int main()
 			player->UpdateManaRec(0.000001f);
 
 			//This epic loop, in all it's glory, checks for collision by iterating though the wave
-			for (waveManager->GetWave()->list_it = waveManager->GetWave()->Enemies.begin(); waveManager->GetWave()->list_it != waveManager->GetWave()->Enemies.end(); waveManager->GetWave()->list_it++)
+			for (waveManager->GetWave()->list_it = waveManager->GetWave()->Enemies.begin(); waveManager->GetWave()->list_it != waveManager->GetWave()->Enemies.end() ; waveManager->GetWave()->list_it++)
 			{
 
 				//Check for collision between enemy and player while player is casting
 				if (player->fireshield.checkCollision(player->GetBoundingBox(), waveManager->GetWave()->list_it->GetBoundingBox()))
 				{
-					//This needs to be changed to remove the enemy collided with
-					//Currently a place holder to visually show collision is working
-					waveManager->GetWave()->list_it->Location = Vector2f<float>(100.0f, 100.0f);
+					waveManager->GetWave()->list_it->~Enemy();
+
 				}
 			}
 			
@@ -94,6 +93,7 @@ int main()
 			//If player isn't casting and  there is a collision
 			//Here is that epic loop again.
 			for (waveManager->GetWave()->list_it = waveManager->GetWave()->Enemies.begin(); waveManager->GetWave()->list_it != waveManager->GetWave()->Enemies.end(); waveManager->GetWave()->list_it++)
+			//for (int i = 0; i < waveManager->GetWave()->Enemies.size(); i++)
 			{
 				//Check for collision between enemy and player while player is casting
 				if (player->fireshield.checkCollision(player->GetBoundingBox(), waveManager->GetWave()->list_it->GetBoundingBox()))
